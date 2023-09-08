@@ -56,8 +56,7 @@ class _StudentDrawerState extends State<StudentDrawer> {
                 ),
                 ListTile(
                   onTap: () {
-                    // nav.pop(context);
-                    // nav.pushNamed(context, name: StudentEnrollmentScreen.route);
+                    context.pushRoute(const StudentMobileEnrollmentRoute());
                   },
                   title: const Text("Enrollment"),
                 ),

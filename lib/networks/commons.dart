@@ -26,19 +26,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 0,
@@ -49,19 +49,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 1,
@@ -72,19 +72,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 2,
@@ -95,19 +95,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 3,
@@ -118,19 +118,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 4,
@@ -141,19 +141,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 5,
@@ -164,19 +164,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 6,
@@ -187,19 +187,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 7,
@@ -210,19 +210,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 8,
@@ -233,19 +233,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 9,
@@ -256,19 +256,19 @@ class Commons extends ChangeNotifier {
         grades: [
           Grade(
             title: "First",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Second",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Third",
-            grade: null,
+            grade: 0.0,
           ),
           Grade(
             title: "Fourth",
-            grade: null,
+            grade: 0.0,
           ),
         ],
         id: 10,
@@ -279,103 +279,224 @@ class Commons extends ChangeNotifier {
     Subject(
         name: "Practical Research 1",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 0),
     Subject(
         name: "Practical Research 2",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 1),
     Subject(
-        name: "General Biology", enrolled: false, grades: [], units: 1, id: 2),
+        name: "General Biology",
+        enrolled: false,
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
+        units: 1,
+        id: 2),
     Subject(
         name: "General Chemistry 1",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 3),
     Subject(
         name: "General Physics 1",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 4),
-    Subject(name: "Pre Calculus", enrolled: false, grades: [], units: 1, id: 5),
+    Subject(
+        name: "Pre Calculus",
+        enrolled: false,
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
+        units: 1,
+        id: 5),
     Subject(
         name: "Media Information Literacy",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 6),
     Subject(
         name: "Intro to Philo of Human Resources",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 7),
     Subject(
         name: "Understanding Culture, Society & Politics",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 8),
     Subject(
         name: "Physical Health and Education",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 9),
     Subject(
         name: "Reading and Writing",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 10),
   ];
 
   static List<Subject> stemSecondSubjectList = [
     Subject(
-        name: "Entrepeneurship", enrolled: false, grades: [], units: 1, id: 0),
+        name: "Entrepeneurship",
+        enrolled: false,
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
+        units: 1,
+        id: 0),
     Subject(
         name: "Empowerment Technologies",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 1),
     Subject(
         name: "Inquiries, Investigation and Immersion",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 2),
     Subject(
         name: "General Biology 2",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 3),
     Subject(
         name: "General Chemistry 2",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 4),
     Subject(
         name: "General Physics 2",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 5),
     Subject(
-        name: "Basic Calculus", enrolled: false, grades: [], units: 1, id: 6),
+        name: "Basic Calculus",
+        enrolled: false,
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
+        units: 1,
+        id: 6),
     Subject(
-        name: "Work Immersion", enrolled: false, grades: [], units: 1, id: 7),
+        name: "Work Immersion",
+        enrolled: false,
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
+        units: 1,
+        id: 7),
     Subject(
         name: "Physical Education",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 8),
   ];
@@ -384,110 +505,213 @@ class Commons extends ChangeNotifier {
     Subject(
         name: "Practical Research 1",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 0),
     Subject(
         name: "Practical Research 2",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 1),
     Subject(
         name: "Intro. to World Religions & Belief Sys",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 2),
     Subject(
         name: "Tech/Voc Elective 1: Bread and Pastry",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 3),
     Subject(
         name: "Trends, Networks, & Critical Thinking in the 21st Century",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 4),
     Subject(
         name: "Media Information Literacy",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 6),
     Subject(
         name: "Intro to Philo of Human Resources",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 7),
     Subject(
         name: "Understanding Culture, Society & Politics",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 8),
     Subject(
         name: "Physical Health and Education",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 9),
     Subject(
         name: "Reading and Writing",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 10),
   ];
 
   static List<Subject> gasSecondSubjectList = [
     Subject(
-        name: "Entrepeneurship", enrolled: false, grades: [], units: 1, id: 0),
+        name: "Entrepeneurship",
+        enrolled: false,
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
+        units: 1,
+        id: 0),
     Subject(
         name: "Empowerment Technologies",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 1),
     Subject(
         name: "Inquiries, Investigation and Immersion",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 2),
     Subject(
         name: "Tech/Voc Elective 1: Electronics",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 3),
     Subject(
         name: "Community Engagement, Solidarity & Citizenship",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 4),
     Subject(
         name: "Applied Economics",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 5),
     Subject(
         name: "Organization and Management",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 6),
     Subject(
-        name: "Work Immersion", enrolled: false, grades: [], units: 1, id: 7),
+        name: "Work Immersion",
+        enrolled: false,
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
+        units: 1,
+        id: 7),
     Subject(
         name: "Physical Education",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 8),
   ];
@@ -496,112 +720,224 @@ class Commons extends ChangeNotifier {
     Subject(
         name: "Practical Research 1",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 0),
     Subject(
         name: "Practical Research 2",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 1),
     Subject(
         name: "Intro. to World Religions & Belief Sys",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 2),
     Subject(
-        name: "Creative Writing", enrolled: false, grades: [], units: 1, id: 3),
+        name: "Creative Writing",
+        enrolled: false,
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
+        units: 1,
+        id: 3),
     Subject(
         name: "Trends, Networks, & Critical Thinking in the 21st Century",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 4),
     Subject(
         name: "Philippine Politics & Governance",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 6),
     Subject(
         name: "Media Information Literacy",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 7),
     Subject(
         name: "Intro to Philo of Human Resources",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 8),
     Subject(
         name: "Understanding Culture, Society & Politics",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 9),
     Subject(
         name: "Physical Health and Education",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 10),
     Subject(
         name: "Reading and Writing",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 11),
   ];
 
   static List<Subject> hummsSecondSubjectList = [
     Subject(
-        name: "Entrepeneurship", enrolled: false, grades: [], units: 1, id: 0),
+        name: "Entrepeneurship",
+        enrolled: false,
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
+        units: 1,
+        id: 0),
     Subject(
         name: "Empowerment Technologies",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 1),
     Subject(
         name: "Inquiries, Investigation and Immersion",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 2),
     Subject(
         name: "Creative Nonfiction",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 3),
     Subject(
         name: "Community Engagement, Solidarity & Citizenship",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 4),
     Subject(
         name: "Discipline & Ideas in the Social Sci.",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 5),
     Subject(
         name: "Disciplines & Ideas in the Applied Soc. Sci.",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 6),
     Subject(
-        name: "Work Immersion", enrolled: false, grades: [], units: 1, id: 7),
+        name: "Work Immersion",
+        enrolled: false,
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
+        units: 1,
+        id: 7),
     Subject(
         name: "Physical Education",
         enrolled: false,
-        grades: [],
+        grades: [
+          Grade(
+            title: "Second",
+            grade: 0.0,
+          ),
+        ],
         units: 1,
         id: 8),
   ];

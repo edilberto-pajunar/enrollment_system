@@ -77,17 +77,22 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 stream: studentDB.studentListStream,
                 child: (studentList) {
                   for (var data in studentList!) {
-                    if (data.schoolInfo.gradeToEnroll.id == 0) {
+                    if (data.schoolInfo.gradeToEnroll.label!.contains("7")) {
                       grade7++;
-                    } else if (data.schoolInfo.gradeToEnroll.id == 1) {
+                    } else if (data.schoolInfo.gradeToEnroll.label!
+                        .contains("8")) {
                       grade8++;
-                    } else if (data.schoolInfo.gradeToEnroll.id == 2) {
+                    } else if (data.schoolInfo.gradeToEnroll.label!
+                        .contains("9")) {
                       grade9++;
-                    } else if (data.schoolInfo.gradeToEnroll.id == 3) {
+                    } else if (data.schoolInfo.gradeToEnroll.label!
+                        .contains("10")) {
                       grade10++;
-                    } else if (data.schoolInfo.gradeToEnroll.id == 4) {
+                    } else if (data.schoolInfo.gradeToEnroll.label!
+                        .contains("11")) {
                       grade11++;
-                    } else if (data.schoolInfo.gradeToEnroll.id == 5) {
+                    } else if (data.schoolInfo.gradeToEnroll.label!
+                        .contains("12")) {
                       grade12++;
                     }
                   }

@@ -728,30 +728,17 @@ class Application extends ChangeNotifier {
           for (Subject subject in Commons.juniorSubject) {
             subjectsCollection.doc(subject.id.toString()).set(subject.toMap());
           }
-        }
-
-        if (isSenior) {
-          final firstSem = Grade(
-            title: "First",
-            grade: null,
-          );
-
-          final secondSem = Grade(
-            title: "Second",
-            grade: null,
-          );
+        } else if (isSenior) {
           // For stem
           if (strand!.id == 1) {
             if (semester!.id == 0) {
               for (Subject subject in Commons.stemFirstSubjectList) {
-                subject.grades.add(firstSem);
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());
               }
             } else {
               for (Subject subject in Commons.stemSecondSubjectList) {
-                subject.grades.add(secondSem);
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());
@@ -762,16 +749,12 @@ class Application extends ChangeNotifier {
           else if (strand!.id == 0) {
             if (semester!.id == 0) {
               for (Subject subject in Commons.gasFirstSubjectList) {
-                subject.grades.add(firstSem);
-
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());
               }
             } else {
               for (Subject subject in Commons.gasSecondSubjectList) {
-                subject.grades.add(secondSem);
-
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());
@@ -782,16 +765,12 @@ class Application extends ChangeNotifier {
           else if (strand!.id == 2) {
             if (semester!.id == 0) {
               for (Subject subject in Commons.hummsFirstSubjectList) {
-                subject.grades.add(firstSem);
-
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());
               }
             } else {
               for (Subject subject in Commons.hummsSecondSubjectList) {
-                subject.grades.add(secondSem);
-
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());

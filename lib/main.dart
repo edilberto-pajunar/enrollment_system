@@ -17,6 +17,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await StudentDB().initNotifications();  
   runApp(MyApp());
 }
 
@@ -33,7 +35,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<Application>(create: (context) => Application()),
         ChangeNotifierProvider<Auth>(create: (context) => Auth()),
         ChangeNotifierProvider<Commons>(create: (context) => Commons()),
-        ChangeNotifierProvider<InstructorDB>(create: (context) => InstructorDB()),
+        ChangeNotifierProvider<InstructorDB>(
+            create: (context) => InstructorDB()),
         ChangeNotifierProvider<StudentDB>(create: (context) => StudentDB()),
       ],
       child: SchoolApp(

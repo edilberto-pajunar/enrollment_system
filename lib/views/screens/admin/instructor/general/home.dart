@@ -105,7 +105,7 @@ class _AdminInstructorHomeScreenState extends State<AdminInstructorHomeScreen> {
                               Text(e.name),
                             ),
                             DataCell(
-                              Text(e.grade!.label!),
+                              SizedBox(width: 60, child: Text(e.grade!.label!)),
                             ),
                             DataCell(
                               Center(

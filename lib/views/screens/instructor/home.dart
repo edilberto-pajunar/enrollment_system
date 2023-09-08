@@ -6,6 +6,7 @@ import 'package:web_school/models/instructor.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/instructor.dart';
+import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
@@ -89,41 +90,59 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: specify.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 5.0),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 24.0,
-                                  vertical: 12.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${specify[index].personalInfo.firstName} ${specify[index].personalInfo.lastName}",
-                                          style: theme.textTheme.bodyLarge!
-                                              .copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          "${specify[index].schoolInfo.gradeToEnroll.label}-${specify[index].studentInfo.section}",
-                                        )
-                                      ],
+                              return InkWell(
+                                onTap: () {
+                                  instructorDB.updateStudentId(
+                                      studentList[index].studentInfo.id);
+                                  context.pushRoute(
+                                    InstructorGradeRoute(
+                                      isJunior: instructorData.grade!.label!
+                                              .contains("7") ||
+                                          instructorData.grade!.label!
+                                              .contains("8") ||
+                                          instructorData.grade!.label!
+                                              .contains("9") ||
+                                          instructorData.grade!.label!
+                                              .contains("10"),
                                     ),
-                                    const Icon(Icons.arrow_right_alt),
-                                  ],
+                                  );
+                                },
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 5.0),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24.0,
+                                    vertical: 12.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "${specify[index].personalInfo.firstName} ${specify[index].personalInfo.lastName}",
+                                            style: theme.textTheme.bodyLarge!
+                                                .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${specify[index].schoolInfo.gradeToEnroll.label}-${specify[index].studentInfo.section}",
+                                          )
+                                        ],
+                                      ),
+                                      const Icon(Icons.arrow_right_alt),
+                                    ],
+                                  ),
                                 ),
                               );
                             },

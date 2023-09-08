@@ -24,34 +24,37 @@ class PrimaryButton extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
 
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isEnabled ? onPressed : null,
       style: ElevatedButton.styleFrom(
-          padding: const  EdgeInsets.symmetric(vertical: 20.0, horizontal: 12.0),
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 12.0),
           backgroundColor: backgroundColor ?? ColorTheme.primaryRed,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
-          )
-      ),
-      child: icon != null ? Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(label,
+          )),
+      child: icon != null
+          ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    label,
+                    style: theme.textTheme.bodyLarge!.copyWith(
+                      color: color ?? Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  icon!,
+                ],
+              ),
+            )
+          : Text(
+              label,
               style: theme.textTheme.bodyLarge!.copyWith(
                 color: color ?? Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            icon!,
-          ],
-        ),
-      ) : Text(label,
-        style: theme.textTheme.bodyLarge!.copyWith(
-          color: color ?? Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
     );
   }
 }

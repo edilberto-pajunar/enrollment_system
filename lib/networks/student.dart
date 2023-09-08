@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/subject.dart';
@@ -139,5 +141,61 @@ class StudentDB extends ChangeNotifier {
   void updateListSubjectStream() {
     listSubjectStream = getListSubjectStream();
     notifyListeners();
+  }
+
+  String enrollmentStatus(List<Subject> subjectList) {
+    bool isEnrolled = subjectList.any((element) => element.enrolled);
+
+    if (isEnrolled) {
+      return "You are Enrolled";
+    } else {
+      return "You are not Enrolled";
+    }
+
+    //   if (e.enrolled) {
+    //     return "Enrolled";
+    //   } else {
+    //     return "You are not enrolled";
+    //   }
+    // }).toString();
+  }
+
+  String? subjectId;
+
+  void updateSubjectId(String? value) {
+    subjectId = value;
+    notifyListeners();
+  }
+
+  Future<void> updateSubjectEnroll({
+    required bool isEnrolled,
+  }) async {
+    db
+        .collection("student")
+        .doc(firebaseAuth.currentUser!.uid)
+        .collection("subjects")
+        .doc(subjectId)
+        .update({
+      "enrolled": !isEnrolled,
+    });
+  }
+
+  bool validateEnrollment(List<Subject> subjectList) {
+    return subjectList.every((element) => element.enrolled);
+  }
+
+  Future<void> handleBackgroundMessage(RemoteMessage message) async {
+    print("Title: ${message.notification?.title}");
+    print("Body: ${message.notification?.body}");
+    print("Payload: ${message.data}");
+  }
+
+  Future<void> initNotifications() async {
+    final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+    await firebaseMessaging.requestPermission();
+    final String? token = await firebaseMessaging.getToken();
+    debugPrint("Token: $token");
+
+    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   }
 }

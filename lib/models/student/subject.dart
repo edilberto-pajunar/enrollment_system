@@ -11,7 +11,7 @@ String subjectToMap(Subject data) => json.encode(data.toMap());
 class Subject {
   final String name;
   final bool enrolled;
-  final List<Grade?> grades;
+  final List<Grade> grades;
   final int? units;
   final int id;
 
@@ -24,20 +24,20 @@ class Subject {
   });
 
   factory Subject.fromMap(Map<String, dynamic> json) => Subject(
-    name: json["name"],
-    enrolled: json["enrolled"],
-    grades: List<Grade?>.from(json["grades"].map((x) => Grade.fromMap(x))),
-    units: json["units"],
-    id: json["id"],
-  );
+        name: json["name"],
+        enrolled: json["enrolled"],
+        grades: List<Grade>.from(json["grades"].map((x) => Grade.fromMap(x))),
+        units: json["units"],
+        id: json["id"],
+      );
 
   Map<String, dynamic> toMap() => {
-    "name": name,
-    "enrolled": enrolled,
-    "grades": List<dynamic>.from(grades.map((x) => x?.toMap())),
-    "units": units,
-    "id": id,
-  };
+        "name": name,
+        "enrolled": enrolled,
+        "grades": List<dynamic>.from(grades.map((x) => x.toMap())),
+        "units": units,
+        "id": id,
+      };
 }
 
 class Grade {
@@ -50,12 +50,14 @@ class Grade {
   });
 
   factory Grade.fromMap(Map<String, dynamic> json) => Grade(
-    title: json["title"] as String?,
-    grade: json["grade"] as double?,
-  );
+        title: json["title"] as String?,
+        grade: json["grade"] != null
+            ? double.parse(json["grade"].toString())
+            : 0.0,
+      );
 
   Map<String, dynamic> toMap() => {
-    "title": title,
-    "grade": grade,
-  };
+        "title": title,
+        "grade": grade,
+      };
 }

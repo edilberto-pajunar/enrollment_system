@@ -22,12 +22,14 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: StudentMobileHomeRoute.page),
         AutoRoute(page: ChangePasswordRoute.page),
         AutoRoute(page: StudentMobileInfoRoute.page),
+        AutoRoute(page: StudentMobileEnrollmentRoute.page),
         AutoRoute(page: StudentWebHomeRoute.page),
         AutoRoute(page: AdminInstructorHomeRoute.page),
         AutoRoute(page: AdminAddInstructorRoute.page),
         AutoRoute(page: AdminInstructorSectionRoute.page),
         AutoRoute(page: AdminInstructorGradeRoute.page),
-        AutoRoute(page: InstructorHomeRoute.page),
         AutoRoute(page: AdminInstructorStudentListRoute.page),
+        AutoRoute(page: InstructorHomeRoute.page),
+        AutoRoute(page: InstructorGradeRoute.page),
       ];
 }
