@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
+import 'package:web_school/views/screens/admin/instructor/general/section.dart';
 
 @AutoRouterConfig()
 class AppRouter extends $AppRouter {
@@ -17,6 +18,16 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: AdminHomeRoute.page),
         AutoRoute(page: AdminStudentsRoute.page),
         AutoRoute(page: AdminStudentProfileRoute.page),
-        AutoRoute(page: StudentHomeRoute.page),
+        AutoRoute(page: StudentLayoutBuilder.page),
+        AutoRoute(page: StudentMobileHomeRoute.page),
+        AutoRoute(page: ChangePasswordRoute.page),
+        AutoRoute(page: StudentMobileInfoRoute.page),
+        AutoRoute(page: StudentWebHomeRoute.page),
+        AutoRoute(page: AdminInstructorHomeRoute.page),
+        AutoRoute(page: AdminAddInstructorRoute.page),
+        AutoRoute(page: AdminInstructorSectionRoute.page),
+        AutoRoute(page: AdminInstructorGradeRoute.page),
+        AutoRoute(page: InstructorHomeRoute.page),
+        AutoRoute(page: AdminInstructorStudentListRoute.page),
       ];
 }

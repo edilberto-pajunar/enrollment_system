@@ -44,7 +44,7 @@ class ContinuingSeniorScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "For New Senior High School Student Enrollment Form",
+                      "For Continue Senior High School Student Enrollment Form",
                       style: theme.textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),

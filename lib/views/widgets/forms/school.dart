@@ -100,6 +100,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
     final ThemeData theme = Theme.of(context);
     final Application application = Provider.of<Application>(context);
 
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -145,7 +146,9 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 enabled: widget.isGrade7 ? false : !widget.newSenior,
                 label: "Grade Level to Enroll in:",
                 hintText: 'Select',
-                items: widget.newSenior || widget.continueSenior
+                items: widget.newSenior ||
+                        widget.continueSenior ||
+                        widget.otherSchool
                     ? application.seniorGradeList.map((SelectionOption option) {
                         return SchoolDropdownMenuItem<SelectionOption>(
                           value: option,
@@ -179,7 +182,9 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 label: "Last Grade Level Completed",
                 enabled: !widget.newSenior,
                 hintText: 'Select',
-                items: widget.newSenior || widget.continueSenior
+                items: widget.newSenior ||
+                        widget.continueSenior ||
+                        widget.otherSchool
                     ? application.seniorGradeList.map((SelectionOption option) {
                         return SchoolDropdownMenuItem<SelectionOption>(
                           value: option,

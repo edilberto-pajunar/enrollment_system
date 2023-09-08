@@ -62,8 +62,6 @@ class Application extends ChangeNotifier {
   final List<SelectionOption> seniorGradeList = const [
     SelectionOption(id: 0, label: "Grade 11"),
     SelectionOption(id: 1, label: "Grade 12"),
-    SelectionOption(id: 2, label: "Grade 9"),
-    SelectionOption(id: 3, label: "Grade 10"),
   ];
 
   SelectionOption? gradeToEnroll;
@@ -733,16 +731,27 @@ class Application extends ChangeNotifier {
         }
 
         if (isSenior) {
+          final firstSem = Grade(
+            title: "First",
+            grade: null,
+          );
+
+          final secondSem = Grade(
+            title: "Second",
+            grade: null,
+          );
           // For stem
           if (strand!.id == 1) {
             if (semester!.id == 0) {
               for (Subject subject in Commons.stemFirstSubjectList) {
+                subject.grades.add(firstSem);
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());
               }
             } else {
               for (Subject subject in Commons.stemSecondSubjectList) {
+                subject.grades.add(secondSem);
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());
@@ -753,12 +762,16 @@ class Application extends ChangeNotifier {
           else if (strand!.id == 0) {
             if (semester!.id == 0) {
               for (Subject subject in Commons.gasFirstSubjectList) {
+                subject.grades.add(firstSem);
+
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());
               }
             } else {
               for (Subject subject in Commons.gasSecondSubjectList) {
+                subject.grades.add(secondSem);
+
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());
@@ -769,12 +782,16 @@ class Application extends ChangeNotifier {
           else if (strand!.id == 2) {
             if (semester!.id == 0) {
               for (Subject subject in Commons.hummsFirstSubjectList) {
+                subject.grades.add(firstSem);
+
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());
               }
             } else {
               for (Subject subject in Commons.hummsSecondSubjectList) {
+                subject.grades.add(secondSem);
+
                 subjectsCollection
                     .doc(subject.id.toString())
                     .set(subject.toMap());

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
+import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/option.dart';
 import 'package:web_school/views/widgets/dialogs/custom.dart';
 
@@ -102,6 +103,13 @@ class AdminDB extends ChangeNotifier {
     const SelectionOption(id: 1, label: "B"),
   ];
 
+  SelectionOption? instructorSection;
+
+  void updateInstructorSection(SelectionOption? value) {
+    instructorSection = value;
+    notifyListeners();
+  }
+
   void updateStudentSection(BuildContext context, SelectionOption? value) {
     studentSection = value;
     updateSection(context);
@@ -119,5 +127,161 @@ class AdminDB extends ChangeNotifier {
       );
       context.popRoute();
     });
+  }
+
+  static GlobalKey<FormState> addInstructorFormKey = GlobalKey();
+
+  static TextEditingController name = TextEditingController();
+  static GlobalKey<FormFieldState> nameKey = GlobalKey();
+
+  final List<SelectionOption> gradeList = [
+    const SelectionOption(id: 0, label: "Grade 7"),
+    const SelectionOption(id: 1, label: "Grade 8"),
+    const SelectionOption(id: 2, label: "Grade 9"),
+    const SelectionOption(id: 3, label: "Grade 10"),
+    const SelectionOption(id: 4, label: "Grade 11"),
+    const SelectionOption(id: 5, label: "Grade 12"),
+  ];
+
+  SelectionOption? gradeInstructor;
+
+  void updateGradeInstructor(SelectionOption? value) {
+    gradeInstructor = value;
+    notifyListeners();
+  }
+
+  Future<void> addInstructor(BuildContext context) async {
+    try {
+      firebaseAuth
+          .createUserWithEmailAndPassword(
+            email: "${name.text}@gmail.com",
+            password: "123456",
+          )
+          .then((value) => {
+                db.collection("instructor").doc(value.user!.uid).set({
+                  "name": name.text,
+                  "id": value.user!.uid,
+                  "grade": {
+                    "id": gradeInstructor!.id,
+                    "label": gradeInstructor!.label,
+                  },
+                  "section": {
+                    "id": instructorSection!.id,
+                    "label": instructorSection!.label,
+                  }
+                }),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Added succesfully!"),
+                  ),
+                ),
+                clearInstructorForm(),
+                context.popRoute(),
+              });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Error!"),
+        ),
+      );
+    }
+  }
+
+  bool get validateAddInstructor {
+    return name.text.isNotEmpty &&
+        gradeInstructor != null &&
+        instructorSection != null;
+  }
+
+  void clearInstructorForm() {
+    name.clear();
+    instructorSection = null;
+    gradeInstructor = null;
+    notifyListeners();
+  }
+
+  Stream<List<Instructor>>? instructorListStream;
+
+  Stream<List<Instructor>> getInstructorList() {
+    return db
+        .collection("instructor")
+        .snapshots()
+        .map(instructorListFromSnapshot);
+  }
+
+  List<Instructor> instructorListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((data) {
+      return Instructor.fromJson(data.data() as Map<String, dynamic>);
+    }).toList();
+  }
+
+  void updateInstructorListStream() {
+    instructorListStream = getInstructorList();
+    notifyListeners();
+  }
+
+  String? instructorId;
+
+  void updateInstructorId(String? value) {
+    instructorId = value;
+    notifyListeners();
+  }
+
+  Future<void> deleteInstructor(BuildContext context) async {
+    CustomDialog().showAgree(context, onTap: () {
+      debugPrint("Deleting: $instructorId");
+      db.collection("instructor").doc(instructorId).delete().then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Deleted successfully!"),
+        ));
+        context.popRoute();
+      });
+    });
+  }
+
+  SelectionOption? generalYear;
+
+  final List<SelectionOption> generalYearList = [
+    const SelectionOption(id: 0, label: "Junior High School"),
+    const SelectionOption(id: 1, label: "Senior High School"),
+  ];
+
+  bool get juniorYear {
+    return generalYear!.id == 0;
+  }
+
+  void updateGeneralYear(SelectionOption? value) {
+    generalYear = value;
+    notifyListeners();
+  }
+
+  SelectionOption? generalGrade;
+
+  final List<SelectionOption> generalJuniorList = [
+    const SelectionOption(id: 0, label: "Grade 7"),
+    const SelectionOption(id: 1, label: "Grade 8"),
+    const SelectionOption(id: 2, label: "Grade 9"),
+    const SelectionOption(id: 3, label: "Grade 10"),
+  ];
+
+  final List<SelectionOption> generalSeniorList = [
+    const SelectionOption(id: 0, label: "Grade 11"),
+    const SelectionOption(id: 1, label: "Grade 12"),
+  ];
+
+  void updateGeneralGrade(SelectionOption? value) {
+    generalGrade = value;
+    notifyListeners();
+  }
+
+  SelectionOption? generalSection;
+
+  void updateGeneralSection(SelectionOption? value) {
+    generalSection = value;
+    notifyListeners();
+  }
+
+  void updateState() {
+    notifyListeners();
   }
 }

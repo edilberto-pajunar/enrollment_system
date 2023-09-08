@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
+import 'package:web_school/views/screens/forms/senior/continue.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';
 
 @RoutePage()
@@ -65,7 +66,7 @@ class FormsScreen extends StatelessWidget {
                 const SizedBox(height: 24.0),
                 PrimaryButton(
                   onPressed: () {
-                    context.pushRoute(const NewSeniorRoute());
+                    context.pushRoute(const ContinuingSeniorRoute());
                   },
                   label: "For Continouing Senior High School Learners",
                 ),

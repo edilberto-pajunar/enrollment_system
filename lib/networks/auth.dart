@@ -57,9 +57,9 @@ class Auth extends ChangeNotifier {
           );
 
           if (author == "instructor") {
-            // context.pushRoute(Instructor)
+            context.pushRoute(const InstructorHomeRoute());
           } else if (author == "student") {
-            context.pushRoute(const StudentHomeRoute());
+            context.pushRoute(const StudentLayoutBuilder());
           } else if (author == "admin") {
             context.pushRoute(const AdminHomeRoute());
           }
@@ -107,7 +107,7 @@ class Auth extends ChangeNotifier {
   /// credentials
   Future<void> logout(BuildContext context) async {
     await auth.signOut().then((value) {
-      // nav.popAll(context);
+      context.router.popUntilRoot();
       clearForm();
     });
   }
