@@ -3,7 +3,7 @@
     "short_name": "web_school",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
+    "background_color": "#0xFFFFFFFF",
     "theme_color": "#0175C2",
     "description": "A web school management",
     "orientation": "portrait-primary",

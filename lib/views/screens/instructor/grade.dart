@@ -37,6 +37,7 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
   @override
   Widget build(BuildContext context) {
     final InstructorDB instructorDB = Provider.of<InstructorDB>(context);
+    final Size size = MediaQuery.of(context).size;
 
     void editGrade(Subject data) {
       instructorDB.initGradeText(
@@ -178,6 +179,7 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
+                    width: size.width,
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
                       border: Border.all(

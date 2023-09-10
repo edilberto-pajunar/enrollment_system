@@ -12,7 +12,7 @@ class PrimaryButton extends StatelessWidget {
     super.key,
   });
 
-  final Function() onPressed;
+  final Function()? onPressed;
   final String label;
   final Color? backgroundColor;
   final Color? color;

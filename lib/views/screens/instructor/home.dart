@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:html';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
@@ -88,10 +92,26 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
                               ),
                               InkWell(
                                 onTap: () async {
-                                  final pdfFile = await PdfInvoiceApi.generate(
-                                      studentList, instructorData);
+                                  if (!kIsWeb) {
+                                    final pdfFile =
+                                        await PdfInvoiceApi.generate(
+                                            studentList, instructorData);
 
-                                  PdfApi.openFile(pdfFile);
+                                    PdfApi.openFile(pdfFile);
+                                  } else {
+                                    await PdfApi.saveDocumentWeb(
+                                      studentList: studentList,
+                                      instructorData: instructorData,
+                                    );
+
+                                    // final rawData = await pdfFile.readAsBytes();
+                                    // final content = base64Encode(rawData);
+                                    // AnchorElement(
+                                    //     href:
+                                    //         "data:application/octet-stream;charset=utf-16le;base64,$content")
+                                    //   ..setAttribute("download", "file.txt")
+                                    //   ..click();
+                                  }
                                 },
                                 child: const Text(
                                   "Download all",

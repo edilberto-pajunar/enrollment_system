@@ -6,6 +6,7 @@ import 'package:web_school/models/instructor.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/commons.dart';
 import 'package:web_school/values/strings/colors.dart';
+import 'package:web_school/views/widgets/buttons/primary.dart';
 import 'package:web_school/views/widgets/fields/primary.dart';
 
 @RoutePage()
@@ -99,7 +100,7 @@ class _AdminEditInstructorScreenState extends State<AdminEditInstructorScreen> {
                   itemCount: adminDB.gradeList.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    childAspectRatio: 1.3,
+                    childAspectRatio: 4.3,
                   ),
                   itemBuilder: (context, index) {
                     return InkWell(
@@ -136,7 +137,7 @@ class _AdminEditInstructorScreenState extends State<AdminEditInstructorScreen> {
                   itemCount: adminDB.sectionList.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    childAspectRatio: 1.5,
+                    childAspectRatio: 4.3,
                   ),
                   itemBuilder: (context, index) {
                     return InkWell(
@@ -162,24 +163,35 @@ class _AdminEditInstructorScreenState extends State<AdminEditInstructorScreen> {
                   },
                 ),
                 const SizedBox(height: 50.0),
-                ElevatedButton(
+                PrimaryButton(
+                  label: "Save",
                   onPressed: adminDB.validateAddInstructor
                       ? () {
                           if (AdminDB.addInstructorFormKey.currentState!
                               .validate()) {
-                            adminDB.addInstructor(context);
+                            adminDB.editInstructor(context);
                           }
                         }
                       : null,
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorTheme.primaryRed,
-                      maximumSize: const Size(double.infinity, 60),
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      )),
-                  child: const Text("Submit"),
                 ),
+                // ElevatedButton(
+                //   onPressed: adminDB.validateAddInstructor
+                //       ? () {
+                //           if (AdminDB.addInstructorFormKey.currentState!
+                //               .validate()) {
+                //             adminDB.addInstructor(context);
+                //           }
+                //         }
+                //       : null,
+                //   style: ElevatedButton.styleFrom(
+                //       backgroundColor: ColorTheme.primaryRed,
+                //       maximumSize: const Size(double.infinity, 60),
+                //       padding: const EdgeInsets.symmetric(vertical: 12.0),
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(12.0),
+                //       )),
+                //   child: const Text("Submit"),
+                // ),
               ],
             ),
           ),

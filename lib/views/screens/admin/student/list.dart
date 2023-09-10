@@ -41,11 +41,19 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
     final StudentDB studentDB = Provider.of<StudentDB>(context);
     final AdminDB adminDB = Provider.of<AdminDB>(context);
     final ThemeData theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
 
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
-        appBar: AppBar(),
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              context.popRoute();
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
+        ),
         body: ModalProgressHUD(
           inAsyncCall: studentDB.isLoading,
           child: StreamWrapper<List<ApplicationInfo>>(
@@ -55,97 +63,100 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                   padding: const EdgeInsets.all(12.0),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: DataTable(
-                      columnSpacing: 5,
-                      headingTextStyle: theme.textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      columns: const [
-                        DataColumn(
-                          label: SizedBox(
-                            width: 50,
-                            child: Text("User"),
-                          ),
+                    child: SizedBox(
+                      width: size.width,
+                      child: DataTable(
+                        columnSpacing: 5,
+                        headingTextStyle: theme.textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
-                        DataColumn(
+                        columns: const [
+                          DataColumn(
                             label: SizedBox(
-                          width: 100,
-                          child: Text(
-                            "Control Number",
-                            softWrap: true,
-                          ),
-                        )),
-                        DataColumn(
-                          label: SizedBox(
-                            width: 80,
-                            child: Text("Password"),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: 50,
-                            child: Text("Grade"),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Icon(Icons.group_remove_rounded),
-                        ),
-                      ],
-                      rows: student!.map((e) {
-                        return DataRow(cells: [
-                          DataCell(
-                            SizedBox(
-                              width: 80,
-                              child: Text(e.studentInfo.name),
+                              width: 50,
+                              child: Text("User"),
                             ),
                           ),
-                          DataCell(
-                            SizedBox(
-                              width: 100,
-                              child: InkWell(
-                                onTap: () {
-                                  adminDB.updateStudentId(e.studentInfo.id);
-                                  context.pushRoute(
-                                      const AdminStudentProfileRoute());
-                                },
-                                child: Text(
-                                  e.studentInfo.name,
-                                  style: theme.textTheme.bodyMedium!.copyWith(
-                                    color: Colors.blue,
+                          DataColumn(
+                              label: SizedBox(
+                            width: 100,
+                            child: Text(
+                              "Control Number",
+                              softWrap: true,
+                            ),
+                          )),
+                          DataColumn(
+                            label: SizedBox(
+                              width: 80,
+                              child: Text("Password"),
+                            ),
+                          ),
+                          DataColumn(
+                            label: SizedBox(
+                              width: 50,
+                              child: Text("Grade"),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Icon(Icons.group_remove_rounded),
+                          ),
+                        ],
+                        rows: student!.map((e) {
+                          return DataRow(cells: [
+                            DataCell(
+                              SizedBox(
+                                width: 80,
+                                child: Text(e.studentInfo.name),
+                              ),
+                            ),
+                            DataCell(
+                              SizedBox(
+                                width: 100,
+                                child: InkWell(
+                                  onTap: () {
+                                    adminDB.updateStudentId(e.studentInfo.id);
+                                    context.pushRoute(
+                                        const AdminStudentProfileRoute());
+                                  },
+                                  child: Text(
+                                    e.studentInfo.name,
+                                    style: theme.textTheme.bodyMedium!.copyWith(
+                                      color: Colors.blue,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          DataCell(
-                            GestureDetector(
-                              onTap: () => toggleShowPass(),
-                              child: Text(
-                                showPass
-                                    ? e.studentInfo.password
-                                        .replaceAll(RegExp(r"."), "*")
-                                    : e.studentInfo.password,
+                            DataCell(
+                              GestureDetector(
+                                onTap: () => toggleShowPass(),
+                                child: Text(
+                                  showPass
+                                      ? e.studentInfo.password
+                                          .replaceAll(RegExp(r"."), "*")
+                                      : e.studentInfo.password,
+                                ),
                               ),
                             ),
-                          ),
-                          DataCell(
-                            SizedBox(
-                                width: 80,
-                                child: Text(
-                                    "${e.schoolInfo.gradeToEnroll.label}")),
-                          ),
-                          DataCell(
-                            InkWell(
-                              borderRadius: BorderRadius.circular(24.0),
-                              onTap: () async {
-                                adminDB.updateStudentId(e.studentInfo.id);
-                                await adminDB.deleteStudent(context);
-                              },
-                              child: const Icon(Icons.close),
+                            DataCell(
+                              SizedBox(
+                                  width: 80,
+                                  child: Text(
+                                      "${e.schoolInfo.gradeToEnroll.label}")),
                             ),
-                          ),
-                        ]);
-                      }).toList(),
+                            DataCell(
+                              InkWell(
+                                borderRadius: BorderRadius.circular(24.0),
+                                onTap: () async {
+                                  adminDB.updateStudentId(e.studentInfo.id);
+                                  await adminDB.deleteStudent(context);
+                                },
+                                child: const Icon(Icons.close),
+                              ),
+                            ),
+                          ]);
+                        }).toList(),
+                      ),
                     ),
                   ),
                 );

@@ -27,6 +27,15 @@ class PdfApi {
 
     return file;
   }
+
+  static Future<void> saveDocumentWeb({
+    required List<ApplicationInfo> studentList,
+    required Instructor instructorData,
+  }) async {
+    final pdf = Document();
+    final pdfFile = await PdfInvoiceApi.generate(studentList, instructorData);
+    await pdfFile.writeAsBytes(await pdf.save());
+  }
 }
 
 class PdfInvoiceApi {
@@ -37,7 +46,6 @@ class PdfInvoiceApi {
     pdf.addPage(
       MultiPage(
         build: (context) {
-          final ThemeData theme = Theme.of(context);
           return [
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
