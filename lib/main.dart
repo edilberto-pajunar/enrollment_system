@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider_android/path_provider_android.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/firebase_options.dart';
 import 'package:web_school/networks/admin.dart';
@@ -18,7 +21,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await StudentDB().initNotifications();  
+  if (Platform.isAndroid) PathProviderAndroid.registerWith();
+
+  await StudentDB().initNotifications();
   runApp(MyApp());
 }
 

@@ -5,6 +5,7 @@ import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/instructor.dart';
+import 'package:web_school/networks/pdf.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
@@ -64,27 +65,41 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
           child: StreamWrapper<Instructor>(
               stream: instructorDB.instructorStream,
               child: (instructorData) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Welcome, ${instructorData!.firstName} ${instructorData.lastName}",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    StreamWrapper<List<ApplicationInfo>>(
-                        stream: studentDB.studentListStream,
-                        child: (studentList) {
-                          final specify =
-                              studentList!.where((ApplicationInfo element) {
-                            return element.schoolInfo.gradeToEnroll.label ==
-                                    instructorData.grade!.label &&
-                                element.studentInfo.section ==
-                                    instructorData.section!.label;
-                          }).toList();
-                          return ListView.builder(
+                return StreamWrapper<List<ApplicationInfo>>(
+                    stream: studentDB.studentListStream,
+                    child: (studentList) {
+                      final specify =
+                          studentList!.where((ApplicationInfo element) {
+                        return element.schoolInfo.gradeToEnroll.label ==
+                                instructorData!.grade!.label &&
+                            element.studentInfo.section ==
+                                instructorData.section!.label;
+                      }).toList();
+                      return Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Welcome, ${instructorData!.firstName} ${instructorData.lastName}",
+                                style: theme.textTheme.bodyLarge!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  final pdfFile = await PdfInvoiceApi.generate(
+                                      studentList, instructorData);
+
+                                  PdfApi.openFile(pdfFile);
+                                },
+                                child: const Text(
+                                  "Download all",
+                                ),
+                              ),
+                            ],
+                          ),
+                          ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: specify.length,
@@ -145,10 +160,10 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
                                 ),
                               );
                             },
-                          );
-                        }),
-                  ],
-                );
+                          ),
+                        ],
+                      );
+                    });
               }),
         ),
       ),
