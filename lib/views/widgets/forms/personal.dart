@@ -32,20 +32,22 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           Provider.of<Application>(context, listen: false);
 
       if (widget.viewOnly) {
-        final PersonalInfo personalInfo = widget.personalInfo!;
-        application.hasLRN = personalInfo.hasLrn;
-        Application.learningReferenceNumber.text = personalInfo.lrn;
-        Application.lastName.text = personalInfo.lastName;
-        Application.firstName.text = personalInfo.firstName;
-        Application.middleName.text = personalInfo.middleName;
-        Application.extensionName.text = personalInfo.extensionName;
-        Application.placeOfBirth.text = personalInfo.placeOfBirth;
-        Application.dateOfBirth.text = personalInfo.dateOfBirth;
-        Application.age.text = personalInfo.age;
-        application.gender = personalInfo.gender;
-        application.isIndigenousPeople = personalInfo.isIndigenous;
-        Application.motherTounge.text = personalInfo.motherTounge;
-        Application.otherLanguages.text = personalInfo.otherLanguage;
+        setState(() {
+          final PersonalInfo personalInfo = widget.personalInfo!;
+          application.hasLRN = personalInfo.hasLrn;
+          Application.learningReferenceNumber.text = personalInfo.lrn;
+          Application.lastName.text = personalInfo.lastName;
+          Application.firstName.text = personalInfo.firstName;
+          Application.middleName.text = personalInfo.middleName;
+          Application.extensionName.text = personalInfo.extensionName;
+          Application.placeOfBirth.text = personalInfo.placeOfBirth;
+          Application.dateOfBirth.text = personalInfo.dateOfBirth;
+          Application.age.text = personalInfo.age;
+          application.gender = personalInfo.gender;
+          application.isIndigenousPeople = personalInfo.isIndigenous;
+          Application.motherTounge.text = personalInfo.motherTounge;
+          Application.otherLanguages.text = personalInfo.otherLanguage;
+        });
       }
     });
   }

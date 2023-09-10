@@ -20,7 +20,7 @@ class AdminInstructorSectionScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorTheme.primaryRed,
         onPressed: () {
-          context.pushRoute(const AdminAddInstructorRoute());
+          context.pushRoute( AdminAddInstructorRoute());
         },
         child: const Icon(Icons.add),
       ),

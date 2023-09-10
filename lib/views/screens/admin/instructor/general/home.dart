@@ -29,6 +29,7 @@ class _AdminInstructorHomeScreenState extends State<AdminInstructorHomeScreen> {
   @override
   Widget build(BuildContext context) {
     final AdminDB adminDB = Provider.of<AdminDB>(context);
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Instructor"),
@@ -48,6 +49,8 @@ class _AdminInstructorHomeScreenState extends State<AdminInstructorHomeScreen> {
               padding: const EdgeInsets.all(24.0),
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     ListView.builder(
                       shrinkWrap: true,
@@ -82,11 +85,20 @@ class _AdminInstructorHomeScreenState extends State<AdminInstructorHomeScreen> {
                         );
                       },
                     ),
+                    Text(
+                      "Note: Default password is 123456",
+                      style: theme.textTheme.bodySmall!.copyWith(
+                        color: Colors.red,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
                     DataTable(
                       columnSpacing: 30,
                       columns: const [
                         DataColumn(
-                          label: Text("Name"),
+                          label: Text(
+                            "Name",
+                          ),
                         ),
                         DataColumn(
                           label: Text("Grade"),
@@ -94,15 +106,34 @@ class _AdminInstructorHomeScreenState extends State<AdminInstructorHomeScreen> {
                         DataColumn(
                           label: Text("Section"),
                         ),
-                        DataColumn(
-                          label: Icon(Icons.remove),
-                        ),
+                        // DataColumn(
+                        //   label: Icon(Icons.remove),
+                        // ),
                       ],
                       rows: instructorList!.map((e) {
                         return DataRow(
                           cells: [
                             DataCell(
-                              Text(e.name),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: InkWell(
+                                  onTap: () {
+                                    adminDB.updateInstructorId(e.id);
+                                    context.pushRoute(
+                                      AdminEditInstructorRoute(
+                                        instructorData: e,
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    style: theme.textTheme.bodyMedium!.copyWith(
+                                      color: Colors.blue,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                    e.username,
+                                  ),
+                                ),
+                              ),
                             ),
                             DataCell(
                               SizedBox(width: 60, child: Text(e.grade!.label!)),
@@ -112,17 +143,18 @@ class _AdminInstructorHomeScreenState extends State<AdminInstructorHomeScreen> {
                                 child: Text(e.section!.label!),
                               ),
                             ),
-                            DataCell(
-                              InkWell(
-                                onTap: () {
-                                  adminDB.deleteInstructor(context);
-                                },
-                                child: const Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ),
+                            // DataCell(
+                            //   InkWell(
+                            //     onTap: () {
+                            //       adminDB.updateInstructorId(e.id);
+                            //       adminDB.deleteInstructor(context);
+                            //     },
+                            //     child: const Icon(
+                            //       Icons.delete,
+                            //       color: Colors.red,
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         );
                       }).toList(),

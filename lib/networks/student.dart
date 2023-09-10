@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
+import 'package:web_school/models/application/student.dart';
 import 'package:web_school/models/student/subject.dart';
-import 'package:web_school/values/strings/colors.dart';
 
 class StudentDB extends ChangeNotifier {
   final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -143,21 +142,12 @@ class StudentDB extends ChangeNotifier {
     notifyListeners();
   }
 
-  String enrollmentStatus(List<Subject> subjectList) {
-    bool isEnrolled = subjectList.any((element) => element.enrolled);
-
-    if (isEnrolled) {
+  String enrollmentStatus(StudentInfo? studentInfo) {
+    if (studentInfo!.enrolled) {
       return "You are Enrolled";
     } else {
       return "You are not Enrolled";
     }
-
-    //   if (e.enrolled) {
-    //     return "Enrolled";
-    //   } else {
-    //     return "You are not enrolled";
-    //   }
-    // }).toString();
   }
 
   String? subjectId;
@@ -170,13 +160,33 @@ class StudentDB extends ChangeNotifier {
   Future<void> updateSubjectEnroll({
     required bool isEnrolled,
   }) async {
-    db
+    await db
         .collection("student")
         .doc(firebaseAuth.currentUser!.uid)
         .collection("subjects")
         .doc(subjectId)
         .update({
       "enrolled": !isEnrolled,
+    });
+  }
+
+  Future<void> updateEnrollProfile(BuildContext context) async {
+    await db.collection("student").doc(firebaseAuth.currentUser!.uid).set({
+      "studentInfo": {
+        "enrolled": true,
+      }
+    }, SetOptions(merge: true)).then((value) {
+      context.popRoute();
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              content: Text(
+                "Congratulations! You are now enrolled!",
+                textAlign: TextAlign.center,
+              ),
+            );
+          });
     });
   }
 

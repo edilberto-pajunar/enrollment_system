@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
-import 'package:web_school/networks/application.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/networks/student.dart';
@@ -56,7 +55,11 @@ class _StudentDrawerState extends State<StudentDrawer> {
                 ),
                 ListTile(
                   onTap: () {
-                    context.pushRoute(const StudentMobileEnrollmentRoute());
+                    context.pushRoute(
+                      StudentMobileEnrollmentRoute(
+                        studentInfo: studentData!.studentInfo,
+                      ),
+                    );
                   },
                   title: const Text("Enrollment"),
                 ),

@@ -31,19 +31,23 @@ class _ResidenceFormState extends State<ResidenceForm> {
           Provider.of<Application>(context, listen: false);
 
       if (widget.viewOnly) {
-        final ResidenceInfo residenceInfo = widget.residenceInfo!;
-        application.currentHousehold = residenceInfo.household;
-        Application.address.text = residenceInfo.currentAddress.address;
-        Application.barangay.text = residenceInfo.currentAddress.barangay;
-        Application.city.text = residenceInfo.currentAddress.city;
-        Application.province.text = residenceInfo.currentAddress.province;
-        Application.region.text = residenceInfo.currentAddress.region;
+        setState(() {
+          final ResidenceInfo residenceInfo = widget.residenceInfo!;
+          application.currentHousehold = residenceInfo.household;
+          Application.address.text = residenceInfo.currentAddress.address;
+          Application.barangay.text = residenceInfo.currentAddress.barangay;
+          Application.city.text = residenceInfo.currentAddress.city;
+          Application.province.text = residenceInfo.currentAddress.province;
+          Application.region.text = residenceInfo.currentAddress.region;
 
-        Application.familyAddress.text = residenceInfo.familyAddress.address;
-        Application.familyBarangay.text = residenceInfo.familyAddress.barangay;
-        Application.familyCity.text = residenceInfo.familyAddress.city;
-        Application.familyProvince.text = residenceInfo.familyAddress.province;
-        Application.familyRegion.text = residenceInfo.familyAddress.region;
+          Application.familyAddress.text = residenceInfo.familyAddress.address;
+          Application.familyBarangay.text =
+              residenceInfo.familyAddress.barangay;
+          Application.familyCity.text = residenceInfo.familyAddress.city;
+          Application.familyProvince.text =
+              residenceInfo.familyAddress.province;
+          Application.familyRegion.text = residenceInfo.familyAddress.region;
+        });
       }
     });
   }
@@ -67,8 +71,8 @@ class _ResidenceFormState extends State<ResidenceForm> {
         const SizedBox(height: 12.0),
         widget.viewOnly
             ? PrimaryTextField(
-                controller:
-                    TextEditingController(text: application.currentHousehold?.label),
+                controller: TextEditingController(
+                    text: application.currentHousehold?.label),
                 label: "Household currently living in",
               )
             : CustomDropdown<SelectionOption>(

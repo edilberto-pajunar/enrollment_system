@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
-import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/instructor.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
@@ -70,7 +69,7 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Welcome, ${instructorData!.name}",
+                      "Welcome, ${instructorData!.firstName} ${instructorData.lastName}",
                       style: theme.textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/views/screens/student/mobile/grades/grades.dart';
 import 'package:web_school/views/screens/student/mobile/profile/profile.dart';
-import 'package:web_school/views/widgets/drawer/student.dart';
 
 @RoutePage()
 class StudentMobileHomeScreen extends StatefulWidget {

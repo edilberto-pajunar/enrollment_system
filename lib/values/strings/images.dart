@@ -3,6 +3,7 @@ class PngImages {
   static String showPass = "assets/images/hide.png";
   static String hidePass = "assets/images/eye.png";
   static String user = "assets/images/user.png";
+  static String success = "assets/images/success.png";
 }
 
 class Videos {

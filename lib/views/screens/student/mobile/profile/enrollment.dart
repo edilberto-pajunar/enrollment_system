@@ -1,16 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:web_school/models/application/student.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/values/strings/colors.dart';
+import 'package:web_school/values/strings/images.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 import 'package:web_school/views/widgets/buttons/checkbox.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';
 
 @RoutePage()
 class StudentMobileEnrollmentScreen extends StatefulWidget {
-  const StudentMobileEnrollmentScreen({super.key});
+  const StudentMobileEnrollmentScreen({
+    required this.studentInfo,
+    super.key,
+  });
+
+  final StudentInfo studentInfo;
 
   @override
   State<StudentMobileEnrollmentScreen> createState() =>
@@ -65,11 +72,12 @@ class _StudentMobileEnrollmentScreenState
                             ),
                             children: [
                               TextSpan(
-                                text: studentDB.enrollmentStatus(subjectList!),
+                                text: studentDB
+                                    .enrollmentStatus(widget.studentInfo),
                                 style: theme.textTheme.bodyMedium!.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: studentDB
-                                          .enrollmentStatus(subjectList)
+                                          .enrollmentStatus(widget.studentInfo)
                                           .contains("not")
                                       ? Colors.red
                                       : ColorTheme.primaryBlack,
@@ -80,61 +88,97 @@ class _StudentMobileEnrollmentScreenState
                         ),
                       ),
                       const SizedBox(height: 24.0),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                          ),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            DataTable(
-                              columns: const [
-                                DataColumn(
-                                  label: Text("Subject"),
-                                ),
-                                DataColumn(
-                                  label: Text("Enroll"),
-                                ),
-                              ],
-                              rows: subjectList.map((Subject subject) {
-                                return DataRow(
-                                  cells: [
-                                    DataCell(
-                                      Text(subject.name),
+                      widget.studentInfo.enrolled
+                          ? Container(
+                              padding: const EdgeInsets.all(12.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: const Offset(0, -4),
+                                      color: Colors.grey.withOpacity(0.2),
+                                      blurRadius: 4.0,
+                                      spreadRadius: 2.0,
                                     ),
-                                    DataCell(
-                                      Center(
-                                        child: CustomCheckbox(
-                                          value: subject.enrolled,
-                                          onChanged: (value) {
-                                            studentDB.updateSubjectId(
-                                                subject.id.toString());
-                                            studentDB.updateSubjectEnroll(
-                                                isEnrolled: subject.enrolled);
-                                          },
-                                        ),
+                                    BoxShadow(
+                                      offset: const Offset(4, 0),
+                                      color: Colors.grey.withOpacity(0.2),
+                                      blurRadius: 4.0,
+                                      spreadRadius: 2.0,
+                                    ),
+                                  ]),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(PngImages.success),
+                                  Center(
+                                    child: Text(
+                                      "Congrats! You are enrolled",
+                                      textAlign: TextAlign.center,
+                                      style: theme.textTheme.titleLarge,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black,
+                                ),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  DataTable(
+                                    columns: const [
+                                      DataColumn(
+                                        label: Text("Subject"),
                                       ),
+                                      DataColumn(
+                                        label: Text("Enroll"),
+                                      ),
+                                    ],
+                                    rows: subjectList!.map((Subject subject) {
+                                      return DataRow(
+                                        cells: [
+                                          DataCell(
+                                            Text(subject.name),
+                                          ),
+                                          DataCell(
+                                            Center(
+                                              child: CustomCheckbox(
+                                                value: subject.enrolled,
+                                                onChanged: (value) {
+                                                  studentDB.updateSubjectId(
+                                                      subject.id.toString());
+                                                  studentDB.updateSubjectEnroll(
+                                                      isEnrolled:
+                                                          subject.enrolled);
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }).toList(),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(24.0),
+                                    child: PrimaryButton(
+                                      isEnabled: studentDB
+                                          .validateEnrollment(subjectList),
+                                      onPressed: () {
+                                        studentDB.updateEnrollProfile(context);
+                                      },
+                                      label: "Enroll",
                                     ),
-                                  ],
-                                );
-                              }).toList(),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(24.0),
-                              child: PrimaryButton(
-                                isEnabled:
-                                    studentDB.validateEnrollment(subjectList),
-                                onPressed: () {},
-                                label: "Enroll",
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),

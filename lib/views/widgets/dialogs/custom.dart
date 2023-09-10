@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:web_school/values/strings/colors.dart';
 
 class CustomDialog {
   void showAgree(

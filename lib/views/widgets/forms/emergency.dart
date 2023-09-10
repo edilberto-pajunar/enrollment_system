@@ -32,15 +32,17 @@ class _EmergencyFormState extends State<EmergencyForm> {
           Provider.of<Application>(context, listen: false);
 
       if (widget.viewOnly) {
-        final EmergencyInfo emergencyInfo = widget.emergencyInfo!;
-        application.accessComm = emergencyInfo.communication;
-        Application.phoneNumber.text = emergencyInfo.number;
-        Application.emergencyFirstName.text = emergencyInfo.firstName;
-        Application.emergencyMiddleName.text = emergencyInfo.middleName;
-        Application.emergencyLastName.text = emergencyInfo.lastName;
-        application.relationship = emergencyInfo.relationship;
-        Application.emergencyAddress.text = emergencyInfo.address;
-        Application.emergencyPhone.text = emergencyInfo.contactNumber;
+        setState(() {
+          final EmergencyInfo emergencyInfo = widget.emergencyInfo!;
+          application.accessComm = emergencyInfo.communication;
+          Application.phoneNumber.text = emergencyInfo.number;
+          Application.emergencyFirstName.text = emergencyInfo.firstName;
+          Application.emergencyMiddleName.text = emergencyInfo.middleName;
+          Application.emergencyLastName.text = emergencyInfo.lastName;
+          application.relationship = emergencyInfo.relationship;
+          Application.emergencyAddress.text = emergencyInfo.address;
+          Application.emergencyPhone.text = emergencyInfo.contactNumber;
+        });
       }
     });
   }

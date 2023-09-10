@@ -44,53 +44,65 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
       }
 
       if (widget.continueJunior) {
-        application.updateResidence(application.otherResidenceList[1]);
-        Application.schoolName.text =
-            "St.Jude Agro Industrial Secondary School";
-        Application.schoolID.text = "500844";
-        Application.schoolAddress.text = "Topas Proper Nabua, Camarines Sur";
-        application.updateSchoolType(application.schoolTypeList[1]);
+        setState(() {
+          application.updateResidence(application.otherResidenceList[1]);
+          Application.schoolName.text =
+              "St.Jude Agro Industrial Secondary School";
+          Application.schoolID.text = "500844";
+          Application.schoolAddress.text = "Topas Proper Nabua, Camarines Sur";
+          application.updateSchoolType(application.schoolTypeList[1]);
+        });
       }
 
       if (widget.newSenior) {
-        application.updateGradeToEnroll(application.seniorGradeList[0]);
-        application.updateLastGradeCompleted(application.seniorGradeList.last);
-        application.updateResidence(application.residenceList.last);
-        Application.schoolName.text =
-            "St.Jude Agro Industrial Secondary School";
-        Application.schoolID.text = "500844";
-        Application.schoolAddress.text = "Topas Proper Nabua, Camarines Sur";
-        application.updateSchoolType(application.schoolTypeList[1]);
-        Application.track.text = "Academic";
+        setState(() {
+          application.updateGradeToEnroll(application.seniorGradeList[0]);
+          application
+              .updateLastGradeCompleted(application.seniorGradeList.last);
+          application.updateResidence(application.residenceList.last);
+          Application.schoolName.text =
+              "St.Jude Agro Industrial Secondary School";
+          Application.schoolID.text = "500844";
+          Application.schoolAddress.text = "Topas Proper Nabua, Camarines Sur";
+          application.updateSchoolType(application.schoolTypeList[1]);
+          Application.track.text = "Academic";
+        });
       }
 
       if (widget.otherSchool) {
-        application.updateResidence(application.residenceList[0]);
-        Application.track.text = "Academic";
+        setState(() {
+          application.updateResidence(application.residenceList[0]);
+          Application.track.text = "Academic";
+        });
       }
 
       if (widget.continueSenior) {
-        application.updateGradeToEnroll(application.seniorGradeList[1]);
-        application.updateLastGradeCompleted(application.seniorGradeList.first);
-        application.updateResidence(application.residenceList[1]);
-        Application.track.text = "Academic";
+        setState(() {
+          application.updateGradeToEnroll(application.seniorGradeList[1]);
+          application
+              .updateLastGradeCompleted(application.seniorGradeList.first);
+          application.updateResidence(application.residenceList[1]);
+          Application.track.text = "Academic";
+        });
       }
 
       if (widget.viewOnly) {
-        final SchoolInfo schoolInfo = widget.schoolInfo!;
-        application.schoolYear = schoolInfo.schoolYear;
-        application.gradeToEnroll = schoolInfo.gradeToEnroll;
-        application.lastGradeCompleted = schoolInfo.lastGradeCompleted;
-        application.lastSchoolYearCompleted = schoolInfo.lastSchoolYear;
-        application.residence = schoolInfo.residency;
+        setState(() {
+          final SchoolInfo schoolInfo = widget.schoolInfo!;
+          application.schoolYear = schoolInfo.schoolYear;
+          application.gradeToEnroll = schoolInfo.gradeToEnroll;
+          application.lastGradeCompleted = schoolInfo.lastGradeCompleted;
+          application.lastSchoolYearCompleted = schoolInfo.lastSchoolYear;
+          application.residence = schoolInfo.residency;
 
-        Application.schoolName.text = schoolInfo.nameOfSchool;
-        Application.schoolID.text = schoolInfo.schoolId;
-        Application.schoolAddress.text = schoolInfo.schoolAddress;
-        application.schoolType = schoolInfo.schoolType;
-        application.submitCopyPSA = schoolInfo.isPSASubmitted;
-        Application.birthCertNumber.text = schoolInfo.birthCertificate;
-        application.otherRequirements = schoolInfo.otherRequirements;
+          Application.schoolName.text = schoolInfo.nameOfSchool;
+          Application.schoolID.text = schoolInfo.schoolId;
+          Application.schoolAddress.text = schoolInfo.schoolAddress;
+          application.schoolType = schoolInfo.schoolType;
+          application.submitCopyPSA = schoolInfo.isPSASubmitted;
+          Application.birthCertNumber.text = schoolInfo.birthCertificate;
+          application.otherRequirements = schoolInfo.otherRequirements;
+        });
       }
     });
   }
@@ -99,7 +111,6 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final Application application = Provider.of<Application>(context);
-
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -131,8 +131,14 @@ class AdminDB extends ChangeNotifier {
 
   static GlobalKey<FormState> addInstructorFormKey = GlobalKey();
 
-  static TextEditingController name = TextEditingController();
-  static GlobalKey<FormFieldState> nameKey = GlobalKey();
+  static TextEditingController username = TextEditingController();
+  static GlobalKey<FormFieldState> usernameKey = GlobalKey();
+
+  static TextEditingController firstName = TextEditingController();
+  static GlobalKey<FormFieldState> firstNameKey = GlobalKey();
+
+  static TextEditingController lastName = TextEditingController();
+  static GlobalKey<FormFieldState> lastNameKey = GlobalKey();
 
   final List<SelectionOption> gradeList = [
     const SelectionOption(id: 0, label: "Grade 7"),
@@ -154,22 +160,20 @@ class AdminDB extends ChangeNotifier {
     try {
       firebaseAuth
           .createUserWithEmailAndPassword(
-            email: "${name.text}@gmail.com",
+            email: "${username.text}@gmail.com",
             password: "123456",
           )
           .then((value) => {
-                db.collection("instructor").doc(value.user!.uid).set({
-                  "name": name.text,
-                  "id": value.user!.uid,
-                  "grade": {
-                    "id": gradeInstructor!.id,
-                    "label": gradeInstructor!.label,
-                  },
-                  "section": {
-                    "id": instructorSection!.id,
-                    "label": instructorSection!.label,
-                  }
-                }),
+                db.collection("instructor").doc(value.user!.uid).set(
+                      Instructor(
+                              username: username.text,
+                              id: value.user!.uid,
+                              firstName: firstName.text,
+                              lastName: lastName.text,
+                              section: instructorSection,
+                              grade: gradeInstructor)
+                          .toJson(),
+                    ),
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text("Added succesfully!"),
@@ -187,14 +191,46 @@ class AdminDB extends ChangeNotifier {
     }
   }
 
+  Future<void> editInstructor(BuildContext context) async {
+    try {
+      db.collection("instructor").doc(instructorId).set(
+          Instructor(
+                  username: username.text,
+                  id: instructorId!,
+                  firstName: firstName.text,
+                  lastName: lastName.text,
+                  section: instructorSection,
+                  grade: gradeInstructor)
+              .toJson(),
+          SetOptions(merge: true));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Save succesfully!"),
+        ),
+      );
+      clearInstructorForm();
+      context.popRoute();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Error!"),
+        ),
+      );
+    }
+  }
+
   bool get validateAddInstructor {
-    return name.text.isNotEmpty &&
+    return firstName.text.isNotEmpty &&
+        lastName.text.isNotEmpty &&
+        username.text.isNotEmpty &&
         gradeInstructor != null &&
         instructorSection != null;
   }
 
   void clearInstructorForm() {
-    name.clear();
+    firstName.clear();
+    lastName.clear();
+    username.clear();
     instructorSection = null;
     gradeInstructor = null;
     notifyListeners();
@@ -282,6 +318,25 @@ class AdminDB extends ChangeNotifier {
   }
 
   void updateState() {
+    notifyListeners();
+  }
+
+  Stream<Instructor>? instructorStream;
+
+  Stream<Instructor> getInstructor() {
+    return db
+        .collection("instructor")
+        .doc(instructorId)
+        .snapshots()
+        .map(instructorFromSnapshot);
+  }
+
+  Instructor instructorFromSnapshot(DocumentSnapshot snapshot) {
+    return Instructor.fromJson(snapshot.data() as Map<String, dynamic>);
+  }
+
+  void updateInstructorStream() {
+    instructorStream = getInstructor();
     notifyListeners();
   }
 }

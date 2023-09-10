@@ -14,7 +14,6 @@ class CustomCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
 
     return GestureDetector(
       child: Container(

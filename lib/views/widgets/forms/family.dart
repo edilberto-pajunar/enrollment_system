@@ -32,7 +32,8 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           Provider.of<Application>(context, listen: false);
 
       if (widget.viewOnly) {
-        final FamilyInfo familyInfo = widget.familyInfo!;
+        setState(() {
+            final FamilyInfo familyInfo = widget.familyInfo!;
         application.responsible = familyInfo.responsible;
         application.status = familyInfo.parentStatus;
         Application.numberOfBrother.text = familyInfo.numberOfBrother;
@@ -45,6 +46,8 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
         Application.lastNamePrinted.text = familyInfo.lastName;
         Application.learnerRelation.text = familyInfo.relationship;
         Application.dateEntered.text = familyInfo.dateEntered;
+        });
+      
       }
     });
   }

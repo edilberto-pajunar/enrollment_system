@@ -697,6 +697,7 @@ class Application extends ChangeNotifier {
           password: password,
           id: value.user!.uid,
           section: "",
+          enrolled: false,
         );
 
         final ApplicationInfo applicationInfo = ApplicationInfo(

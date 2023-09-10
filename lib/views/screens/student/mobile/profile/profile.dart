@@ -2,16 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
-import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 import 'package:web_school/views/widgets/drawer/student.dart';
-import 'package:web_school/views/widgets/forms/emergency.dart';
-import 'package:web_school/views/widgets/forms/family.dart';
-import 'package:web_school/views/widgets/forms/personal.dart';
-import 'package:web_school/views/widgets/forms/residence.dart';
-import 'package:web_school/views/widgets/forms/school.dart';
 
 @RoutePage()
 class StudentMobileProfileScreen extends StatefulWidget {
@@ -74,6 +68,16 @@ class _StudentMobileProfileScreenState
                       style: theme.textTheme.titleSmall,
                     ),
                     const SizedBox(height: 24.0),
+                    Container(
+                      padding: const EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                          ),
+                          borderRadius: BorderRadius.circular(12.0)),
+                      child: Text(
+                          "Admission Status: ${studentDB.enrollmentStatus(applicationInfo.studentInfo)}"),
+                    ),
                   ],
                 ),
               );
