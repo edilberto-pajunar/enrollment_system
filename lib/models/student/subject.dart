@@ -1,12 +1,5 @@
-// To parse this JSON data, do
-//
-//     final subject = subjectFromMap(jsonString);
 
-import 'dart:convert';
-
-Subject subjectFromMap(String str) => Subject.fromMap(json.decode(str));
-
-String subjectToMap(Subject data) => json.encode(data.toMap());
+import 'package:web_school/models/student/schedule.dart';
 
 class Subject {
   final String name;
@@ -14,6 +7,7 @@ class Subject {
   final List<Grade> grades;
   final int? units;
   final int id;
+  final List<Schedule>? schedule;
 
   Subject({
     required this.name,
@@ -21,6 +15,7 @@ class Subject {
     required this.grades,
     required this.units,
     required this.id,
+    this.schedule,
   });
 
   factory Subject.fromMap(Map<String, dynamic> json) => Subject(
@@ -29,6 +24,8 @@ class Subject {
         grades: List<Grade>.from(json["grades"].map((x) => Grade.fromMap(x))),
         units: json["units"],
         id: json["id"],
+        schedule: json["schedule"] == null ? [] : List<Schedule>.from(
+            json["schedule"].map((x) => Schedule.fromJson(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -37,6 +34,7 @@ class Subject {
         "grades": List<dynamic>.from(grades.map((x) => x.toMap())),
         "units": units,
         "id": id,
+        "schedule": schedule == null ? [] : List<dynamic>.from(schedule!.map((e) => e.toJson())),
       };
 }
 

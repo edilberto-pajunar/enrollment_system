@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:web_school/models/student/schedule.dart';
 import 'package:web_school/models/student/subject.dart';
 
 class Commons extends ChangeNotifier {
@@ -20,28 +21,29 @@ class Commons extends ChangeNotifier {
 
   static List<Subject> juniorSubject = [
     Subject(
-        name: "Filipino",
-        enrolled: false,
-        grades: [
-          Grade(
-            title: "First",
-            grade: 0.0,
-          ),
-          Grade(
-            title: "Second",
-            grade: 0.0,
-          ),
-          Grade(
-            title: "Third",
-            grade: 0.0,
-          ),
-          Grade(
-            title: "Fourth",
-            grade: 0.0,
-          ),
-        ],
-        id: 0,
-        units: 3),
+      name: "Filipino",
+      enrolled: false,
+      grades: [
+        Grade(
+          title: "First",
+          grade: 0.0,
+        ),
+        Grade(
+          title: "Second",
+          grade: 0.0,
+        ),
+        Grade(
+          title: "Third",
+          grade: 0.0,
+        ),
+        Grade(
+          title: "Fourth",
+          grade: 0.0,
+        ),
+      ],
+      id: 0,
+      units: 3,
+    ),
     Subject(
         name: "English",
         enrolled: false,
@@ -546,7 +548,7 @@ class Commons extends ChangeNotifier {
         units: 1,
         id: 3),
     Subject(
-        name: "Trends, Networks, & Critical Thinking in the 21st Century",
+        name: "s, & Critical Thinking in the 21st Century",
         enrolled: false,
         grades: [
           Grade(
@@ -761,7 +763,7 @@ class Commons extends ChangeNotifier {
         units: 1,
         id: 3),
     Subject(
-        name: "Trends, Networks, & Critical Thinking in the 21st Century",
+        name: "s, & Critical Thinking in the 21st Century",
         enrolled: false,
         grades: [
           Grade(
@@ -939,5 +941,328 @@ class Commons extends ChangeNotifier {
         ],
         units: 1,
         id: 8),
+  ];
+
+  static List<List<Schedule>> grade7SectionA = [
+    // FILIPINO
+    [
+      Schedule(
+        day: 1,
+        start: TimeData(
+          hour: 10,
+          minute: 45,
+        ),
+      ),
+      Schedule(
+        day: 2,
+        start: TimeData(
+          hour: 10,
+          minute: 45,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 10,
+          minute: 45,
+        ),
+      ),
+      Schedule(
+        day: 4,
+        start: TimeData(
+          hour: 10,
+          minute: 45,
+        ),
+      ),
+      Schedule(
+        day: 5,
+        start: TimeData(
+          hour: 10,
+          minute: 45,
+        ),
+      ),
+    ],
+    // ENGLISH
+    [
+      Schedule(
+        day: 2,
+        start: TimeData(
+          hour: 7,
+          minute: 30,
+        ),
+      ),
+      Schedule(
+        day: 4,
+        start: TimeData(
+          hour: 7,
+          minute: 30,
+        ),
+      ),
+      Schedule(
+        day: 5,
+        start: TimeData(
+          hour: 7,
+          minute: 30,
+        ),
+      ),
+    ],
+    // MATH
+    [
+      Schedule(
+        day: 2,
+        start: TimeData(
+          hour: 8,
+          minute: 30,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 8,
+          minute: 30,
+        ),
+      ),
+      Schedule(
+        day: 4,
+        start: TimeData(
+          hour: 8,
+          minute: 30,
+        ),
+      ),
+      Schedule(
+        day: 5,
+        start: TimeData(
+          hour: 8,
+          minute: 30,
+        ),
+      ),
+    ],
+    // SCIENCE
+    [
+      Schedule(
+        day: 1,
+        start: TimeData(
+          hour: 9,
+          minute: 45,
+        ),
+      ),
+      Schedule(
+        day: 2,
+        start: TimeData(
+          hour: 9,
+          minute: 45,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 9,
+          minute: 45,
+        ),
+      ),
+      Schedule(
+        day: 4,
+        start: TimeData(
+          hour: 9,
+          minute: 45,
+        ),
+      ),
+    ],
+    // A.P
+    [
+      Schedule(
+        day: 1,
+        start: TimeData(
+          hour: 8,
+          minute: 30,
+        ),
+      ),
+      Schedule(
+        day: 2,
+        start: TimeData(
+          hour: 13,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 13,
+          minute: 00,
+        ),
+      ),
+    ],
+    // ESP
+    [
+      Schedule(
+        day: 1,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 5,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+    ],
+    // TLE
+    [
+      Schedule(
+        day: 1,
+        start: TimeData(
+          hour: 13,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 4,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 5,
+        start: TimeData(
+          hour: 9,
+          minute: 45,
+        ),
+      ),
+      Schedule(
+        day: 5,
+        start: TimeData(
+          hour: 10,
+          minute: 45,
+        ),
+      ),
+    ],
+    // MUSIC
+    [
+      Schedule(
+        day: 2,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 15,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 4,
+        start: TimeData(
+          hour: 13,
+          minute: 00,
+        ),
+      ),
+    ],
+    // ARTS
+    [
+      Schedule(
+        day: 2,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 15,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 4,
+        start: TimeData(
+          hour: 13,
+          minute: 00,
+        ),
+      ),
+    ],
+    // P.E.
+    [
+      Schedule(
+        day: 2,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 15,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 4,
+        start: TimeData(
+          hour: 13,
+          minute: 00,
+        ),
+      ),
+    ],
+    // HEALTH
+    [
+      Schedule(
+        day: 2,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 14,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 3,
+        start: TimeData(
+          hour: 15,
+          minute: 00,
+        ),
+      ),
+      Schedule(
+        day: 4,
+        start: TimeData(
+          hour: 13,
+          minute: 00,
+        ),
+      ),
+    ],
   ];
 }

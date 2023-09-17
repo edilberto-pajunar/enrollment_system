@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/option.dart';
+import 'package:web_school/models/student/subject.dart';
+import 'package:web_school/networks/commons.dart';
 import 'package:web_school/views/widgets/dialogs/custom.dart';
 
 class AdminDB extends ChangeNotifier {
@@ -96,6 +98,31 @@ class AdminDB extends ChangeNotifier {
     );
   }
 
+  /// update individual student list of
+  /// subject stream
+  Stream<List<Subject>>? listSubjectStream;
+
+  Stream<List<Subject>> getListSubjectStream() {
+    return db
+        .collection("student")
+        .doc(studentId)
+        .collection("subjects")
+        .snapshots()
+        .map(listSubjectSnapshot);
+  }
+
+  List<Subject> listSubjectSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      return Subject.fromMap(data);
+    }).toList();
+  }
+
+  void updateListSubjectStream() {
+    listSubjectStream = getListSubjectStream();
+    notifyListeners();
+  }
+
   SelectionOption? studentSection;
 
   List<SelectionOption> sectionList = [
@@ -110,18 +137,37 @@ class AdminDB extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateStudentSection(BuildContext context, SelectionOption? value) {
+  void updateStudentSection(
+      BuildContext context, SelectionOption? value, List<Subject> subjectList) {
     studentSection = value;
-    updateSection(context);
+    updateSection(context, subjectList: subjectList);
     notifyListeners();
   }
 
-  Future<void> updateSection(BuildContext context) async {
+  Future<void> updateSection(
+    BuildContext context, {
+    required List<Subject> subjectList,
+  }) async {
+    print(studentId);
     await db.collection("student").doc(studentId).set({
       "studentInfo": {
         "section": studentSection?.label,
       }
     }, SetOptions(merge: true)).then((value) {
+      subjectList.map((subject) {
+        db
+            .collection("student")
+            .doc(studentId)
+            .collection("subjects")
+            .doc(subject.id.toString())
+            .set({
+          "schedule":
+              FieldValue.arrayUnion(Commons.grade7SectionA[subject.id].map((e) {
+            return e.toJson();
+          }).toList())
+        }, SetOptions(merge: true));
+      }).toList();
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Added successfully!")),
       );

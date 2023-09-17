@@ -115,8 +115,9 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                                 child: InkWell(
                                   onTap: () {
                                     adminDB.updateStudentId(e.studentInfo.id);
-                                    context.pushRoute(
-                                        const AdminStudentProfileRoute());
+                                    context.pushRoute(AdminStudentProfileRoute(
+                                      applicationInfo: e,
+                                    ));
                                   },
                                   child: Text(
                                     e.studentInfo.name,
