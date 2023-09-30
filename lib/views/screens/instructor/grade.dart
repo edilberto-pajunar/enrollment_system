@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/commons.dart';
 import 'package:web_school/networks/instructor.dart';
+import 'package:web_school/networks/router/routes.gr.dart';
+import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';
 import 'package:web_school/views/widgets/fields/primary.dart';
@@ -31,6 +34,7 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
       final InstructorDB instructorDB =
           Provider.of<InstructorDB>(context, listen: false);
       instructorDB.updateSubjectListStream();
+      instructorDB.updateStudentStream();
     });
   }
 
@@ -38,6 +42,7 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
   Widget build(BuildContext context) {
     final InstructorDB instructorDB = Provider.of<InstructorDB>(context);
     final Size size = MediaQuery.of(context).size;
+    final ThemeData theme = Theme.of(context);
 
     void editGrade(Subject data) {
       instructorDB.initGradeText(
@@ -173,109 +178,133 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
           key: InstructorDB.formKey,
           child: ModalProgressHUD(
             inAsyncCall: instructorDB.isLoading,
-            child: StreamWrapper<List<Subject>>(
-              stream: instructorDB.subjectListStream,
-              child: (subjectList) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: size.width,
-                    padding: const EdgeInsets.all(12.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      ),
-                    ),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: widget.isJunior
-                          ? DataTable(
-                              columnSpacing: 20,
-                              columns: const [
-                                DataColumn(
-                                  label: SizedBox(
-                                    width: 80,
-                                    child: Text("Name"),
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text("First"),
-                                ),
-                                DataColumn(
-                                  label: Text("Second"),
-                                ),
-                                DataColumn(
-                                  label: Text("Third"),
-                                ),
-                                DataColumn(
-                                  label: Text("Fourth"),
-                                ),
-                              ],
-                              rows: subjectList!.map((Subject data) {
-                                return DataRow(
-                                  cells: [
-                                    DataCell(
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                            width: 100, child: Text(data.name)),
-                                      ),
-                                    ),
-                                    ...data.grades.map((e) {
-                                      return DataCell(
-                                        Center(
-                                          child: InkWell(
-                                            onTap: () {
-                                              editGrade(data);
-                                            },
-                                            child: Text("${e.grade}"),
+            child: StreamWrapper<ApplicationInfo>(
+              stream: instructorDB.studentStream,
+              child: (studentData) {
+                return StreamWrapper<List<Subject>>(
+                  stream: instructorDB.subjectListStream,
+                  child: (subjectList) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            context.pushRoute(InstructorScheduleRoute(
+                                subjectList: subjectList!,
+                                applicationInfo: studentData,
+                              ),
+                            );
+                          },
+                          child: Text("See ${studentData!.personalInfo.firstName} ${studentData.personalInfo.lastName} schedule",
+                            style: theme.textTheme.bodySmall!.copyWith(
+                              color: ColorTheme.primaryRed,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Container(
+                            width: size.width,
+                            padding: const EdgeInsets.all(12.0),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                              ),
+                            ),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: widget.isJunior
+                                  ? DataTable(
+                                      columnSpacing: 20,
+                                      columns: const [
+                                        DataColumn(
+                                          label: SizedBox(
+                                            width: 80,
+                                            child: Text("Name"),
                                           ),
                                         ),
-                                      );
-                                    }).toList(),
-                                  ],
-                                );
-                              }).toList(),
-                            )
-                          : DataTable(
-                              columnSpacing: 20,
-                              columns: const [
-                                DataColumn(
-                                  label: SizedBox(
-                                    width: 80,
-                                    child: Text("Name"),
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text("Grade"),
-                                ),
-                              ],
-                              rows: subjectList!.map((e) {
-                                return DataRow(
-                                  cells: [
-                                    DataCell(
-                                      SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.6,
-                                          child: Text(e.name)),
+                                        DataColumn(
+                                          label: Text("First"),
+                                        ),
+                                        DataColumn(
+                                          label: Text("Second"),
+                                        ),
+                                        DataColumn(
+                                          label: Text("Third"),
+                                        ),
+                                        DataColumn(
+                                          label: Text("Fourth"),
+                                        ),
+                                      ],
+                                      rows: subjectList!.map((Subject data) {
+                                        return DataRow(
+                                          cells: [
+                                            DataCell(
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: SizedBox(
+                                                    width: 100, child: Text(data.name)),
+                                              ),
+                                            ),
+                                            ...data.grades.map((e) {
+                                              return DataCell(
+                                                Center(
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      editGrade(data);
+                                                    },
+                                                    child: Text("${e.grade}"),
+                                                  ),
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ],
+                                        );
+                                      }).toList(),
+                                    )
+                                  : DataTable(
+                                      columnSpacing: 20,
+                                      columns: const [
+                                        DataColumn(
+                                          label: SizedBox(
+                                            width: 80,
+                                            child: Text("Name"),
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text("Grade"),
+                                        ),
+                                      ],
+                                      rows: subjectList!.map((e) {
+                                        return DataRow(
+                                          cells: [
+                                            DataCell(
+                                              SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.6,
+                                                  child: Text(e.name)),
+                                            ),
+                                            DataCell(
+                                              InkWell(
+                                                  onTap: () {
+                                                    editSeniorGrade(e);
+                                                  },
+                                                  child: Text("${e.grades[0].grade}")),
+                                            ),
+                                          ],
+                                        );
+                                      }).toList(),
                                     ),
-                                    DataCell(
-                                      InkWell(
-                                          onTap: () {
-                                            editSeniorGrade(e);
-                                          },
-                                          child: Text("${e.grades[0].grade}")),
-                                    ),
-                                  ],
-                                );
-                              }).toList(),
                             ),
-                    ),
-                  ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 );
-              },
+              }
             ),
           ),
         ),

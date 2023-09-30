@@ -5,7 +5,6 @@ import 'package:web_school/models/application/student.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/values/strings/colors.dart';
-import 'package:web_school/values/strings/images.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 import 'package:web_school/views/widgets/buttons/checkbox.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';

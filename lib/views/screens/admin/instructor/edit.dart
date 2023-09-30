@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/commons.dart';
-import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';
 import 'package:web_school/views/widgets/fields/primary.dart';
 

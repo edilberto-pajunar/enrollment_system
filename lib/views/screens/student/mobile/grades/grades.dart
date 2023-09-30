@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/subject.dart';
@@ -55,9 +54,29 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Text(
-                                    "Welcome, ${personal.firstName} ${personal.lastName}",
-                                    style: theme.textTheme.titleSmall,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Welcome, ${personal.firstName} ${personal.lastName}",
+                                        style: theme.textTheme.titleSmall,
+                                      ),
+
+                                      TextButton(
+                                        onPressed: () {
+                                          context.pushRoute(StudentScheduleRoute(
+                                              subjectList: subjectList!,
+                                              applicationInfo: studentData,
+                                            ),
+                                          );
+                                        },
+                                        child: Text("See my schedule",
+                                          style: theme.textTheme.bodySmall!.copyWith(
+                                            color: ColorTheme.primaryRed,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   const SizedBox(height: 24.0),
                                   Container(

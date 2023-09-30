@@ -188,6 +188,7 @@ class StudentDB extends ChangeNotifier {
             );
           });
     });
+    notifyListeners();
   }
 
   bool validateEnrollment(List<Subject> subjectList) {

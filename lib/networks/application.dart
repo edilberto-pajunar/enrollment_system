@@ -14,8 +14,8 @@ import 'package:web_school/models/application/student.dart';
 import 'package:web_school/models/option.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/commons.dart';
-import 'package:web_school/values/strings/api/key.dart';
 import 'package:http/http.dart' as http;
+import 'package:web_school/values/strings/api/twilio.dart';
 
 class Application extends ChangeNotifier {
   bool isLoading = false;
@@ -715,10 +715,10 @@ class Application extends ChangeNotifier {
             .set(applicationInfo.toJson());
 
         // send the account to the number
-        // sendSMS(
-        //   controlNumber: controlNumber,
-        //   password: password,
-        // );
+        sendSMS(
+          controlNumber: controlNumber,
+          password: password,
+        );
 
         final CollectionReference subjectsCollection = db
             .collection("student")
@@ -872,18 +872,20 @@ class Application extends ChangeNotifier {
     required String controlNumber,
     required String password,
   }) async {
-    final Uri uri = Uri.https("api.movider.co", "/v1/sms", {});
+    final Uri uri = Uri.https(TwilioApi.BASE_URL, TwilioApi.message, {
+
+      },
+    );
 
     await http.post(uri, body: {
-      "api_key": ApiKey.smsApiKey,
-      "api_secret": ApiKey.smsSecretApiKey,
-      "to": phoneNumber.text,
-      "text":
+      // "to": phoneNumber.text,
+      "To": "+639684059727",
+      "From": "+12563054281",
+      "Body":
           "Your account is: Control number: $controlNumber and Password: $password",
-    }, headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Accept": "application/json",
-    }).then((http.Response response) {
+    }, headers: TwilioApi.headers,
+    ).then((http.Response response) {
+      debugPrint("Status Code: ${response.statusCode}");
       if (response.statusCode == 200 && response.body.isNotEmpty) {
         debugPrint(response.body);
       } else {

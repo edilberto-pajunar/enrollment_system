@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/networks/admin.dart';
-import 'package:web_school/networks/student.dart';
-import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 import 'package:web_school/views/widgets/forms/emergency.dart';
 import 'package:web_school/views/widgets/forms/family.dart';
 import 'package:web_school/views/widgets/forms/personal.dart';
@@ -60,7 +58,7 @@ class StudentWebProfileScreen extends StatelessWidget {
                 Visibility(
                   visible: adminDB.schoolInfoShow,
                   child: SchoolInfoForm(
-                    schoolInfo: applicationInfo!.schoolInfo,
+                    schoolInfo: applicationInfo.schoolInfo,
                     viewOnly: true,
                   ),
                 ),
