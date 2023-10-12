@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_school/models/application/student.dart';
+import 'package:web_school/models/application/application.dart';
 import 'package:web_school/networks/commons.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/values/strings/colors.dart';
@@ -11,11 +11,11 @@ import 'package:web_school/views/widgets/fields/password.dart';
 @RoutePage()
 class StudentWebChangePassScreen extends StatelessWidget {
   const StudentWebChangePassScreen({
-    required this.studentInfo,
+    required this.applicationInfo,
     super.key,
   });
 
-  final StudentInfo studentInfo;
+  final ApplicationInfo applicationInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class StudentWebChangePassScreen extends StatelessWidget {
                             //     .validate()) {
                             studentDB.changePassword(
                               context,
-                              currentPassword: studentInfo.password,
+                              currentPassword: applicationInfo.userModel.password,
                             );
                             // }
                           },

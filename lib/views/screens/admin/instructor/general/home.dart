@@ -118,7 +118,7 @@ class _AdminInstructorHomeScreenState extends State<AdminInstructorHomeScreen> {
                                 width: MediaQuery.of(context).size.width * 0.3,
                                 child: InkWell(
                                   onTap: () {
-                                    adminDB.updateInstructorId(e.id);
+                                    adminDB.updateInstructorId(e.userModel.id);
                                     context.pushRoute(
                                       AdminEditInstructorRoute(
                                         instructorData: e,

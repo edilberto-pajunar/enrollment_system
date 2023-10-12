@@ -24,7 +24,7 @@ class _StudentWebGradesScreenState extends State<StudentWebGradesScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final StudentDB studentDB =
           Provider.of<StudentDB>(context, listen: false);
-      studentDB.updateListSubjectStream();
+      studentDB.updateListSubjectStream(widget.applicationInfo.userModel);
     });
   }
 
@@ -32,126 +32,109 @@ class _StudentWebGradesScreenState extends State<StudentWebGradesScreen> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final StudentDB studentDB = Provider.of<StudentDB>(context);
-    
+
     return Scaffold(
       body: Form(
         child: widget.applicationInfo.studentInfo.enrolled
             ? StreamWrapper<List<Subject>>(
                 stream: studentDB.listSubjectStream,
                 child: (subjectList) {
-                  final personal = widget.applicationInfo.personalInfo;
-
                   return Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(
-                            "Welcome, ${personal.firstName} ${personal.lastName}",
-                            style: theme.textTheme.titleSmall,
-                          ),
-                          const SizedBox(height: 24.0),
                           Container(
                             padding: const EdgeInsets.all(12.0),
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.black,
-                              ),
                             ),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: widget.applicationInfo.schoolInfo
-                                          .gradeToEnroll.label!
-                                          .contains("7") ||
-                                      widget.applicationInfo.schoolInfo
-                                          .gradeToEnroll.label!
-                                          .contains("8") ||
-                                      widget.applicationInfo.schoolInfo
-                                          .gradeToEnroll.label!
-                                          .contains("9") ||
-                                      widget.applicationInfo.schoolInfo
-                                          .gradeToEnroll.label!
-                                          .contains("10")
-                                  ? DataTable(
-                                      columnSpacing: 20,
-                                      columns: const [
-                                        DataColumn(
-                                          label: SizedBox(
-                                            width: 80,
-                                            child: Text("Name"),
-                                          ),
+                            child: widget.applicationInfo.schoolInfo
+                                        .gradeToEnroll.label!
+                                        .contains("7") ||
+                                    widget.applicationInfo.schoolInfo
+                                        .gradeToEnroll.label!
+                                        .contains("8") ||
+                                    widget.applicationInfo.schoolInfo
+                                        .gradeToEnroll.label!
+                                        .contains("9") ||
+                                    widget.applicationInfo.schoolInfo
+                                        .gradeToEnroll.label!
+                                        .contains("10")
+                                ? DataTable(
+                                    columnSpacing: 20,
+                                    columns: const [
+                                      DataColumn(
+                                        label: SizedBox(
+                                          width: 80,
+                                          child: Text("Name"),
                                         ),
-                                        DataColumn(
-                                          label: Text("First"),
-                                        ),
-                                        DataColumn(
-                                          label: Text("Second"),
-                                        ),
-                                        DataColumn(
-                                          label: Text("Third"),
-                                        ),
-                                        DataColumn(
-                                          label: Text("Fourth"),
-                                        ),
-                                      ],
-                                      rows: subjectList!.map((Subject data) {
-                                        return DataRow(
-                                          cells: [
-                                            DataCell(
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: SizedBox(
-                                                    width: 100,
-                                                    child: Text(data.name)),
-                                              ),
+                                      ),
+                                      DataColumn(
+                                        label: Text("First"),
+                                      ),
+                                      DataColumn(
+                                        label: Text("Second"),
+                                      ),
+                                      DataColumn(
+                                        label: Text("Third"),
+                                      ),
+                                      DataColumn(
+                                        label: Text("Fourth"),
+                                      ),
+                                    ],
+                                    rows: subjectList!.map((Subject data) {
+                                      return DataRow(
+                                        cells: [
+                                          DataCell(
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: SizedBox(
+                                                  width: 100,
+                                                  child: Text(data.name)),
                                             ),
-                                            ...data.grades.map((e) {
-                                              return DataCell(
-                                                Center(
-                                                  child: Text("${e.grade}"),
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ],
-                                        );
-                                      }).toList(),
-                                    )
-                                  : DataTable(
-                                      columnSpacing: 20,
-                                      columns: const [
-                                        DataColumn(
-                                          label: SizedBox(
-                                            width: 80,
-                                            child: Text("Name"),
                                           ),
-                                        ),
-                                        DataColumn(
-                                          label: Text("Grade"),
-                                        ),
-                                      ],
-                                      rows: subjectList!.map((e) {
-                                        return DataRow(
-                                          cells: [
-                                            DataCell(
-                                              SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.5,
-                                                  child: Text(e.name)),
-                                            ),
-                                            DataCell(
+                                          ...data.grades.map((e) {
+                                            return DataCell(
                                               Center(
-                                                  child: Text(
-                                                      "${e.grades[0].grade}")),
-                                            ),
-                                          ],
-                                        );
-                                      }).toList(),
-                                    ),
-                            ),
+                                                child: Text("${e.grade}"),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ],
+                                      );
+                                    }).toList(),
+                                  )
+                                : DataTable(
+                                    columnSpacing: 20,
+                                    columns: const [
+                                      DataColumn(
+                                        label: SizedBox(
+                                          width: 80,
+                                          child: Text("Name"),
+                                        ),
+                                      ),
+                                      DataColumn(
+                                        label: Text("Grade"),
+                                      ),
+                                    ],
+                                    rows: subjectList!.map((e) {
+                                      return DataRow(
+                                        cells: [
+                                          DataCell(
+                                            SizedBox(
+                                                width: 100,
+                                                child: Text(e.name)),
+                                          ),
+                                          DataCell(
+                                            Center(
+                                                child: Text("${e.grades[0].grade}")),
+                                          ),
+                                        ],
+                                      );
+                                    }).toList(),
+                                  ),
                           ),
                         ],
                       ),

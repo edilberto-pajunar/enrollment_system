@@ -8,8 +8,8 @@ import 'package:web_school/views/widgets/buttons/secondary.dart';
 import 'package:web_school/views/widgets/fields/password.dart';
 
 @RoutePage()
-class ChangePasswordScreen extends StatelessWidget {
-  const ChangePasswordScreen({
+class StudentMobileChangePassScreen extends StatelessWidget {
+  const StudentMobileChangePassScreen({
     required this.currentPassword,
     super.key,
   });

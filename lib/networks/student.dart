@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/application/student.dart';
 import 'package:web_school/models/student/subject.dart';
+import 'package:web_school/models/user.dart';
 
 class StudentDB extends ChangeNotifier {
   final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -39,22 +40,24 @@ class StudentDB extends ChangeNotifier {
 
   Stream<ApplicationInfo>? studentStream;
 
-  Stream<ApplicationInfo> getStudent() {
+  Stream<ApplicationInfo> getStudent(UserModel userModel) {
     return db
         .collection("student")
-        .doc(firebaseAuth.currentUser!.uid)
+        .doc(userModel.id)
         .snapshots()
         .map(studentFromSnapshot);
   }
 
   ApplicationInfo studentFromSnapshot(DocumentSnapshot snapshot) {
+
     final data = snapshot.data() as Map<String, dynamic>;
+
 
     return ApplicationInfo.fromJson(data);
   }
 
-  void updateStudentStream() {
-    studentStream = getStudent();
+  void updateStudentStream(UserModel userModel) {
+    studentStream = getStudent(userModel);
     notifyListeners();
   }
 
@@ -121,10 +124,10 @@ class StudentDB extends ChangeNotifier {
   /// subject stream
   Stream<List<Subject>>? listSubjectStream;
 
-  Stream<List<Subject>> getListSubjectStream() {
+  Stream<List<Subject>> getListSubjectStream(UserModel userModel) {
     return db
         .collection("student")
-        .doc(firebaseAuth.currentUser!.uid)
+        .doc(userModel.id)
         .collection("subjects")
         .snapshots()
         .map(listSubjectSnapshot);
@@ -137,8 +140,8 @@ class StudentDB extends ChangeNotifier {
     }).toList();
   }
 
-  void updateListSubjectStream() {
-    listSubjectStream = getListSubjectStream();
+  void updateListSubjectStream(UserModel userModel) {
+    listSubjectStream = getListSubjectStream(userModel);
     notifyListeners();
   }
 
@@ -208,5 +211,12 @@ class StudentDB extends ChangeNotifier {
     debugPrint("Token: $token");
 
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+  }
+
+  int studentDrawerIndex = 1;
+
+  void updateStudentDrawerIndex(int value) {
+    studentDrawerIndex = value;
+    notifyListeners();
   }
 }

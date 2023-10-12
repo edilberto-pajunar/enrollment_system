@@ -275,7 +275,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 validator: Commons.forcedDropdownValidator,
               ),
         Text(
-          "INFORMATION ON SCHOOL LAffST ATTENDED",
+          "INFORMATION ON SCHOOL LAST ATTENDED",
           softWrap: true,
           style: theme.textTheme.bodyLarge!.copyWith(
             fontWeight: FontWeight.bold,

@@ -114,7 +114,7 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                                 width: 100,
                                 child: InkWell(
                                   onTap: () {
-                                    adminDB.updateStudentId(e.studentInfo.id);
+                                    adminDB.updateStudentId(e.userModel.id);
                                     context.pushRoute(AdminStudentProfileRoute(
                                       applicationInfo: e,
                                     ));
@@ -133,9 +133,9 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                                 onTap: () => toggleShowPass(),
                                 child: Text(
                                   showPass
-                                      ? e.studentInfo.password
+                                      ? e.userModel.password
                                           .replaceAll(RegExp(r"."), "*")
-                                      : e.studentInfo.password,
+                                      : e.userModel.password,
                                 ),
                               ),
                             ),
@@ -149,7 +149,7 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                               InkWell(
                                 borderRadius: BorderRadius.circular(24.0),
                                 onTap: () async {
-                                  adminDB.updateStudentId(e.studentInfo.id);
+                                  adminDB.updateStudentId(e.userModel.id);
                                   await adminDB.deleteStudent(context);
                                 },
                                 child: const Icon(Icons.close),

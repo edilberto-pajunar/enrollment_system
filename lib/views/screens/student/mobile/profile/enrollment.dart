@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_school/models/application/student.dart';
+import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/values/strings/colors.dart';
@@ -13,26 +13,26 @@ import 'package:web_school/views/widgets/buttons/primary.dart';
 @RoutePage()
 class StudentMobileEnrollmentScreen extends StatefulWidget {
   const StudentMobileEnrollmentScreen({
-    required this.studentInfo,
+    required this.applicationInfo,
     super.key,
   });
 
-  final StudentInfo studentInfo;
+  final ApplicationInfo applicationInfo;
 
   @override
   State<StudentMobileEnrollmentScreen> createState() =>
       _StudentMobileEnrollmentScreenState();
 }
 
-class _StudentMobileEnrollmentScreenState
-    extends State<StudentMobileEnrollmentScreen> {
+class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentScreen> {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final StudentDB studentDB =
-          Provider.of<StudentDB>(context, listen: false);
-      studentDB.updateListSubjectStream();
+      final StudentDB studentDB = Provider.of<StudentDB>(context, listen: false);
+      studentDB.updateListSubjectStream(widget.applicationInfo.userModel);
+
+      print("HI");
     });
   }
 
@@ -40,12 +40,11 @@ class _StudentMobileEnrollmentScreenState
   Widget build(BuildContext context) {
     final StudentDB studentDB = Provider.of<StudentDB>(context);
 
+    final studentInfo = widget.applicationInfo.studentInfo;
+
     final ThemeData theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Enrollment"),
-        ),
         body: StreamWrapper<List<Subject>>(
             stream: studentDB.listSubjectStream,
             child: (subjectList) {
@@ -73,11 +72,11 @@ class _StudentMobileEnrollmentScreenState
                             children: [
                               TextSpan(
                                 text: studentDB
-                                    .enrollmentStatus(widget.studentInfo),
+                                    .enrollmentStatus(studentInfo),
                                 style: theme.textTheme.bodyMedium!.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: studentDB
-                                          .enrollmentStatus(widget.studentInfo)
+                                          .enrollmentStatus(studentInfo)
                                           .contains("not")
                                       ? Colors.red
                                       : ColorTheme.primaryBlack,
@@ -88,7 +87,7 @@ class _StudentMobileEnrollmentScreenState
                         ),
                       ),
                       const SizedBox(height: 24.0),
-                      widget.studentInfo.enrolled
+                      studentInfo.enrolled
                           ? Container(
                               padding: const EdgeInsets.all(12.0),
                               decoration: BoxDecoration(

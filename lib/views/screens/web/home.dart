@@ -9,14 +9,14 @@ import 'package:web_school/values/strings/images.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ResponsiveWebScreen extends StatefulWidget {
+  const ResponsiveWebScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ResponsiveWebScreen> createState() => _ResponsiveWebScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ResponsiveWebScreenState extends State<ResponsiveWebScreen> {
   late VideoPlayerController _videoPlayerController;
 
   @override
@@ -35,13 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final Auth auth = Provider.of<Auth>(context);
     final ThemeData theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Stack(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: size.height,
+            width: size.width,
             child: VideoPlayer(_videoPlayerController),
           ),
           Center(
@@ -130,7 +131,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                     
                     ],
                   ),
                 ),

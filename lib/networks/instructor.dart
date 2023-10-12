@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/student/subject.dart';
+import 'package:web_school/models/user.dart';
 
 class InstructorDB extends ChangeNotifier {
   final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -20,10 +21,10 @@ class InstructorDB extends ChangeNotifier {
 
   Stream<Instructor>? instructorStream;
 
-  Stream<Instructor> getInstructor() {
+  Stream<Instructor> getInstructor(UserModel userModel) {
     return db
         .collection("instructor")
-        .doc(firebaseAuth.currentUser!.uid)
+        .doc(userModel.id)
         .snapshots()
         .map(instructorFromSnapshot);
   }
@@ -32,8 +33,8 @@ class InstructorDB extends ChangeNotifier {
     return Instructor.fromJson(snapshot.data() as Map<String, dynamic>);
   }
 
-  void updateInstructorStream() {
-    instructorStream = getInstructor();
+  void updateInstructorStream(UserModel userModel) {
+    instructorStream = getInstructor(userModel);
     notifyListeners();
   }
 
@@ -199,4 +200,30 @@ class InstructorDB extends ChangeNotifier {
         third.text.isNotEmpty &&
         fourth.text.isNotEmpty;
   }
+
+  int drawerIndex = 0;
+
+  void updateDrawerIndex(int value) {
+    drawerIndex = value;
+    notifyListeners();
+  }
+
+  Subject? instructorSubjectFilter;
+
+  void updateInstructorSubjectFilter(Subject? subject) {
+    instructorSubjectFilter = subject;
+    notifyListeners();
+  }
+  
+  // Stream<List<Subject>>? subjectStudentList;
+  //
+  // Stream<List<ApplicationInfo>> getListSubjectStudent(uid) {
+  //   db.collection("student")
+  //       .doc(uid)
+  //       .collection("subjects")
+  //       .snapshots()
+  //       .map(_snapshotsFromSubjectStudent);
+  // }
+
+
 }

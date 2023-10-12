@@ -1,100 +1,117 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_school/models/application/application.dart';
 import 'package:web_school/networks/auth.dart';
-import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/values/strings/images.dart';
-import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
-class StudentDrawer extends StatefulWidget {
+class StudentDrawer extends StatelessWidget {
   const StudentDrawer({super.key});
-
-  @override
-  State<StudentDrawer> createState() => _StudentDrawerState();
-}
-
-class _StudentDrawerState extends State<StudentDrawer> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final StudentDB studentDB =
-          Provider.of<StudentDB>(context, listen: false);
-      studentDB.updateStudentStream();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final Auth auth = Provider.of<Auth>(context);
     final StudentDB studentDB = Provider.of<StudentDB>(context);
+    final Auth auth = Provider.of<Auth>(context);
 
     return Drawer(
-      child: StreamWrapper<ApplicationInfo>(
-          stream: studentDB.studentStream,
-          child: (studentData) {
-            return Column(
-              children: [
-                DrawerHeader(
-                  child: Image.asset(
-                    PngImages.background,
-                    height: 100,
-                    width: 100,
-                  ),
-                ),
-                ListTile(
-                  onTap: () {
-                    context.pushRoute(ChangePasswordRoute(
-                      currentPassword: studentData!.studentInfo.password,
-                    ));
-                  },
-                  title: const Text("Change Password"),
-                ),
-                ListTile(
-                  onTap: () {
-                    context.pushRoute(
-                      StudentMobileEnrollmentRoute(
-                        studentInfo: studentData!.studentInfo,
-                      ),
-                    );
-                  },
-                  title: const Text("Enrollment"),
-                ),
-                // ListTile(
-                //   onTap: () {
-                //     // nav.pop(context);
-                //     // nav.pushNamed(context, name: PersonalGradesScreen.route);
-                //   },
-                //   title: const Text("Grades"),
-                // ),
-                ListTile(
-                  onTap: () {
-                    context.pushRoute(
-                      StudentMobileInfoRoute(
-                        applicationInfo: studentData!,
-                      ),
-                    );
-                  },
-                  title: const Text("Profile"),
-                ),
-                ListTile(
-                  onTap: () {
-                    auth.logout(context);
-                  },
-                  title: Text(
-                    "Logout",
-                    style: theme.textTheme.bodyLarge!.copyWith(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }),
+      width: 200,
+      child: Column(
+        children: [
+          DrawerHeader(
+            child: Image.asset(PngImages.background,
+              scale: 5,
+            ),
+          ),
+          Text("St. Jude Agro-Industrial Secondary School",
+            style: theme.textTheme.bodyMedium!.copyWith(
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24.0),
+          ListTile(
+            onTap: () {
+               studentDB.updateStudentDrawerIndex(0);
+               if (!kIsWeb) {
+                 context.popRoute();
+               }
+            },
+            title: Text("Profile",
+              style: theme.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+
+          ListTile(
+            onTap: () {
+              studentDB.updateStudentDrawerIndex(1);
+              if (!kIsWeb) {
+                context.popRoute();
+              }
+            },
+            title: Text("Grades",
+              style: theme.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+
+          ListTile(
+            onTap: () {
+              studentDB.updateStudentDrawerIndex(2);
+              if (!kIsWeb) {
+                context.popRoute();
+              }
+            },
+            title: Text("Admission Status",
+              style: theme.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+
+          ListTile(
+            onTap: () {
+              studentDB.updateStudentDrawerIndex(3);
+              if (!kIsWeb) {
+                context.popRoute();
+              }
+            },
+            title: Text("Schedule",
+              style: theme.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+
+          ListTile(
+            onTap: () {
+              studentDB.updateStudentDrawerIndex(4);
+              if (!kIsWeb) {
+                context.popRoute();
+              }
+            },
+            title: Text("Change Password",
+              style: theme.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+
+          ListTile(
+            onTap: () {
+              auth.logout(context);
+            },
+            title: Text("Logout",
+              style: theme.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

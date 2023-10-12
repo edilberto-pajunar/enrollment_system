@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_school/models/application/student.dart';
+import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/values/strings/colors.dart';
@@ -12,11 +12,11 @@ import 'package:web_school/views/widgets/buttons/primary.dart';
 @RoutePage()
 class StudentWebEnrollmentScreen extends StatefulWidget {
   const StudentWebEnrollmentScreen({
-    required this.studentInfo,
+    required this.applicationInfo,
     super.key,
   });
 
-  final StudentInfo studentInfo;
+  final ApplicationInfo applicationInfo;
 
   @override
   State<StudentWebEnrollmentScreen> createState() =>
@@ -29,9 +29,8 @@ class _StudentWebEnrollmentScreenState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final StudentDB studentDB =
-          Provider.of<StudentDB>(context, listen: false);
-      studentDB.updateListSubjectStream();
+      final StudentDB studentDB = Provider.of<StudentDB>(context, listen: false);
+      studentDB.updateListSubjectStream(widget.applicationInfo.userModel);
     });
   }
 
@@ -39,6 +38,9 @@ class _StudentWebEnrollmentScreenState
   Widget build(BuildContext context) {
     final StudentDB studentDB = Provider.of<StudentDB>(context);
     final ThemeData theme = Theme.of(context);
+
+    final studentInfo = widget.applicationInfo.studentInfo;
+
     return Scaffold(
       body: StreamWrapper<List<Subject>>(
           stream: studentDB.listSubjectStream,
@@ -67,11 +69,11 @@ class _StudentWebEnrollmentScreenState
                           children: [
                             TextSpan(
                               text: studentDB
-                                  .enrollmentStatus(widget.studentInfo),
+                                  .enrollmentStatus(studentInfo),
                               style: theme.textTheme.bodyMedium!.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: studentDB
-                                        .enrollmentStatus(widget.studentInfo)
+                                        .enrollmentStatus(studentInfo)
                                         .contains("not")
                                     ? Colors.red
                                     : ColorTheme.primaryBlack,
@@ -82,7 +84,7 @@ class _StudentWebEnrollmentScreenState
                       ),
                     ),
                     const SizedBox(height: 24.0),
-                    widget.studentInfo.enrolled
+                    studentInfo.enrolled
                         ? Container(
                             padding: const EdgeInsets.all(12.0),
                             decoration:

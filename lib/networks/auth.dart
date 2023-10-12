@@ -37,70 +37,124 @@ class Auth extends ChangeNotifier {
   UserModel? user;
 
   /// [loginAccount] will prompt the user to log in
-  Future<UserCredential?> loginAccount(
-      BuildContext context, List<String> uids) async {
+  Future<UserCredential?> loginAccount(BuildContext context) async {
     final ThemeData theme = Theme.of(context);
     showHUD(true);
-    try {
-      UserCredential userCredential = await auth
-          .signInWithEmailAndPassword(
-        email: "${controlNumber.text}@gmail.com",
-        password: password.text,
-      )
-          .then((UserCredential value) {
-        if (uids.contains(value.user!.uid)) {
-          // Update the user model
-          user = UserModel(
-            controlNumber: controlNumber.text,
-            type: author!,
-            id: value.user!.uid,
-          );
 
-          if (author == "instructor") {
-            context.pushRoute(const InstructorHomeRoute());
-          } else if (author == "student") {
-            context.pushRoute(const StudentLayoutBuilder());
-          } else if (author == "admin") {
-            context.pushRoute(const AdminHomeRoute());
+    db.collection("user").get().then((value) {
+      try {
+        final List<UserModel> userModels = value.docs.map((doc) {
+          final data = doc.data();
+
+          return UserModel.fromJson(data);
+        }).toList();
+
+        userModels.forEach((userModel) {
+
+          if (userModel.controlNumber == controlNumber.text && userModel.password == password.text) {
+            if (userModel.type == "instructor") {
+              user = userModel;
+              context.pushRoute(InstructorHomeRoute(
+                userModel: userModel
+              ));
+            } else if (userModel.type == "student") {
+              user = userModel;
+              context.pushRoute(StudentLayoutBuilder(
+                userModel: userModel,
+              ));
+            } else if (userModel.type == "admin") {
+              user = userModel;
+              context.pushRoute(AdminHomeRoute(
+                userModel: userModel
+              ));
+            }
           }
-          notifyListeners();
-        } else {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  content: Text(
-                    "Wrong control number/password.",
-                    style: theme.textTheme.bodyMedium!.copyWith(
-                      color: Colors.red,
-                    ),
-                  ),
-                );
-              });
-        }
-        return value;
-      });
 
-      showHUD(false);
-      return userCredential;
-    } catch (e) {
-      showHUD(false);
-      Future.delayed(Duration.zero, () {
+
+          notifyListeners();
+
+        });
+
+        showHUD(false);
+      } catch (e) {
+        showHUD(false);
+
+        print(e);
         showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                content: Text(
-                  "Wrong control number/password.",
-                  style: theme.textTheme.bodyMedium!.copyWith(
-                    color: Colors.red,
-                  ),
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(
+                "Wrong control number/password.",
+                style: theme.textTheme.bodyMedium!.copyWith(
+                  color: Colors.red,
                 ),
-              );
-            });
-      });
-      throw "Error: $e";
-    }
+              ),
+            );
+          });
+      }
+    });
+    return null;
+    // try {
+    //   UserCredential userCredential = await auth
+    //       .signInWithEmailAndPassword(
+    //     email: "${controlNumber.text}@gmail.com",
+    //     password: password.text,
+    //   )
+    //       .then((UserCredential value) {
+    //     if (uids.contains(value.user!.uid)) {
+    //       // Update the user model
+    //       // user = UserModel(
+    //       //   controlNumber: controlNumber.text,
+    //       //   type: author!,
+    //       //   id: value.user!.uid,
+    //       // );
+    //
+    //       if (author == "instructor") {
+    //         context.pushRoute(const InstructorHomeRoute());
+    //       } else if (author == "student") {
+    //         context.pushRoute(const StudentLayoutBuilder());
+    //       } else if (author == "admin") {
+    //         context.pushRoute(const AdminHomeRoute());
+    //       }
+    //       notifyListeners();
+    //     } else {
+    //       showDialog(
+    //           context: context,
+    //           builder: (context) {
+    //             return AlertDialog(
+    //               content: Text(
+    //                 "Wrong control number/password.",
+    //                 style: theme.textTheme.bodyMedium!.copyWith(
+    //                   color: Colors.red,
+    //                 ),
+    //               ),
+    //             );
+    //           });
+    //     }
+    //     return value;
+    //   });
+    //
+    //   showHUD(false);
+    //   return userCredential;
+    // } catch (e) {
+    //   showHUD(false);
+    //   Future.delayed(Duration.zero, () {
+    //     showDialog(
+    //         context: context,
+    //         builder: (context) {
+    //           return AlertDialog(
+    //             content: Text(
+    //               "Wrong control number/password.",
+    //               style: theme.textTheme.bodyMedium!.copyWith(
+    //                 color: Colors.red,
+    //               ),
+    //             ),
+    //           );
+    //         });
+    //   });
+    //   throw "Error: $e";
+    // }
   }
 
   /// [logOut] lets the user logout and clear the
@@ -108,6 +162,7 @@ class Auth extends ChangeNotifier {
   Future<void> logout(BuildContext context) async {
     await auth.signOut().then((value) {
       context.router.popUntilRoot();
+      // AutoRouter.of(context).replace(const ResponsiveBuilder());
       clearForm();
     });
   }

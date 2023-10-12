@@ -83,10 +83,9 @@ class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: adminDB.gradeList.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        childAspectRatio: 4.3,
+                        childAspectRatio: 2,
                       ),
                       itemBuilder: (context, index) {
                         return InkWell(
@@ -125,7 +124,7 @@ class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        childAspectRatio: 4.3,
+                        childAspectRatio: 2,
                       ),
                       itemBuilder: (context, index) {
                         return InkWell(
@@ -150,12 +149,113 @@ class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
                         );
                       },
                     ),
+                    const SizedBox(height: 24.0),
+                    Visibility(
+                      visible: adminDB.gradeInstructor?.id == 4 || adminDB.gradeInstructor?.id == 5,
+                      child: Column(
+                        children: [
+                          Text(
+                            "Please choose a strand for the instructor",
+                            style: theme.textTheme.bodyLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: adminDB.strandInstructorList.length,
+                            gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio: 2,
+                            ),
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  adminDB.updateStrandInstructorOption(
+                                      adminDB.strandInstructorList[index],
+                                  );
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.all(5.0),
+                                  decoration: BoxDecoration(
+                                      color: adminDB.strandInstructorOption ==
+                                          adminDB.strandInstructorList[index]
+                                          ? Colors.grey
+                                          : Colors.white,
+                                      border: Border.all(
+                                        color: Colors.black,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0)),
+                                  child: Center(
+                                    child: Text(adminDB.strandInstructorList[index].label ?? "",
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Visibility(
+                      visible: adminDB.gradeInstructor != null,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SizedBox(height: 24.0),
+                          Text(
+                            "Please choose a subject for the instructor",
+                            style: theme.textTheme.bodyLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: adminDB.getSubjectInstructor.length,
+                            gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio: 1,
+                            ),
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  adminDB.updateSubjectOption(
+                                    adminDB.getSubjectInstructor[index],
+                                  );
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(4.0),
+                                  margin: const EdgeInsets.all(5.0),
+                                  decoration: BoxDecoration(
+                                      color: adminDB.subjectOption.contains(adminDB.getSubjectInstructor[index])
+                                          ? Colors.grey
+                                          : Colors.white,
+                                      border: Border.all(
+                                        color: Colors.black,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0)),
+                                  child: Center(
+                                    child: Text(adminDB.getSubjectInstructor[index].name,
+                                      style: theme.textTheme.bodySmall,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+
                     const SizedBox(height: 50.0),
                     PrimaryButton(
                       onPressed: adminDB.validateAddInstructor
                           ? () {
-                              if (AdminDB.addInstructorFormKey.currentState!
-                                  .validate()) {
+                              if (AdminDB.addInstructorFormKey.currentState!.validate()) {
                                 adminDB.addInstructor(context);
                               }
                             }

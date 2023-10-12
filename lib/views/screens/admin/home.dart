@@ -6,6 +6,7 @@ import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
+import 'package:web_school/models/user.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
@@ -16,7 +17,12 @@ import 'package:web_school/views/widgets/tiles/grey.dart';
 
 @RoutePage()
 class AdminHomeScreen extends StatefulWidget {
-  const AdminHomeScreen({super.key});
+  const AdminHomeScreen({
+    required this.userModel,
+    super.key,
+  });
+
+  final UserModel userModel;
 
   @override
   State<AdminHomeScreen> createState() => _AdminHomeScreenState();
@@ -133,8 +139,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               Expanded(
                                 child: InkWell(
                                   onTap: () {
-                                    context
-                                        .pushRoute(const AdminStudentsRoute());
+                                    context.pushRoute(const AdminStudentsRoute());
                                   },
                                   child: GreyTile(
                                     backgroundColor: Colors.black,
@@ -173,8 +178,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               Expanded(
                                 child: InkWell(
                                   onTap: () {
-                                    context.pushRoute(
-                                        const AdminInstructorHomeRoute());
+                                    context.pushRoute(const AdminInstructorHomeRoute());
                                   },
                                   child: GreyTile(
                                     boxShadow: [

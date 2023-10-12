@@ -5,9 +5,11 @@ import 'package:web_school/models/application/personal.dart';
 import 'package:web_school/models/application/residence.dart';
 import 'package:web_school/models/application/school.dart';
 import 'package:web_school/models/application/student.dart';
+import 'package:web_school/models/user.dart';
 
 class ApplicationInfo {
   ApplicationInfo({
+    required this.userModel,
     required this.studentInfo,
     required this.schoolInfo,
     required this.personalInfo,
@@ -16,6 +18,7 @@ class ApplicationInfo {
     required this.familyInfo,
   });
 
+  final UserModel userModel;
   final StudentInfo studentInfo;
   final SchoolInfo schoolInfo;
   final PersonalInfo personalInfo;
@@ -25,6 +28,7 @@ class ApplicationInfo {
 
   factory ApplicationInfo.fromJson(Map<String, dynamic> json) {
     return ApplicationInfo(
+      userModel: UserModel.fromJson(json["userModel"]),
       studentInfo: StudentInfo.fromJson(json["studentInfo"]),
       schoolInfo: SchoolInfo.fromJson(json["schoolInfo"]),
       personalInfo: PersonalInfo.fromJson(json["personalInfo"]),
@@ -35,6 +39,7 @@ class ApplicationInfo {
   }
 
   Map<String, dynamic> toJson() => {
+        'userModel': userModel.toJson(),
         'studentInfo': studentInfo.toJson(),
         'schoolInfo': schoolInfo.toJson(),
         'personalInfo': personalInfo.toJson(),

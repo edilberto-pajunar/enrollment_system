@@ -24,8 +24,9 @@ class Subject {
         grades: List<Grade>.from(json["grades"].map((x) => Grade.fromMap(x))),
         units: json["units"],
         id: json["id"],
-        schedule: json["schedule"] == null ? [] : List<Schedule>.from(
-            json["schedule"].map((x) => Schedule.fromJson(x))),
+        schedule: json["schedule"] == null
+            ? []
+            : List<Schedule>.from(json["schedule"].map((x) => Schedule.fromJson(x))),
       );
 
   Map<String, dynamic> toMap() => {

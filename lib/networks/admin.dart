@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/option.dart';
 import 'package:web_school/models/student/subject.dart';
+import 'package:web_school/models/user.dart';
 import 'package:web_school/networks/commons.dart';
 import 'package:web_school/views/widgets/dialogs/custom.dart';
 
@@ -199,59 +201,117 @@ class AdminDB extends ChangeNotifier {
 
   void updateGradeInstructor(SelectionOption? value) {
     gradeInstructor = value;
+    subjectOption = [];
     notifyListeners();
   }
 
   Future<void> addInstructor(BuildContext context) async {
-    try {
-      firebaseAuth
-          .createUserWithEmailAndPassword(
-            email: "${username.text}@gmail.com",
-            password: "123456",
-          )
-          .then((value) => {
-                db.collection("instructor").doc(value.user!.uid).set(
-                      Instructor(
-                              username: username.text,
-                              id: value.user!.uid,
-                              firstName: firstName.text,
-                              lastName: lastName.text,
-                              section: instructorSection,
-                              grade: gradeInstructor)
-                          .toJson(),
-                    ),
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Added succesfully!"),
-                  ),
-                ),
-                clearInstructorForm(),
-                context.popRoute(),
-              });
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Error!"),
-        ),
+
+    final String id = Uuid().v1();
+
+     db.collection("instructor").get().then((value) {
+      final List<Instructor> instructor = (value.docs).map((doc) {
+        final data = doc.data();
+        return Instructor.fromJson(data);
+      }).toList();
+
+
+      final UserModel userModel = UserModel(
+        controlNumber: username.text.toLowerCase(),
+        type: "instructor",
+        id: id,
+        password: "123456",
       );
-    }
+      
+      if (instructor.isEmpty) {
+        final Instructor instructor = Instructor(
+          userModel: userModel,
+          username: username.text,
+          firstName: firstName.text,
+          lastName: lastName.text,
+          grade: gradeInstructor,
+          section: instructorSection,
+          strand: strandInstructorOption,
+          subject: subjectOption,
+        );
+        
+        db.collection("user").doc(id).set(instructor.userModel.toJson());
+
+        db.collection("instructor").doc(id).set(instructor.toJson()).then((value) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Added successfully!"),
+            ),
+          );
+          clearInstructorForm();
+          context.popRoute();
+        });
+      } else {
+        instructor.forEach((Instructor instructor) {
+          if (instructor.userModel.controlNumber != username.text) {
+
+            final Instructor instructor = Instructor(
+              userModel: userModel,
+              username: username.text,
+              firstName: firstName.text,
+              lastName: lastName.text,
+              grade: gradeInstructor,
+              section: instructorSection,
+              strand: strandInstructorOption,
+              subject: subjectOption,
+            );
+
+            db.collection("instructor").doc(id).set(instructor.toJson()).then((value) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Added successfully!"),
+                ),
+              );
+              clearInstructorForm();
+              context.popRoute();
+            });
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Current username is existing",),
+                backgroundColor: Colors.red,
+              ),
+            );
+            throw "Username already exists";
+          }
+        });
+      }
+    });
   }
 
-  Future<void> editInstructor(BuildContext context) async {
+  Future<void> editInstructor(BuildContext context, String id) async {
+
     try {
-      db.collection("instructor").doc(instructorId).set(
-          Instructor(
-                  username: username.text,
-                  id: instructorId!,
-                  firstName: firstName.text,
-                  lastName: lastName.text,
-                  section: instructorSection,
-                  grade: gradeInstructor)
-              .toJson(),
+
+      final UserModel userModel = UserModel(
+        controlNumber: username.text,
+        type: "instructor",
+        id: id,
+        password: "123456",
+      );
+
+      final Instructor instructor = Instructor(
+        userModel: userModel,
+        username: username.text,
+        firstName: firstName.text,
+        lastName: lastName.text,
+        grade: gradeInstructor,
+        section: instructorSection,
+        strand: strandInstructorOption,
+        subject: subjectOption,
+      );
+
+      db.collection("instructor").doc(instructorId)
+          .set(instructor.toJson(),
           SetOptions(merge: true));
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Save succesfully!"),
+          content: Text("Save successfully!"),
         ),
       );
       clearInstructorForm();
@@ -266,11 +326,19 @@ class AdminDB extends ChangeNotifier {
   }
 
   bool get validateAddInstructor {
-    return firstName.text.isNotEmpty &&
-        lastName.text.isNotEmpty &&
-        username.text.isNotEmpty &&
-        gradeInstructor != null &&
-        instructorSection != null;
+    if (firstName.text.isNotEmpty
+      && lastName.text.isNotEmpty
+      && username.text.isNotEmpty
+      && instructorSection != null
+    ) {
+      if (gradeInstructor?.id == 4 || gradeInstructor?.id == 5) {
+        return strandInstructorOption != null && subjectOption.isNotEmpty;
+      } else {
+        return subjectOption.isNotEmpty;
+      }
+    } else {
+      return false;
+    }
   }
 
   void clearInstructorForm() {
@@ -279,6 +347,8 @@ class AdminDB extends ChangeNotifier {
     username.clear();
     instructorSection = null;
     gradeInstructor = null;
+    strandInstructorOption = null;
+    subjectOption = [];
     notifyListeners();
   }
 
@@ -383,6 +453,48 @@ class AdminDB extends ChangeNotifier {
 
   void updateInstructorStream() {
     instructorStream = getInstructor();
+    notifyListeners();
+  }
+
+  List<SelectionOption> strandInstructorList = [
+    SelectionOption(id: 0, label: "STEM"),
+    SelectionOption(id: 1, label: "GAS"),
+    SelectionOption(id: 2, label: "HUMMS"),
+  ];
+
+  SelectionOption? strandInstructorOption;
+
+  void updateStrandInstructorOption(value) {
+    strandInstructorOption = value;
+    notifyListeners();
+  }
+
+
+  List<Subject> get getSubjectInstructor {
+    if (gradeInstructor?.id == 0
+        || gradeInstructor?.id == 1
+        || gradeInstructor?.id == 2
+        || gradeInstructor?.id == 3) {
+      return Commons.juniorSubject;
+    } else {
+      if (strandInstructorOption?.id == 0) {
+        return Commons.stemFirstSubjectList + Commons.stemSecondSubjectList;
+      } else if (strandInstructorOption?.id == 1) {
+        return Commons.gasFirstSubjectList + Commons.gasSecondSubjectList;
+      } else {
+        return Commons.hummsFirstSubjectList + Commons.hummsSecondSubjectList;
+      }
+    }
+  }
+
+  List<Subject> subjectOption = [];
+
+  void updateSubjectOption(Subject value) {
+    if (!subjectOption.contains(value)) {
+      subjectOption.add(value);
+    } else {
+      subjectOption.remove(value);
+    }
     notifyListeners();
   }
 }

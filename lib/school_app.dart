@@ -15,7 +15,6 @@ class SchoolApp extends StatelessWidget {
     return MaterialApp.router(
       theme: CustomTheme.themeData,
       routerConfig: appRouter.config(),
-      
     );
   }
 }

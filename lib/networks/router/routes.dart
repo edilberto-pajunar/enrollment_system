@@ -5,7 +5,7 @@ import 'package:web_school/networks/router/routes.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: HomeRoute.page, initial: true),
+        AutoRoute(page: ResponsiveBuilder.page, initial: true),
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: ContinueJuniorRoute.page),
         AutoRoute(page: IncomingJuniorFormRoute.page),
@@ -19,11 +19,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: AdminStudentProfileRoute.page),
         AutoRoute(page: StudentLayoutBuilder.page),
         AutoRoute(page: StudentMobileHomeRoute.page),
-        AutoRoute(page: ChangePasswordRoute.page),
+        AutoRoute(page: StudentMobileChangePassRoute.page),
         AutoRoute(page: StudentMobileInfoRoute.page),
         AutoRoute(page: StudentMobileEnrollmentRoute.page),
-        AutoRoute(page: StudentScheduleRoute.page),
-        AutoRoute(page: StudentWebHomeRoute.page, ),
+        AutoRoute(page: StudentMobileScheduleRoute.page),
         AutoRoute(page: AdminInstructorHomeRoute.page),
         AutoRoute(page: AdminAddInstructorRoute.page),
         AutoRoute(page: AdminInstructorSectionRoute.page),
@@ -34,5 +33,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: InstructorHomeRoute.page),
         AutoRoute(page: InstructorGradeRoute.page),
         AutoRoute(page: InstructorScheduleRoute.page),
+
+        AutoRoute(page: WebStudentHomeRoute.page),
       ];
 }

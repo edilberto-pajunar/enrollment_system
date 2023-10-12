@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/application/emergency.dart';
 import 'package:web_school/models/application/family.dart';
@@ -13,6 +13,7 @@ import 'package:web_school/models/application/school.dart';
 import 'package:web_school/models/application/student.dart';
 import 'package:web_school/models/option.dart';
 import 'package:web_school/models/student/subject.dart';
+import 'package:web_school/models/user.dart';
 import 'package:web_school/networks/commons.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_school/values/strings/api/twilio.dart';
@@ -676,45 +677,47 @@ class Application extends ChangeNotifier {
     bool isSenior = false,
   }) async {
     final ThemeData theme = Theme.of(context);
-    final FirebaseAuth auth = FirebaseAuth.instance;
     showHUD(true);
 
     try {
+
+      final String uid = Uuid().v1();
+
       final birth = DateFormat("MMyyyy").format(birthDay!).trim();
 
-      final String controlNumber =
-          "${getRandomLetter()}${getRandomNumber()}$birth";
+      final String controlNumber = "${getRandomLetter()}${getRandomNumber()}$birth";
+
       final String password = generateRandomPassword();
 
-      await auth
-          .createUserWithEmailAndPassword(
-        email: "$controlNumber@gmail.com".toLowerCase(),
+      final UserModel userModel = UserModel(
+        id: uid,
+        controlNumber: controlNumber,
         password: password,
-      )
-          .then((value) {
-        final StudentInfo studentInfo = StudentInfo(
-          name: controlNumber.toLowerCase(),
-          password: password,
-          id: value.user!.uid,
-          section: "",
-          enrolled: false,
-        );
+        type: "student",
+      );
 
-        final ApplicationInfo applicationInfo = ApplicationInfo(
-          studentInfo: studentInfo,
-          schoolInfo: getSchoolInfo,
-          personalInfo: getPersonalInfo,
-          emergencyInfo: getEmergencyInfo,
-          residenceInfo: getResidenceInfo,
-          familyInfo: getFamilyInfo,
-        );
+      final StudentInfo studentInfo = StudentInfo(
+        name: firstName.text + middleName.text + lastName.text,
+        section: "",
+        enrolled: false,
+      );
 
-        db
-            .collection("student")
-            .doc(value.user!.uid)
-            .set(applicationInfo.toJson());
+      final ApplicationInfo applicationInfo = ApplicationInfo(
+        userModel: userModel,
+        studentInfo: studentInfo,
+        schoolInfo: getSchoolInfo,
+        personalInfo: getPersonalInfo,
+        emergencyInfo: getEmergencyInfo,
+        residenceInfo: getResidenceInfo,
+        familyInfo: getFamilyInfo,
+      );
 
-        // send the account to the number
+      db.collection("user").doc(uid).set(userModel.toJson());
+
+      db.collection("student")
+          .doc(uid)
+          .set(applicationInfo.toJson()).then((value) {
+
         sendSMS(
           controlNumber: controlNumber,
           password: password,
@@ -722,7 +725,7 @@ class Application extends ChangeNotifier {
 
         final CollectionReference subjectsCollection = db
             .collection("student")
-            .doc(value.user!.uid)
+            .doc(uid)
             .collection("subjects");
 
         if (isJunior) {
@@ -779,6 +782,7 @@ class Application extends ChangeNotifier {
             }
           }
         }
+
       });
 
       // clearForm();
