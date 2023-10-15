@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/student.dart';
+import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
 class StudentMobileGradeScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: StreamWrapper<List<Subject>>(
+        child: widget.applicationInfo.studentInfo.enrolled ? StreamWrapper<List<Subject>>(
           stream: studentDB.listSubjectStream,
           child: (subjectList) {
             return Padding(
@@ -57,6 +58,7 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                       shrinkWrap: true,
                       itemCount: subjectList!.length,
                       itemBuilder: (context, index) {
+
                         return Column(
                           children: [
                             Container(
@@ -79,7 +81,7 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                                   ),
                                   IconButton(
                                     onPressed: () {},
-                                    icon: Icon(Icons.edit,
+                                    icon: Icon(Icons.grade,
                                     ),
                                   ),
                                 ],
@@ -99,7 +101,7 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                                   ),
                                 ),
                                 child: Column(
-                                  children: List.generate(subjectList[index].grades.length, (index) {
+                                  children: List.generate(subjectList[index].grades.length, (indexes) {
 
                                     final subjects = subjectList[index].grades;
 
@@ -108,13 +110,13 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                                       child: Row(
                                         children: [
                                           Expanded(
-                                            child: Text(subjects[index].title!,
+                                            child: Text(subjects[indexes].title!,
                                               style: theme.textTheme.bodyLarge!.copyWith(
                                                 fontWeight: FontWeight.w700,
                                               ),
                                             ),
                                           ),
-                                          Text("${subjects[index].grade!}"),
+                                          Text("${subjects[indexes].grade!}"),
 
                                         ],
                                       ),
@@ -133,7 +135,38 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
               ),
             );
           }
-        ),
+        ) : Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "You are currently not enrolled.",
+                    style: theme.textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 4.0),
+                  const Text(
+                    "Please enroll first to see your grades",
+                  ),
+                  const SizedBox(height: 24.0),
+                  // InkWell(
+                  //   onTap: () {
+                  //     //   context.pushRoute(StudentMobileEnrollmentRoute(
+                  //     //     applicationInfo: widget.applicationInfo,
+                  //     //   ));
+                  //     // },
+                  //     child: Text(
+                  //       "Click here to enroll ->",
+                  //       style: theme.textTheme.bodyMedium!.copyWith(
+                  //         color: ColorTheme.primaryRed,
+                  //         decoration: TextDecoration.underline,
+                  //       ),
+                  //     );
+                  //   }
+                  // ),
+                ],
+              ),
+            ),
       ),
     );
 

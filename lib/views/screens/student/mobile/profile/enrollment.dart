@@ -141,6 +141,7 @@ class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentS
                                       ),
                                     ],
                                     rows: subjectList!.map((Subject subject) {
+
                                       return DataRow(
                                         cells: [
                                           DataCell(
@@ -151,11 +152,11 @@ class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentS
                                               child: CustomCheckbox(
                                                 value: subject.enrolled,
                                                 onChanged: (value) {
-                                                  studentDB.updateSubjectId(
-                                                      subject.id.toString());
-                                                  studentDB.updateSubjectEnroll(
-                                                      isEnrolled:
-                                                          subject.enrolled);
+                                                    studentDB.updateSubjectId(subject.id.toString());
+                                                    studentDB.updateSubjectEnroll(
+                                                      isEnrolled: subject.enrolled,
+                                                      userModel: widget.applicationInfo.userModel
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -167,10 +168,9 @@ class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentS
                                   Padding(
                                     padding: const EdgeInsets.all(24.0),
                                     child: PrimaryButton(
-                                      isEnabled: studentDB
-                                          .validateEnrollment(subjectList),
+                                      isEnabled: studentDB.validateEnrollment(subjectList),
                                       onPressed: () {
-                                        studentDB.updateEnrollProfile(context);
+                                        studentDB.updateEnrollProfile(context, widget.applicationInfo.userModel);
                                       },
                                       label: "Enroll",
                                     ),

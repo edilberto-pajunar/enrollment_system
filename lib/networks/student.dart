@@ -162,10 +162,11 @@ class StudentDB extends ChangeNotifier {
 
   Future<void> updateSubjectEnroll({
     required bool isEnrolled,
+    required UserModel userModel,
   }) async {
     await db
         .collection("student")
-        .doc(firebaseAuth.currentUser!.uid)
+        .doc(userModel.id)
         .collection("subjects")
         .doc(subjectId)
         .update({
@@ -173,8 +174,8 @@ class StudentDB extends ChangeNotifier {
     });
   }
 
-  Future<void> updateEnrollProfile(BuildContext context) async {
-    await db.collection("student").doc(firebaseAuth.currentUser!.uid).set({
+  Future<void> updateEnrollProfile(BuildContext context, UserModel userModel) async {
+    await db.collection("student").doc(userModel.id).set({
       "studentInfo": {
         "enrolled": true,
       }

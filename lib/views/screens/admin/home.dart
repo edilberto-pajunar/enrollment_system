@@ -251,6 +251,48 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               ],
                             ),
                           ),
+                          const SizedBox(height: 24.0),
+                          InkWell(
+                            onTap: () {
+                              // context.pushRoute(const AdminInstructorHomeRoute());
+                            },
+                            child: GreyTile(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.4),
+                                  offset: const Offset(0, 4),
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                )
+                              ],
+                              backgroundColor: Colors.white,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text(
+                                    "Payment",
+                                    style: theme.textTheme.bodyLarge!.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Summary payment",
+                                    style: theme.textTheme.bodyMedium!.copyWith(),
+                                  ),
+                                  const SizedBox(height: 50.0),
+                                  LinearPercentIndicator(
+                                    percent: instructorList.length / 100,
+                                    barRadius: const Radius.circular(12),
+                                    lineHeight: 12,
+                                    progressColor: ColorTheme.primaryRed,
+                                    backgroundColor: ColorTheme
+                                        .primaryBlack
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
                         ],
                       ),
                     ),

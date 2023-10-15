@@ -68,13 +68,9 @@ class _StudentWebEnrollmentScreenState
                           ),
                           children: [
                             TextSpan(
-                              text: studentDB
-                                  .enrollmentStatus(studentInfo),
+                              text: studentDB.enrollmentStatus(studentInfo),
                               style: theme.textTheme.bodyMedium!.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: studentDB
-                                        .enrollmentStatus(studentInfo)
-                                        .contains("not")
+                                color: studentDB.enrollmentStatus(studentInfo).contains("not")
                                     ? Colors.red
                                     : ColorTheme.primaryBlack,
                               ),
@@ -148,11 +144,11 @@ class _StudentWebEnrollmentScreenState
                                             child: CustomCheckbox(
                                               value: subject.enrolled,
                                               onChanged: (value) {
-                                                studentDB.updateSubjectId(
-                                                    subject.id.toString());
+                                                studentDB.updateSubjectId(subject.id.toString());
                                                 studentDB.updateSubjectEnroll(
-                                                    isEnrolled:
-                                                        subject.enrolled);
+                                                  isEnrolled: subject.enrolled,
+                                                  userModel: widget.applicationInfo.userModel,
+                                                );
                                               },
                                             ),
                                           ),
@@ -164,10 +160,9 @@ class _StudentWebEnrollmentScreenState
                                 Padding(
                                   padding: const EdgeInsets.all(24.0),
                                   child: PrimaryButton(
-                                    isEnabled: studentDB
-                                        .validateEnrollment(subjectList),
+                                    isEnabled: studentDB.validateEnrollment(subjectList),
                                     onPressed: () {
-                                      studentDB.updateEnrollProfile(context);
+                                      studentDB.updateEnrollProfile(context, widget.applicationInfo.userModel);
                                     },
                                     label: "Enroll",
                                   ),

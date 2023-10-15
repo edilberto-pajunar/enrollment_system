@@ -47,6 +47,8 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
     final ThemeData theme = Theme.of(context);
     final StudentDB studentDB = Provider.of<StudentDB>(context);
 
+    double gwa = 0;
+
     void editGrade(Subject data) {
       instructorDB.initGradeText(
         firstGrade: data.grades[0].grade.toString(),
@@ -113,6 +115,7 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
                           context,
                           isJunior: widget.isJunior,
                           currentGradeList: data.grades,
+                          applicationInfo: widget.studentData,
                         );
                       },
                       label: "Submit",
@@ -161,6 +164,7 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
                           context,
                           isJunior: widget.isJunior,
                           currentGradeList: data.grades,
+                          applicationInfo: widget.studentData,
                         );
                       },
                       label: "Submit",
@@ -202,12 +206,18 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
                           itemCount: widget.instructor.subject!.length,
                           itemBuilder: (context, index) {
 
-                            final subjectFiltered = subjectList!.where((element) {
+                            final List<Subject> subjectFiltered = subjectList!.where((element) {
 
                               final List<Subject> instructorSubject = widget.instructor.subject!.map((e) => e).toList();
 
                               return instructorSubject.any((data) => data.id == element.id);
                             }).toList();
+
+                            for (var subject in subjectFiltered) {
+
+                              double totalGrade = subject.grades.fold(0, (sum, grade) => sum + grade.grade!.toInt());
+                              gwa = totalGrade / subject.grades.length;
+                            }
 
                             return Column(
                               children: [
@@ -227,10 +237,12 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
                                   child: Row(
                                     children: [
                                       Expanded(
-                                        child: Text("${subjectFiltered[index].name} - GWA: 90"),
+                                        child: Text("${subjectFiltered[index].name} - GWA: $gwa"),
                                       ),
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          editGrade(subjectFiltered[index]);
+                                        },
                                         icon: Icon(Icons.edit,
                                         ),
                                       ),
@@ -250,28 +262,32 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
                                         bottomRight: Radius.circular(12.0),
                                       ),
                                     ),
-                                    child: Column(
-                                      children: List.generate(subjectFiltered[index].grades.length, (indexes) {
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: List.generate(subjectFiltered[index].grades.length, (indexes) {
 
-                                        final subjects = subjectFiltered[index].grades;
+                                          final List<Grade> subjects = subjectFiltered[index].grades;
 
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(subjects[indexes].title!,
-                                                  style: theme.textTheme.bodyLarge!.copyWith(
-                                                    fontWeight: FontWeight.w700,
+                                          gwa = subjects.fold(0, (previousValue, element) => previousValue + element.grade!.toInt());
+
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(subjects[indexes].title!,
+                                                    style: theme.textTheme.bodyLarge!.copyWith(
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Text("${subjects[indexes].grade!}"),
+                                                Text("${subjects[indexes].grade!}"),
 
-                                            ],
-                                          ),
-                                        );
-                                      }),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      ),
                                     ),
                                     // child: Column(
                                     //   children: List.generate(subjectFiltered[index].grades.length, (index) {

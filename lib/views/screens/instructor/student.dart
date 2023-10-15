@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
+import 'package:web_school/networks/pdf.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 
 class InstructorStudentScreen extends StatelessWidget {
@@ -42,7 +44,38 @@ class InstructorStudentScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Please select a subject:"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Please select a subject:"),
+                        InkWell(
+                          onTap: () async {
+                            if (!kIsWeb) {
+                              final pdfFile = await PdfInvoiceApi.generate(
+                                  studentList, instructor);
+
+                              PdfApi.openFile(pdfFile);
+                            } else {
+                              await PdfApi.saveDocumentWeb(
+                                studentList: studentList,
+                                instructorData: instructor,
+                              );
+
+                              // final rawData = await pdfFile.readAsBytes();
+                              // final content = base64Encode(rawData);
+                              // AnchorElement(
+                              //     href:
+                              //         "data:application/octet-stream;charset=utf-16le;base64,$content")
+                              //   ..setAttribute("download", "file.txt")
+                              //   ..click();
+                            }
+                          },
+                          child: const Text(
+                            "Download all",
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 4.0),
                     // Wrap(
                     //   children: instructor.subject!.map((Subject subject) {

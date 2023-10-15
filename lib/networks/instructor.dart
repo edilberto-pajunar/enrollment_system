@@ -131,6 +131,7 @@ class InstructorDB extends ChangeNotifier {
     BuildContext context, {
     required bool isJunior,
     required List<Grade> currentGradeList,
+    required ApplicationInfo applicationInfo,
   }) async {
     final List<Grade> object = isJunior
         ? [
@@ -159,31 +160,37 @@ class InstructorDB extends ChangeNotifier {
           ];
 
     showHUD(true);
-    await db
-        .collection("student")
-        .doc(studentId)
-        .collection("subjects")
-        .doc(subjectId)
-        .update(
-      {
-        "grades": FieldValue.arrayRemove(
-            currentGradeList.map((e) => e.toMap()).toList()),
-      },
-    ).then((value) {
-      db
+    try {
+      await db
           .collection("student")
-          .doc(studentId)
+          .doc(applicationInfo.userModel.id)
           .collection("subjects")
           .doc(subjectId)
           .update(
         {
-          "grades":
-              FieldValue.arrayUnion(object.map((e) => e.toMap()).toList()),
+          "grades": FieldValue.arrayRemove(
+              currentGradeList.map((e) => e.toMap()).toList()),
         },
-      );
+      ).then((value) {
+        db
+            .collection("student")
+            .doc(applicationInfo.userModel.id)
+            .collection("subjects")
+            .doc(subjectId)
+            .update(
+          {
+            "grades":
+            FieldValue.arrayUnion(object.map((e) => e.toMap()).toList()),
+          },
+        );
+        showHUD(false);
+        context.popRoute();
+      });
+    } catch (e) {
       showHUD(false);
       context.popRoute();
-    });
+    }
+
   }
 
   void clearGradeForm() {
