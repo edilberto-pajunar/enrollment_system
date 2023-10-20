@@ -675,6 +675,7 @@ class Application extends ChangeNotifier {
     BuildContext context, {
     bool isJunior = false,
     bool isSenior = false,
+    bool isTransferee = false,
   }) async {
     final ThemeData theme = Theme.of(context);
     showHUD(true);
@@ -700,6 +701,7 @@ class Application extends ChangeNotifier {
         name: firstName.text + middleName.text + lastName.text,
         section: "",
         enrolled: false,
+        isTransferee: isTransferee,
       );
 
       final ApplicationInfo applicationInfo = ApplicationInfo(

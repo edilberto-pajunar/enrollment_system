@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:web_school/models/application/application.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';
 
@@ -11,6 +13,7 @@ class FormsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final ApplicationInfo applicationInfo = Provider.of<ApplicationInfo>(context);
 
     return SafeArea(
       child: Scaffold(

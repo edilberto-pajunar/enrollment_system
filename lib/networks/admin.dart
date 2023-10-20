@@ -97,6 +97,7 @@ class AdminDB extends ChangeNotifier {
           context.popRoute();
         });
       },
+      message: "Are you sure you want to delete?",
     );
   }
 
@@ -380,15 +381,19 @@ class AdminDB extends ChangeNotifier {
   }
 
   Future<void> deleteInstructor(BuildContext context) async {
-    CustomDialog().showAgree(context, onTap: () {
-      debugPrint("Deleting: $instructorId");
-      db.collection("instructor").doc(instructorId).delete().then((value) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Deleted successfully!"),
-        ));
-        context.popRoute();
-      });
-    });
+    CustomDialog().showAgree(context,
+        onTap: () {
+          debugPrint("Deleting: $instructorId");
+          db.collection("instructor").doc(instructorId).delete().then((value) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Deleted successfully!"),
+            ));
+            context.popRoute();
+          });
+        },
+      message: "Are you sure you want to delete?",
+    );
+
   }
 
   SelectionOption? generalYear;

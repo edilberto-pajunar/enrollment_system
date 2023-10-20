@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:web_school/views/screens/mobile/mobile.dart';
+import 'package:web_school/views/screens/mobile/home.dart';
 import 'package:web_school/views/screens/web/home.dart';
 
 @RoutePage()

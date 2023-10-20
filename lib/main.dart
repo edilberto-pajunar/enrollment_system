@@ -11,6 +11,7 @@ import 'package:web_school/networks/application.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/commons.dart';
 import 'package:web_school/networks/instructor.dart';
+import 'package:web_school/networks/payment.dart';
 import 'package:web_school/networks/router/routes.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/school_app.dart';
@@ -56,8 +57,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<Application>(create: (context) => Application()),
         ChangeNotifierProvider<Auth>(create: (context) => Auth()),
         ChangeNotifierProvider<Commons>(create: (context) => Commons()),
-        ChangeNotifierProvider<InstructorDB>(
-            create: (context) => InstructorDB()),
+        ChangeNotifierProvider<InstructorDB>(create: (context) => InstructorDB()),
+        ChangeNotifierProvider<PaymentDB>(create: (context) => PaymentDB()),
         ChangeNotifierProvider<StudentDB>(create: (context) => StudentDB()),
       ],
       child: SchoolApp(

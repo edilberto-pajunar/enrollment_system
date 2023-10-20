@@ -9,6 +9,7 @@ import 'package:web_school/values/strings/images.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 import 'package:web_school/views/widgets/buttons/checkbox.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';
+import 'package:web_school/views/widgets/dialogs/custom.dart';
 
 @RoutePage()
 class StudentMobileEnrollmentScreen extends StatefulWidget {
@@ -71,13 +72,10 @@ class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentS
                             ),
                             children: [
                               TextSpan(
-                                text: studentDB
-                                    .enrollmentStatus(studentInfo),
+                                text: studentDB.enrollmentStatus(studentInfo),
                                 style: theme.textTheme.bodyMedium!.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: studentDB
-                                          .enrollmentStatus(studentInfo)
-                                          .contains("not")
+                                  color: studentDB.enrollmentStatus(studentInfo).contains("not")
                                       ? Colors.red
                                       : ColorTheme.primaryBlack,
                                 ),
@@ -170,7 +168,7 @@ class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentS
                                     child: PrimaryButton(
                                       isEnabled: studentDB.validateEnrollment(subjectList),
                                       onPressed: () {
-                                        studentDB.updateEnrollProfile(context, widget.applicationInfo.userModel);
+                                        studentDB.updateEnrollProfile(context, widget.applicationInfo);
                                       },
                                       label: "Enroll",
                                     ),

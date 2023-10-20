@@ -12,7 +12,6 @@ import 'package:web_school/views/widgets/forms/school.dart';
 
 @RoutePage()
 class TransfereeJuniorScreen extends StatelessWidget {
-  static String route = "/transfreeJunior";
   const TransfereeJuniorScreen({super.key});
 
   @override
@@ -58,12 +57,10 @@ class TransfereeJuniorScreen extends StatelessWidget {
                     PrimaryButton(
                       onPressed: () async {
                         if (Application.formKey.currentState!.validate()) {
-                          await application
-                              .submitApplicationForm(
-                            context,
+                          await application.submitApplicationForm(context,
                             isJunior: true,
-                          )
-                              .then((value) {
+                            isTransferee: true,
+                          ).then((value) {
                             context.popRoute();
                             showDialog(
                                 context: context,

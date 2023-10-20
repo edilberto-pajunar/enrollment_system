@@ -60,10 +60,9 @@ class OtherSchoolScreen extends StatelessWidget {
                     PrimaryButton(
                       onPressed: () async {
                         if (Application.formKey.currentState!.validate()) {
-                          await application
-                              .submitApplicationForm(
-                            context,
+                          await application.submitApplicationForm(context,
                             isSenior: true,
+                            isTransferee: true,
                           )
                               .then((value) {
                             context.popRoute();

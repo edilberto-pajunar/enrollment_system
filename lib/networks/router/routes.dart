@@ -30,6 +30,8 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: AdminInstructorStudentListRoute.page),
         AutoRoute(page: AdminEditInstructorRoute.page),
         AutoRoute(page: AdminScheduleStudentRoute.page),
+        AutoRoute(page: SummaryPaymentRoute.page),
+        AutoRoute(page: PaymentUpdateRoute.page),
         AutoRoute(page: InstructorHomeRoute.page),
         AutoRoute(page: InstructorGradeRoute.page),
         AutoRoute(page: InstructorScheduleRoute.page),

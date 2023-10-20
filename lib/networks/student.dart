@@ -7,10 +7,12 @@ import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/application/student.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/models/user.dart';
+import 'package:web_school/views/widgets/dialogs/custom.dart';
 
 class StudentDB extends ChangeNotifier {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final CustomDialog customDialog = CustomDialog();
 
   bool isLoading = false;
 
@@ -174,24 +176,25 @@ class StudentDB extends ChangeNotifier {
     });
   }
 
-  Future<void> updateEnrollProfile(BuildContext context, UserModel userModel) async {
-    await db.collection("student").doc(userModel.id).set({
-      "studentInfo": {
-        "enrolled": true,
-      }
-    }, SetOptions(merge: true)).then((value) {
-      context.popRoute();
-      showDialog(
-          context: context,
-          builder: (context) {
-            return const AlertDialog(
-              content: Text(
-                "Congratulations! You are now enrolled!",
-                textAlign: TextAlign.center,
-              ),
-            );
-          });
-    });
+  Future<void> updateEnrollProfile(BuildContext context, ApplicationInfo applicationInfo) async {
+    customDialog.showPayment(context, applicationInfo);
+    // await db.collection("student").doc(userModel.id).set({
+    //   "studentInfo": {
+    //     "enrolled": true,
+    //   }
+    // }, SetOptions(merge: true)).then((value) {
+    //   context.popRoute();
+    //   showDialog(
+    //       context: context,
+    //       builder: (context) {
+    //         return const AlertDialog(
+    //           content: Text(
+    //             "Congratulations! You are now enrolled!",
+    //             textAlign: TextAlign.center,
+    //           ),
+    //         );
+    //       });
+    // });
     notifyListeners();
   }
 

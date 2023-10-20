@@ -79,10 +79,8 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                           ),
                           DataColumn(
                               label: SizedBox(
-                            width: 100,
-                            child: Text(
-                              "Control Number",
-                              softWrap: true,
+                                width: 100,
+                                child: Text("Control Number", softWrap: true,
                             ),
                           )),
                           DataColumn(
@@ -120,7 +118,7 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                                     ));
                                   },
                                   child: Text(
-                                    e.studentInfo.name,
+                                    e.userModel.controlNumber,
                                     style: theme.textTheme.bodyMedium!.copyWith(
                                       color: Colors.blue,
                                     ),

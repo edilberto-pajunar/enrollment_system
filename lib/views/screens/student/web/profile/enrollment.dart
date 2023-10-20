@@ -162,7 +162,7 @@ class _StudentWebEnrollmentScreenState
                                   child: PrimaryButton(
                                     isEnabled: studentDB.validateEnrollment(subjectList),
                                     onPressed: () {
-                                      studentDB.updateEnrollProfile(context, widget.applicationInfo.userModel);
+                                      studentDB.updateEnrollProfile(context, widget.applicationInfo);
                                     },
                                     label: "Enroll",
                                   ),
