@@ -6,6 +6,7 @@ import 'package:web_school/views/screens/web/student/home.dart';
 
 @RoutePage()
 class StudentLayoutBuilder extends StatelessWidget {
+  static String route = "/studentLayoutBuilder";
   const StudentLayoutBuilder({
     required this.userModel,
     super.key,

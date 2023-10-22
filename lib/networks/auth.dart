@@ -1,9 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:web_school/models/user.dart';
-import 'package:web_school/networks/router/routes.gr.dart';
+import 'package:web_school/views/screens/admin/home.dart';
+import 'package:web_school/views/screens/responsive/layout.dart';
+import 'package:web_school/views/screens/responsive/student.dart';
 
 class Auth extends ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -54,19 +56,19 @@ class Auth extends ChangeNotifier {
           if (userModel.controlNumber == controlNumber.text && userModel.password == password.text) {
             if (userModel.type == "instructor") {
               user = userModel;
-              context.pushRoute(InstructorHomeRoute(
-                userModel: userModel
-              ));
+              // context.pushRoute(InstructorHomeRoute(
+              //   userModel: userModel
+              // ));
             } else if (userModel.type == "student") {
               user = userModel;
-              context.pushRoute(StudentLayoutBuilder(
-                userModel: userModel,
-              ));
+              context.go(StudentLayoutBuilder.route,
+                extra: userModel,
+              );
             } else if (userModel.type == "admin") {
               user = userModel;
-              context.pushRoute(AdminHomeRoute(
-                userModel: userModel
-              ));
+              context.go(AdminHomeScreen.route,
+                extra: userModel,
+              );
             }
           }
 
@@ -161,7 +163,8 @@ class Auth extends ChangeNotifier {
   /// credentials
   Future<void> logout(BuildContext context) async {
     await auth.signOut().then((value) {
-      context.router.popUntilRoot();
+      context.go(ResponsiveBuilder.route);
+      // context.router.popUntilRoot();
       // AutoRouter.of(context).replace(const ResponsiveBuilder());
       clearForm();
     });

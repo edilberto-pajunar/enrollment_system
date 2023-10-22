@@ -5,6 +5,7 @@ import 'package:web_school/views/screens/web/home.dart';
 
 @RoutePage()
 class ResponsiveBuilder extends StatelessWidget {
+  static String route = "/";
   const ResponsiveBuilder({super.key});
 
   @override

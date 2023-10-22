@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_school/networks/router/go_route.dart';
 import 'package:web_school/networks/router/routes.dart';
 import 'package:web_school/values/theme.dart';
 
@@ -12,9 +13,12 @@ class SchoolApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final _route = CustomRouter();
+
     return MaterialApp.router(
       theme: CustomTheme.themeData,
-      routerConfig: appRouter.config(),
+      routerConfig: _route.router,
     );
   }
 }

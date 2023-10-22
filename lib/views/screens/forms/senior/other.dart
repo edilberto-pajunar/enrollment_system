@@ -12,7 +12,7 @@ import 'package:web_school/views/widgets/forms/school.dart';
 
 @RoutePage()
 class OtherSchoolScreen extends StatelessWidget {
-  static String route = "otherSchool";
+  static String route = "/otherSchool";
   const OtherSchoolScreen({super.key});
 
   @override

@@ -10,6 +10,7 @@ import 'package:web_school/views/widgets/fields/primary.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {
+  static String route = "/login";
   const LoginScreen({
     super.key,
   });

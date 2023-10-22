@@ -12,6 +12,7 @@ import 'package:web_school/views/widgets/forms/school.dart';
 
 @RoutePage()
 class TransfereeJuniorScreen extends StatelessWidget {
+  static String route = "/transfereeJunior";
   const TransfereeJuniorScreen({super.key});
 
   @override

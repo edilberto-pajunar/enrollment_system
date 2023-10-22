@@ -1,13 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/networks/auth.dart';
-import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/values/strings/images.dart';
+import 'package:web_school/views/screens/auth/login.dart';
+import 'package:web_school/views/screens/forms/form.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';
 
-@RoutePage()
 class ResponsiveMobileScreen extends StatefulWidget {
   const ResponsiveMobileScreen({super.key});
 
@@ -60,7 +60,7 @@ class _ResponsiveMobileScreenState extends State<ResponsiveMobileScreen> {
                       label: "Instructor",
                       onPressed: () {
                         auth.updateAuthor("instructor");
-                        context.pushRoute(const LoginRoute());
+                        context.go(LoginScreen.route);
                       },
                     ),
                     const SizedBox(height: 12.0),
@@ -68,7 +68,7 @@ class _ResponsiveMobileScreenState extends State<ResponsiveMobileScreen> {
                       label: "Student",
                       onPressed: () {
                         auth.updateAuthor("student");
-                        context.pushRoute(const LoginRoute());
+                        context.go(LoginScreen.route);
                       },
                     ),
                     const SizedBox(height: 12.0),
@@ -76,7 +76,7 @@ class _ResponsiveMobileScreenState extends State<ResponsiveMobileScreen> {
                       label: "Admin",
                       onPressed: () {
                         auth.updateAuthor("admin");
-                        context.pushRoute(const LoginRoute());
+                        context.go(LoginScreen.route);
                       },
                     ),
                     const SizedBox(height: 24.0),
@@ -90,8 +90,7 @@ class _ResponsiveMobileScreenState extends State<ResponsiveMobileScreen> {
                             const Text(
                                 "Let us help you make your document."),
                             GestureDetector(
-                              onTap: () =>
-                                  context.pushRoute(const FormsRoute()),
+                              onTap: () => context.go(FormsScreen.route),
                               child: Text(
                                 "Click here to start.",
                                 style: TextStyle(

@@ -19,6 +19,7 @@ import 'package:web_school/views/widgets/tiles/grey.dart';
 
 @RoutePage()
 class AdminHomeScreen extends StatefulWidget {
+  static String route = "/adminHome";
   const AdminHomeScreen({
     required this.userModel,
     super.key,
