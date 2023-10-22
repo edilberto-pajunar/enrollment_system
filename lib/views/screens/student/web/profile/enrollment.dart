@@ -6,7 +6,6 @@ import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
-import 'package:web_school/views/widgets/buttons/checkbox.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';
 
 @RoutePage()
@@ -139,20 +138,20 @@ class _StudentWebEnrollmentScreenState
                                         DataCell(
                                           Text(subject.name),
                                         ),
-                                        DataCell(
-                                          Center(
-                                            child: CustomCheckbox(
-                                              value: subject.enrolled,
-                                              onChanged: (value) {
-                                                studentDB.updateSubjectId(subject.id.toString());
-                                                studentDB.updateSubjectEnroll(
-                                                  isEnrolled: subject.enrolled,
-                                                  userModel: widget.applicationInfo.userModel,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
+                                        // DataCell(
+                                        //   Center(
+                                        //     child: CustomCheckbox(
+                                        //       value: subject.enrolled,
+                                        //       onChanged: (value) {
+                                        //         studentDB.updateSubjectId(subject.id.toString());
+                                        //         studentDB.updateSubjectEnroll(
+                                        //           isEnrolled: subject.enrolled,
+                                        //           userModel: widget.applicationInfo.userModel,
+                                        //         );
+                                        //       },
+                                        //     ),
+                                        //   ),
+                                        // ),
                                       ],
                                     );
                                   }).toList(),

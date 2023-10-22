@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,8 +7,6 @@ import 'package:web_school/networks/payment.dart';
 import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/values/strings/constant/payment_status.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
-import 'package:web_school/views/widgets/buttons/primary.dart';
-import 'package:web_school/views/widgets/dialogs/custom.dart';
 
 @RoutePage()
 class PaymentUpdateScreen extends StatefulWidget {
@@ -42,7 +39,6 @@ class _PaymentUpdateScreenState extends State<PaymentUpdateScreen> {
 
     final PaymentDB paymentDB = Provider.of<PaymentDB>(context);
     final ThemeData theme = Theme.of(context);
-    final CustomDialog customDialog = CustomDialog();
 
 
     return Scaffold(

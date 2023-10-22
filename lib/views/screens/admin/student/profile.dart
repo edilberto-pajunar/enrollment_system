@@ -23,8 +23,7 @@ class AdminStudentProfileScreen extends StatefulWidget {
   final ApplicationInfo applicationInfo;
 
   @override
-  State<AdminStudentProfileScreen> createState() =>
-      _AdminStudentProfileScreenState();
+  State<AdminStudentProfileScreen> createState() => _AdminStudentProfileScreenState();
 }
 
 class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
@@ -54,6 +53,7 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
               return StreamWrapper<List<Subject>>(
                   stream: adminDB.listSubjectStream,
                   child: (subjectList) {
+
                     return Padding(
                       padding: const EdgeInsets.all(24.0),
                       child: SingleChildScrollView(
@@ -61,11 +61,12 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            Text(applicationInfo!.studentInfo.name),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TextButton(
-                                  onPressed: applicationInfo!
+                                  onPressed: applicationInfo
                                           .studentInfo.section.isEmpty
                                       ? null
                                       : () {

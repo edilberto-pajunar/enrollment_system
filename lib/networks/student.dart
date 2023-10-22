@@ -178,28 +178,12 @@ class StudentDB extends ChangeNotifier {
 
   Future<void> updateEnrollProfile(BuildContext context, ApplicationInfo applicationInfo) async {
     customDialog.showPayment(context, applicationInfo);
-    // await db.collection("student").doc(userModel.id).set({
-    //   "studentInfo": {
-    //     "enrolled": true,
-    //   }
-    // }, SetOptions(merge: true)).then((value) {
-    //   context.popRoute();
-    //   showDialog(
-    //       context: context,
-    //       builder: (context) {
-    //         return const AlertDialog(
-    //           content: Text(
-    //             "Congratulations! You are now enrolled!",
-    //             textAlign: TextAlign.center,
-    //           ),
-    //         );
-    //       });
-    // });
+
     notifyListeners();
   }
 
   bool validateEnrollment(List<Subject> subjectList) {
-    return subjectList.every((element) => element.enrolled);
+    return subjectEnrollList.length == subjectList.length;
   }
 
   Future<void> handleBackgroundMessage(RemoteMessage message) async {
@@ -221,6 +205,17 @@ class StudentDB extends ChangeNotifier {
 
   void updateStudentDrawerIndex(int value) {
     studentDrawerIndex = value;
+    notifyListeners();
+  }
+
+  List<Subject> subjectEnrollList = [];
+
+  void updateSubjectEnrollList(Subject value) {
+    if (!subjectEnrollList.contains(value)) {
+      subjectEnrollList.add(value);
+    } else {
+      subjectEnrollList.remove(value);
+    }
     notifyListeners();
   }
 }

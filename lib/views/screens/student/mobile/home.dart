@@ -5,6 +5,7 @@ import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/user.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/views/screens/student/mobile/grades/grades.dart';
+import 'package:web_school/views/screens/student/mobile/payment/home.dart';
 import 'package:web_school/views/screens/student/mobile/profile/change_pass.dart';
 import 'package:web_school/views/screens/student/mobile/profile/enrollment.dart';
 import 'package:web_school/views/screens/student/mobile/profile/profile.dart';
@@ -56,6 +57,7 @@ class _StudentMobileHomeScreenState extends State<StudentMobileHomeScreen> {
               StudentMobileGradeScreen(applicationInfo: applicationInfo),
               StudentMobileEnrollmentScreen(applicationInfo: applicationInfo),
               StudentMobileScheduleScreen(applicationInfo: applicationInfo,),
+              StudentPaymentHomeScreen(applicationInfo: applicationInfo),
               StudentMobileChangePassScreen(currentPassword: applicationInfo.userModel.password),
             ];
 

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider_android/path_provider_android.dart';
 import 'package:provider/provider.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'package:web_school/firebase_options.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/application.dart';
@@ -40,6 +41,10 @@ void main() async {
 
     await StudentDB().initNotifications();
   }
+
+  setPathUrlStrategy();
+
+
 
   runApp(MyApp());
 }

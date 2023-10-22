@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +40,7 @@ class CustomDialog {
 
     final GlobalKey<FormState> formKey = GlobalKey();
     final PaymentDB paymentDB = Provider.of<PaymentDB>(context, listen: false);
+    final FirebaseFirestore db = FirebaseFirestore.instance;
 
     final ThemeData theme = Theme.of(context);
     showDialog(
@@ -104,9 +106,14 @@ class CustomDialog {
                     ),
                     const SizedBox(height: 24.0),
                     PrimaryButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (formKey.currentState!.validate()) {
                           paymentDB.updateStudentPayment(context, applicationInfo.userModel.id);
+                          await db.collection("student").doc(applicationInfo.userModel.id).set({
+                            "studentInfo": {
+                              "enrolled": true,
+                            }
+                          }, SetOptions(merge: true));
                         }
                       },
                       label: "Submit",

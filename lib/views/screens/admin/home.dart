@@ -14,7 +14,6 @@ import 'package:web_school/networks/payment.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/values/strings/colors.dart';
-import 'package:web_school/views/screens/admin/payment/summary.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 import 'package:web_school/views/widgets/tiles/grey.dart';
 

@@ -1,9 +1,10 @@
 
+import 'package:equatable/equatable.dart';
 import 'package:web_school/models/student/schedule.dart';
 
-class Subject {
+class Subject extends Equatable {
   final String name;
-  final bool enrolled;
+  final bool? enrolled;
   final List<Grade> grades;
   final int? units;
   final int id;
@@ -11,7 +12,7 @@ class Subject {
 
   Subject({
     required this.name,
-    required this.enrolled,
+    this.enrolled,
     required this.grades,
     required this.units,
     required this.id,
@@ -37,6 +38,9 @@ class Subject {
         "id": id,
         "schedule": schedule == null ? [] : List<dynamic>.from(schedule!.map((e) => e.toJson())),
       };
+
+  @override
+  List<Object?> get props => [id];
 }
 
 class Grade {

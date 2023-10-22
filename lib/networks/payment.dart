@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/payment.dart';
@@ -95,5 +94,23 @@ class PaymentDB extends ChangeNotifier {
 
     referenceText.clear();
     amountText.clear();
+  }
+
+  Stream<PaymentModel>? studentPaymentStream;
+
+  Stream<PaymentModel> getStudentPaymentStream(String id) {
+    return db.collection("payment").doc(id).snapshots().map(_studentPaymentFromSnapshots);
+  }
+
+  PaymentModel _studentPaymentFromSnapshots(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return PaymentModel.fromJson(data);
+  }
+
+  void updateStudentPaymentStream({
+    required String id,
+  }) {
+    studentPaymentStream = getStudentPaymentStream(id);
+    notifyListeners();
   }
 }

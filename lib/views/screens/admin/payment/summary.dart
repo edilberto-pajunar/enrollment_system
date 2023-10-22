@@ -5,7 +5,6 @@ import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/payment.dart';
 import 'package:web_school/networks/payment.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
-import 'package:web_school/values/strings/constant/payment_status.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
 @RoutePage()

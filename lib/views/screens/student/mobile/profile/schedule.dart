@@ -84,34 +84,30 @@ class _StudentMobileScheduleScreenState extends State<StudentMobileScheduleScree
                               ),
                             ),
                             DataCell(
-                              Padding(
+                              subject.schedule!.isNotEmpty ? Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 2.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children:
-                                  subject.schedule!.map((Schedule? schedule) {
-                                    final DateTime date =
-                                    schedule!.getNextDayTime(schedule);
-                                    final String startDate =
-                                    DateFormat("EEEE, h:mma").format(date);
-                                    final String endDate =
-                                    DateFormat("h:mma").format(date.add(
-                                      Duration(hours: 1),
-                                    ));
-                                    print(date);
+                                  children: subject.schedule!.map((Schedule? schedule) {
+
+                                    final DateTime date = schedule!.getNextDayTime(schedule);
+                                    final String startDate = DateFormat("EEEE, h:mma").format(date);
+                                    final String endDate = DateFormat("h:mma").format(date.add(Duration(hours: 1),));
+
                                     return Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            vertical: 1.0),
+                                          vertical: 1.0,
+                                        ),
                                         child: Text(
-                                          "$startDate/$endDate",
+                                          true ? "N/A" : "$startDate/$endDate",
                                           style: theme.textTheme.bodySmall,
                                         ),
                                       ),
                                     );
                                   }).toList(),
                                 ),
-                              ),
+                              ) : Text("N/A")
                             ),
                           ]);
                         }).toList(),

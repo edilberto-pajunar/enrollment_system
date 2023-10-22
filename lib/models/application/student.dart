@@ -4,6 +4,7 @@ class StudentInfo {
   final String section;
   final bool enrolled;
   final bool isTransferee;
+  final double balance;
 
   StudentInfo({
 
@@ -11,6 +12,7 @@ class StudentInfo {
     required this.section,
     required this.enrolled,
     required this.isTransferee,
+    required this.balance,
   });
 
   factory StudentInfo.fromJson(Map<String, dynamic> json) => StudentInfo(
@@ -18,6 +20,7 @@ class StudentInfo {
     section: json["section"],
     enrolled: json["enrolled"],
     isTransferee: json["isTransferee"],
+    balance: json["balance"],
   );
 
 
@@ -26,5 +29,6 @@ class StudentInfo {
         "section": section,
         "enrolled": enrolled,
         "isTransferee": isTransferee,
+        "balance": balance,
       };
 }

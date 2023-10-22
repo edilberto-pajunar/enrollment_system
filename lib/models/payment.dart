@@ -16,7 +16,7 @@ class PaymentModel {
       'id': id,
       'refNumber': refNumber,
       'status': status,
-      'amount': amount,
+      'amount': double.parse(amount.toString()),
     };
   }
 
@@ -25,7 +25,7 @@ class PaymentModel {
       id: map['id'] as String,
       refNumber: map['refNumber'] as String,
       status: map['status'] as String,
-      amount: map["amount"] as double,
+      amount: double.parse(map["amount"].toString()),
     );
   }
 }

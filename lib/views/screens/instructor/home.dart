@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/user.dart';
 import 'package:web_school/networks/instructor.dart';
-import 'package:web_school/networks/pdf.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/views/screens/instructor/profile.dart';
 import 'package:web_school/views/screens/instructor/student.dart';

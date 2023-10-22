@@ -702,6 +702,7 @@ class Application extends ChangeNotifier {
         section: "",
         enrolled: false,
         isTransferee: isTransferee,
+        balance: 1300.0,
       );
 
       final ApplicationInfo applicationInfo = ApplicationInfo(

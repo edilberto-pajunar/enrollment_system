@@ -93,6 +93,20 @@ class StudentDrawer extends StatelessWidget {
                 context.popRoute();
               }
             },
+            title: Text("Payment",
+              style: theme.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+
+          ListTile(
+            onTap: () {
+              studentDB.updateStudentDrawerIndex(5);
+              if (!kIsWeb) {
+                context.popRoute();
+              }
+            },
             title: Text("Change Password",
               style: theme.textTheme.bodyLarge!.copyWith(
                 fontWeight: FontWeight.w700,
