@@ -44,8 +44,6 @@ void main() async {
 
   setPathUrlStrategy();
 
-
-
   runApp(MyApp());
 }
 

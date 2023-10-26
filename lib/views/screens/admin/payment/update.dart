@@ -30,6 +30,7 @@ class _PaymentUpdateScreenState extends State<PaymentUpdateScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final PaymentDB paymentDB = Provider.of<PaymentDB>(context, listen: false);
       paymentDB.updateStudentStream(id: widget.paymentInfo.id);
+      paymentDB.updateStudentPaymentStream(id: widget.paymentInfo.id);
     });
   }
 
@@ -48,128 +49,129 @@ class _PaymentUpdateScreenState extends State<PaymentUpdateScreen> {
       body: StreamWrapper<ApplicationInfo>(
         stream: paymentDB.studentStream,
         child: (applicationInfo) {
-          return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(12.0),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12.0),
-                          topRight: Radius.circular(12.0),
-                        ),
-
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Name: ${applicationInfo!.studentInfo.name}"),
-                          Text("Amount: ₱${widget.paymentInfo.amount}"),
-                          Text("Reference number: ${widget.paymentInfo.refNumber}"),
-                          Text("Status: ${widget.paymentInfo.status}"),
-                          const SizedBox(height: 24.0),
-
-
-                        ],
-                      ),
-                    ),
-                    Row(
+          return StreamBuilder<PaymentModel>(
+            stream: paymentDB.studentPaymentStream,
+            builder: (context, snapshot) {
+              return SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              paymentDB.updatePaymentStatus(context,
-                                status: PaymentStatus.accepted,
-                                id: widget.paymentInfo.id,
-                              ).then((value) {
-                                context.popRoute();
-                              });
-                              // customDialog.showAgree(context,
-                              //   onTap: () {
-                              //     paymentDB.updatePaymentStatus(
-                              //       status: PaymentStatus.accepted,
-                              //       id: widget.paymentInfo.id,
-                              //     ).then((value) {
-                              //       context.popRoute();
-                              //     });
-                              //   },
-                              //   message: "Are you certain you wish to confirm this payment?"
-                              // );
-                            },
-                            style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 12.0),
-                                backgroundColor: ColorTheme.primaryRed,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(12.0),
+                        Container(
+                          padding: const EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(12.0),
+                              topRight: Radius.circular(12.0),
+                            ),
+
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Name: ${applicationInfo!.studentInfo.name}"),
+                              Text("Amount: ₱${widget.paymentInfo.amount}"),
+                              Text("Reference number: ${widget.paymentInfo.refNumber}"),
+                              Text("Status: ${widget.paymentInfo.status}"),
+                              const SizedBox(height: 24.0),
+
+
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  paymentDB.updatePaymentStatus(context,
+                                    status: PaymentStatus.accepted,
+                                    id: widget.paymentInfo.id,
+                                  );
+                                  // customDialog.showAgree(context,
+                                  //   onTap: () {
+                                  //     paymentDB.updatePaymentStatus(
+                                  //       status: PaymentStatus.accepted,
+                                  //       id: widget.paymentInfo.id,
+                                  //     ).then((value) {
+                                  //       context.popRoute();
+                                  //     });
+                                  //   },
+                                  //   message: "Are you certain you wish to confirm this payment?"
+                                  // );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 12.0),
+                                    backgroundColor: ColorTheme.primaryRed,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(12.0),
+                                      ),
+                                    ),
+                                ),
+                                child: Text(
+                                  "Confirm",
+                                  style: theme.textTheme.bodyLarge!.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                            ),
-                            child: Text(
-                              "Confirm",
-                              style: theme.textTheme.bodyLarge!.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        ),
-                        VerticalDivider(
-                          width: 1,
-                        ),
+                            VerticalDivider(
+                              width: 1,
+                            ),
 
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              await paymentDB.updatePaymentStatus(context,
-                                status: PaymentStatus.rejected,
-                                id: widget.paymentInfo.id,
-                              ).then((value) {
-                                context.popRoute();
-                              });
-                              // customDialog.showAgree(context,
-                              //     onTap: () {
-                              //       paymentDB.updatePaymentStatus(
-                              //         status: PaymentStatus.rejected,
-                              //         id: widget.paymentInfo.id,
-                              //       ).then((value) {
-                              //         context.popRoute();
-                              //       });
-                              //     },
-                              //     message: "Are you certain you wish to decline this payment?"
-                              // );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 12.0),
-                              backgroundColor: ColorTheme.primaryYellow,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(12.0),
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  await paymentDB.updatePaymentStatus(context,
+                                    status: PaymentStatus.rejected,
+                                    id: widget.paymentInfo.id,
+                                  );
+                                  // customDialog.showAgree(context,
+                                  //     onTap: () {
+                                  //       paymentDB.updatePaymentStatus(
+                                  //         status: PaymentStatus.rejected,
+                                  //         id: widget.paymentInfo.id,
+                                  //       ).then((value) {
+                                  //         context.popRoute();
+                                  //       });
+                                  //     },
+                                  //     message: "Are you certain you wish to decline this payment?"
+                                  // );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 12.0),
+                                  backgroundColor: ColorTheme.primaryYellow,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(12.0),
+                                    ),
+                                  ),
+                                ),
+                                child: Text(
+                                  "Reject",
+                                  style: theme.textTheme.bodyLarge!.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
-                            child: Text(
-                              "Reject",
-                              style: theme.textTheme.bodyLarge!.copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          ],
                         ),
+
                       ],
                     ),
-
-                  ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            }
           );
         }
       ),

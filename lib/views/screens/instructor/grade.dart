@@ -196,8 +196,13 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("${widget.studentData.studentInfo.name}'s grade",
-                          style: theme.textTheme.titleSmall,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("${widget.studentData.studentInfo.name}'s grade",
+                              style: theme.textTheme.titleSmall,
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 24.0),
                         ListView.builder(

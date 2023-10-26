@@ -53,7 +53,6 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
               return StreamWrapper<List<Subject>>(
                   stream: adminDB.listSubjectStream,
                   child: (subjectList) {
-
                     return Padding(
                       padding: const EdgeInsets.all(24.0),
                       child: SingleChildScrollView(
