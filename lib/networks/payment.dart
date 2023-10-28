@@ -9,16 +9,16 @@ class PaymentDB extends ChangeNotifier {
 
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  Stream<List<PaymentModel>>? paymentModelStream;
+  Stream<List<Payment>>? paymentModelStream;
 
-  Stream<List<PaymentModel>> getPaymentModelStream() {
+  Stream<List<Payment>> getPaymentModelStream() {
     return db.collection("payment").snapshots().map(_paymentModelFromSnapshots);
   }
 
-  List<PaymentModel> _paymentModelFromSnapshots(QuerySnapshot snapshot) {
+  List<Payment> _paymentModelFromSnapshots(QuerySnapshot snapshot) {
     return snapshot.docs.map((docs) {
       final data = docs.data() as Map<String, dynamic>;
-      return PaymentModel.fromJson(data);
+      return Payment.fromMap(data);
     }).toList();
   }
 
@@ -73,14 +73,19 @@ class PaymentDB extends ChangeNotifier {
 
   Future<void> updateStudentPayment(BuildContext context, String id) async {
 
-    final PaymentModel paymentModel = PaymentModel(
-      id: id,
+    final PaymentDescription paymentInfo = PaymentDescription(
       refNumber: referenceText.text,
       status: "pending",
-      amount: double.parse(amountText.text),
+      amount: amountText.text,
+      dateTime: Timestamp.fromDate(DateTime.now()),
     );
 
-    await db.collection("payment").doc(id).set(paymentModel.toJson()).then((value) {
+    final Payment payment = Payment(
+      id: id,
+      paymentDescription: [paymentInfo],
+    );
+
+    await db.collection("payment").doc(id).set(payment.toMap()).then((value) {
       context.popRoute();
       clearPaymentText();
 
@@ -96,15 +101,16 @@ class PaymentDB extends ChangeNotifier {
     amountText.clear();
   }
 
-  Stream<PaymentModel>? studentPaymentStream;
+  Stream<List<PaymentDescription>>? studentPaymentStream;
 
-  Stream<PaymentModel> getStudentPaymentStream(String id) {
+  Stream<List<PaymentDescription>> getStudentPaymentStream(String id) {
     return db.collection("payment").doc(id).snapshots().map(_studentPaymentFromSnapshots);
   }
 
-  PaymentModel _studentPaymentFromSnapshots(DocumentSnapshot doc) {
+  List<PaymentDescription> _studentPaymentFromSnapshots(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
-    return PaymentModel.fromJson(data);
+    print(data);
+    return (data["payments"] as List).map((e) => PaymentDescription.fromJson(e)).toList();
   }
 
   void updateStudentPaymentStream({

@@ -9,11 +9,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i41;
-import 'package:flutter/foundation.dart' as _i47;
 import 'package:flutter/material.dart' as _i43;
 import 'package:web_school/models/application/application.dart' as _i46;
 import 'package:web_school/models/instructor.dart' as _i42;
-import 'package:web_school/models/payment.dart' as _i48;
+import 'package:web_school/models/payment.dart' as _i47;
 import 'package:web_school/models/student/subject.dart' as _i45;
 import 'package:web_school/models/user.dart' as _i44;
 import 'package:web_school/views/screens/admin/home.dart' as _i3;
@@ -242,7 +241,7 @@ abstract class $AppRouter extends _i41.RootStackRouter {
       return _i41.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i22.PaymentUpdateScreen(
-          paymentInfo: args.paymentInfo,
+          payment: args.payment,
           key: args.key,
         ),
       );
@@ -768,7 +767,7 @@ class InstructorGradeRouteArgs {
 class InstructorHomeRoute extends _i41.PageRouteInfo<InstructorHomeRouteArgs> {
   InstructorHomeRoute({
     required _i44.UserModel userModel,
-    _i47.Key? key,
+    _i43.Key? key,
     List<_i41.PageRouteInfo>? children,
   }) : super(
           InstructorHomeRoute.name,
@@ -793,7 +792,7 @@ class InstructorHomeRouteArgs {
 
   final _i44.UserModel userModel;
 
-  final _i47.Key? key;
+  final _i43.Key? key;
 
   @override
   String toString() {
@@ -925,13 +924,13 @@ class OtherSchoolRoute extends _i41.PageRouteInfo<void> {
 /// [_i22.PaymentUpdateScreen]
 class PaymentUpdateRoute extends _i41.PageRouteInfo<PaymentUpdateRouteArgs> {
   PaymentUpdateRoute({
-    required _i48.PaymentModel paymentInfo,
+    required _i47.Payment payment,
     _i43.Key? key,
     List<_i41.PageRouteInfo>? children,
   }) : super(
           PaymentUpdateRoute.name,
           args: PaymentUpdateRouteArgs(
-            paymentInfo: paymentInfo,
+            payment: payment,
             key: key,
           ),
           initialChildren: children,
@@ -945,17 +944,17 @@ class PaymentUpdateRoute extends _i41.PageRouteInfo<PaymentUpdateRouteArgs> {
 
 class PaymentUpdateRouteArgs {
   const PaymentUpdateRouteArgs({
-    required this.paymentInfo,
+    required this.payment,
     this.key,
   });
 
-  final _i48.PaymentModel paymentInfo;
+  final _i47.Payment payment;
 
   final _i43.Key? key;
 
   @override
   String toString() {
-    return 'PaymentUpdateRouteArgs{paymentInfo: $paymentInfo, key: $key}';
+    return 'PaymentUpdateRouteArgs{payment: $payment, key: $key}';
   }
 }
 

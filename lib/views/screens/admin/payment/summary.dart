@@ -45,7 +45,7 @@ class _SummaryPaymentScreenState extends State<SummaryPaymentScreen> {
         title: Text("Payments"),
       ),
       body: SafeArea(
-        child: StreamWrapper<List<PaymentModel>>(
+        child: StreamWrapper<List<Payment>>(
           stream: paymentDB.paymentModelStream,
           child: (paymentList) {
             return Padding(
@@ -58,10 +58,12 @@ class _SummaryPaymentScreenState extends State<SummaryPaymentScreen> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: paymentList!.length,
                       itemBuilder: (context, index) {
+
+                        final paymentInfo = paymentList[index].paymentDescription;
                         return InkWell(
                           onTap: () {
                             context.router.push(PaymentUpdateRoute(
-                              paymentInfo: paymentList[index],
+                              payment: paymentList[index],
                             ));
                           },
                           child: Container(
@@ -84,12 +86,12 @@ class _SummaryPaymentScreenState extends State<SummaryPaymentScreen> {
                             ),
                             child: Column(
                               children: [
-                                Text("# ${paymentList[index].refNumber}",
+                                Text("# ${paymentInfo.first.refNumber}",
                                   style: theme.textTheme.bodyLarge!.copyWith(
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Text("Status: ${paymentList[index].status}",
+                                Text("Status: ${paymentInfo.first.status}",
                                   style: theme.textTheme.bodyMedium!.copyWith(
                                     color: Colors.grey,
                                   ),

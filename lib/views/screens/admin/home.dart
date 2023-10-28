@@ -86,7 +86,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         body: StreamWrapper<List<Instructor>>(
             stream: adminDB.instructorListStream,
             child: (instructorList) {
-              return StreamWrapper<List<PaymentModel>>(
+              return StreamWrapper<List<Payment>>(
                 stream: paymentDB.paymentModelStream,
                 child: (paymentList) {
 
