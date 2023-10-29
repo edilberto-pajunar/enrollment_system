@@ -153,10 +153,6 @@ class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentS
 
                           const SizedBox(height: 24.0),
 
-
-                          const SizedBox(height: 24.0),
-
-
                           PrimaryButton(
                             isEnabled: studentDB.validateEnrollment(subjectList),
                             onPressed: () {
@@ -166,99 +162,6 @@ class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentS
                           ),
                         ],
                       ) : const SizedBox()
-
-
-                      // studentInfo.enrolled
-                      //     ? Container(
-                      //         padding: const EdgeInsets.all(12.0),
-                      //         decoration: BoxDecoration(
-                      //             color: Colors.white,
-                      //             boxShadow: [
-                      //               BoxShadow(
-                      //                 offset: const Offset(0, -4),
-                      //                 color: Colors.grey.withOpacity(0.2),
-                      //                 blurRadius: 4.0,
-                      //                 spreadRadius: 2.0,
-                      //               ),
-                      //               BoxShadow(
-                      //                 offset: const Offset(4, 0),
-                      //                 color: Colors.grey.withOpacity(0.2),
-                      //                 blurRadius: 4.0,
-                      //                 spreadRadius: 2.0,
-                      //               ),
-                      //             ]),
-                      //         child: Column(
-                      //           crossAxisAlignment: CrossAxisAlignment.start,
-                      //           children: [
-                      //             Image.asset(PngImages.success),
-                      //             Center(
-                      //               child: Text(
-                      //                 "Congrats! You are enrolled",
-                      //                 textAlign: TextAlign.center,
-                      //                 style: theme.textTheme.titleLarge,
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       )
-                      //     : Container(
-                      //         decoration: BoxDecoration(
-                      //           border: Border.all(
-                      //             color: Colors.black,
-                      //           ),
-                      //           borderRadius: BorderRadius.circular(12.0),
-                      //         ),
-                      //         child: Column(
-                      //           crossAxisAlignment: CrossAxisAlignment.stretch,
-                      //           mainAxisAlignment: MainAxisAlignment.start,
-                      //           children: [
-                      //             DataTable(
-                      //               columns: const [
-                      //                 DataColumn(
-                      //                   label: Text("Subject"),
-                      //                 ),
-                      //                 DataColumn(
-                      //                   label: Text("Enroll"),
-                      //                 ),
-                      //               ],
-                      //               rows: subjectList!.map((Subject subject) {
-                      //
-                      //                 return DataRow(
-                      //                   cells: [
-                      //                     DataCell(
-                      //                       Text(subject.name),
-                      //                     ),
-                      //                     DataCell(
-                      //                       Center(
-                      //                         child: CustomCheckbox(
-                      //                           value: subject.enrolled,
-                      //                           onChanged: (value) {
-                      //                               studentDB.updateSubjectId(subject.id.toString());
-                      //                               studentDB.updateSubjectEnroll(
-                      //                                 isEnrolled: subject.enrolled,
-                      //                                 userModel: widget.applicationInfo.userModel
-                      //                             );
-                      //                           },
-                      //                         ),
-                      //                       ),
-                      //                     ),
-                      //                   ],
-                      //                 );
-                      //               }).toList(),
-                      //             ),
-                      //             Padding(
-                      //               padding: const EdgeInsets.all(24.0),
-                      //               child: PrimaryButton(
-                      //                 isEnabled: studentDB.validateEnrollment(subjectList),
-                      //                 onPressed: () {
-                      //                   studentDB.updateEnrollProfile(context, widget.applicationInfo);
-                      //                 },
-                      //                 label: "Enroll",
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ),
                     ],
                   ),
                 ),

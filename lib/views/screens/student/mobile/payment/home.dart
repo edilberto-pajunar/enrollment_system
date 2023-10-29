@@ -42,7 +42,12 @@ class _StudentPaymentHomeScreenState extends State<StudentPaymentHomeScreen> {
       body: StreamWrapper<List<PaymentDescription>>(
         stream: paymentDB.studentPaymentStream,
         child: (paymentList) {
-          return SafeArea(
+
+          return paymentList!.isEmpty
+              ? Center(
+            child: Text("You still have no history of payment"),
+          )
+              : SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(24.0),
               child: Column(
@@ -54,13 +59,13 @@ class _StudentPaymentHomeScreenState extends State<StudentPaymentHomeScreen> {
                   ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: paymentList!.length,
+                    itemCount: paymentList.length,
                     itemBuilder: (context, index) {
 
                       final payment = paymentList[index];
                       final date = payment.dateTime.toDate();
 
-                      final formattedDate = DateFormat("MMMM/dd/yyyy").format(date);
+                      final formattedDate = DateFormat("MMMM dd, yyyy").format(date);
 
                       return Container(
                         padding: const EdgeInsets.all(12.0),

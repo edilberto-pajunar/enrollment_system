@@ -15,7 +15,7 @@ import 'package:web_school/models/instructor.dart' as _i42;
 import 'package:web_school/models/payment.dart' as _i47;
 import 'package:web_school/models/student/subject.dart' as _i45;
 import 'package:web_school/models/user.dart' as _i44;
-import 'package:web_school/views/screens/admin/home.dart' as _i3;
+import 'package:web_school/views/screens/admin/home/home.dart' as _i3;
 import 'package:web_school/views/screens/admin/instructor/add.dart' as _i1;
 import 'package:web_school/views/screens/admin/instructor/edit.dart' as _i2;
 import 'package:web_school/views/screens/admin/instructor/general/grade.dart'

@@ -15,6 +15,7 @@ class PrimaryTextField extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.inputFormatters,
+    this.fontSize,
     super.key,
   });
 
@@ -29,6 +30,7 @@ class PrimaryTextField extends StatelessWidget {
   final bool readOnly;
   final Function()? onTap;
   final List<TextInputFormatter>? inputFormatters;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,11 @@ class PrimaryTextField extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const SizedBox(height: 12.0),
-        Text(label),
+        Text(label,
+          style: theme.textTheme.bodyMedium!.copyWith(
+            fontSize: fontSize ?? 14.0,
+          ),
+        ),
         const SizedBox(height: 4.0),
         TextFormField(
           key: fieldKey,

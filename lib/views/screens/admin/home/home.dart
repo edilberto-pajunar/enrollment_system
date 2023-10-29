@@ -89,7 +89,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               return StreamWrapper<List<Payment>>(
                 stream: paymentDB.paymentModelStream,
                 child: (paymentList) {
-
                   return StreamWrapper<List<ApplicationInfo>>(
                     stream: studentDB.studentListStream,
                     child: (studentList) {
@@ -296,7 +295,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                   ),
                                 ),
                               ),
-
                             ],
                           ),
                         ),

@@ -18,7 +18,11 @@ class PaymentDB extends ChangeNotifier {
   List<Payment> _paymentModelFromSnapshots(QuerySnapshot snapshot) {
     return snapshot.docs.map((docs) {
       final data = docs.data() as Map<String, dynamic>;
-      return Payment.fromMap(data);
+
+      final payment = Payment.fromMap(data);
+
+
+      return payment;
     }).toList();
   }
 
@@ -104,13 +108,22 @@ class PaymentDB extends ChangeNotifier {
   Stream<List<PaymentDescription>>? studentPaymentStream;
 
   Stream<List<PaymentDescription>> getStudentPaymentStream(String id) {
+
     return db.collection("payment").doc(id).snapshots().map(_studentPaymentFromSnapshots);
   }
 
   List<PaymentDescription> _studentPaymentFromSnapshots(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    print(data);
-    return (data["payments"] as List).map((e) => PaymentDescription.fromJson(e)).toList();
+
+    try {
+      final data = doc.data() as Map<String, dynamic>;
+
+      return (data["paymentModel"] as List).map((e) => PaymentDescription.fromJson(e)).toList();
+    } catch (e) {
+      print("Error: $e");
+      return [];
+    }
+
+
   }
 
   void updateStudentPaymentStream({

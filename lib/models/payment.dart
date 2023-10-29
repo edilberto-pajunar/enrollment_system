@@ -19,16 +19,16 @@ class Payment {
   factory Payment.fromMap(Map<String, dynamic> map) {
     return Payment(
       id: map['id'] as String,
-      paymentDescription: List<PaymentDescription>.from(map["grades"].map((x) => PaymentDescription.fromJson(map))),
+      paymentDescription: List<PaymentDescription>.from(map["payments"].map((x) => PaymentDescription.fromJson(map))),
     );
   }
 }
 
 class PaymentDescription {
 
-  final String refNumber;
-  final String status;
-  final String amount;
+  final String? refNumber;
+  final String? status;
+  final String? amount;
   final Timestamp dateTime;
 
   PaymentDescription({
@@ -49,10 +49,10 @@ class PaymentDescription {
 
   factory PaymentDescription.fromJson(Map<String, dynamic> map) {
     return PaymentDescription(
-      refNumber: map['refNumber'] as String,
-      status: map['status'] as String,
-      amount: map["amount"] as String,
-      dateTime: Timestamp.fromMillisecondsSinceEpoch(map['dateTime']),
+      refNumber: map['refNumber'] as String? ?? "",
+      status: map['status'] as String? ?? "",
+      amount: map["amount"] as String? ?? "",
+      dateTime: map['dateTime'],
     );
   }
 }
