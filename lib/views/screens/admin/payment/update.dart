@@ -39,7 +39,7 @@ class _PaymentUpdateScreenState extends State<PaymentUpdateScreen> {
     final PaymentDB paymentDB = Provider.of<PaymentDB>(context);
     final ThemeData theme = Theme.of(context);
 
-    final paymentInfo = widget.payment.paymentDescription.first;
+    final paymentInfo = widget.payment.paymentDescription!.first;
 
 
     return Scaffold(

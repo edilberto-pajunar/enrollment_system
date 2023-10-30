@@ -264,6 +264,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                   context.pushRoute(
                                     SummaryPaymentRoute(
                                       applicationInfo: studentList,
+                                      paymentList: paymentList
                                     ),
                                   );
                                 },

@@ -63,9 +63,9 @@ class _StudentPaymentHomeScreenState extends State<StudentPaymentHomeScreen> {
                     itemBuilder: (context, index) {
 
                       final payment = paymentList[index];
-                      final date = payment.dateTime.toDate();
+                      final date = payment.dateTime?.toDate();
 
-                      final formattedDate = DateFormat("MMMM dd, yyyy").format(date);
+                      final formattedDate = DateFormat("MMMM dd, yyyy").format(date!);
 
                       return Container(
                         padding: const EdgeInsets.all(12.0),

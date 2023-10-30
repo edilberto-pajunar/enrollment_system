@@ -19,7 +19,7 @@ class Payment {
   factory Payment.fromMap(Map<String, dynamic> map) {
     return Payment(
       id: map['id'] as String,
-      paymentDescription: List<PaymentDescription>.from(map["payments"].map((x) => PaymentDescription.fromJson(map))),
+      paymentDescription: List<PaymentDescription>.from(map["paymentModel"].map((x) => PaymentDescription.fromJson(map))),
     );
   }
 }
@@ -29,7 +29,7 @@ class PaymentDescription {
   final String? refNumber;
   final String? status;
   final String? amount;
-  final Timestamp dateTime;
+  final Timestamp? dateTime;
 
   PaymentDescription({
     required this.refNumber,

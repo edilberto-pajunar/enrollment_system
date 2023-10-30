@@ -21,7 +21,6 @@ class PaymentDB extends ChangeNotifier {
 
       final payment = Payment.fromMap(data);
 
-
       return payment;
     }).toList();
   }
