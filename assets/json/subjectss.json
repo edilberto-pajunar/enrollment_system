@@ -1,0 +1,122 @@
+[
+    {
+        "enrolled": true,
+        "grades": [
+            {
+                "grade": 90,
+                "title": "First"
+            },
+            {
+                "grade": 80,
+                "title": "Second"
+            },
+            {
+                "grade": 71,
+                "title": "Third"
+            },
+            {
+                "grade": 75,
+                "title": "Fourth"
+            }
+        ],
+        "id": 5,
+        "name": "Mathematics",
+        "schedule": [
+            {
+                "day": 1,
+                "start": {
+                    "hour": 14,
+                    "minute": 0
+                }
+            },
+            {
+                "day": 5,
+                "start": {
+                    "hour": 14,
+                    "minute": 0
+                }
+            }
+        ],
+        "units": 3
+    },
+    {
+        "enrolled": true,
+        "grades": [
+            {
+                "grade": 0,
+                "title": "First"
+            },
+            {
+                "grade": 0,
+                "title": "Second"
+            },
+            {
+                "grade": 0,
+                "title": "Third"
+            },
+            {
+                "grade": 0,
+                "title": "Fourth"
+            }
+        ],
+        "id": 5,
+        "name": "English",
+        "schedule": [
+            {
+                "day": 1,
+                "start": {
+                    "hour": 14,
+                    "minute": 0
+                }
+            },
+            {
+                "day": 5,
+                "start": {
+                    "hour": 14,
+                    "minute": 0
+                }
+            }
+        ],
+        "units": 3
+    },
+    {
+        "enrolled": true,
+        "grades": [
+            {
+                "grade": 81,
+                "title": "First"
+            },
+            {
+                "grade": 82,
+                "title": "Second"
+            },
+            {
+                "grade": 89,
+                "title": "Third"
+            },
+            {
+                "grade": 95,
+                "title": "Fourth"
+            }
+        ],
+        "id": 5,
+        "name": "Edukasyon sa Pagpapakatao",
+        "schedule": [
+            {
+                "day": 1,
+                "start": {
+                    "hour": 14,
+                    "minute": 0
+                }
+            },
+            {
+                "day": 5,
+                "start": {
+                    "hour": 14,
+                    "minute": 0
+                }
+            }
+        ],
+        "units": 3
+    }
+]
