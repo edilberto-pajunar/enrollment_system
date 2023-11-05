@@ -43,7 +43,6 @@ class _StudentMobileHomeScreenState extends State<StudentMobileHomeScreen> {
     final StudentDB studentDB = Provider.of<StudentDB>(context);
 
 
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(),

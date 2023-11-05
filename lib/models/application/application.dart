@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:web_school/models/application/emergency.dart';
 import 'package:web_school/models/application/family.dart';
 import 'package:web_school/models/application/personal.dart';
@@ -16,6 +17,7 @@ class ApplicationInfo {
     required this.emergencyInfo,
     required this.residenceInfo,
     required this.familyInfo,
+    required this.createdAt,
   });
 
   final UserModel userModel;
@@ -25,6 +27,7 @@ class ApplicationInfo {
   final EmergencyInfo emergencyInfo;
   final ResidenceInfo residenceInfo;
   final FamilyInfo familyInfo;
+  final Timestamp createdAt;
 
   factory ApplicationInfo.fromJson(Map<String, dynamic> json) {
     return ApplicationInfo(
@@ -35,6 +38,7 @@ class ApplicationInfo {
       emergencyInfo: EmergencyInfo.fromJson(json["emergencyInfo"]),
       residenceInfo: ResidenceInfo.fromJson(json["residenceInfo"]),
       familyInfo: FamilyInfo.fromJson(json["familyInfo"]),
+      createdAt: json["createdAt"],
     );
   }
 
@@ -46,5 +50,6 @@ class ApplicationInfo {
         'emergencyInfo': emergencyInfo.toJson(),
         'residenceInfo': residenceInfo.toJson(),
         'familyInfo': familyInfo.toJson(),
+        'createdAt': createdAt,
       };
 }

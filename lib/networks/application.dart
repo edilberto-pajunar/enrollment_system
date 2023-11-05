@@ -697,8 +697,10 @@ class Application extends ChangeNotifier {
         type: "student",
       );
 
+      final DateTime now = DateTime.now();
+
       final StudentInfo studentInfo = StudentInfo(
-        name: firstName.text + middleName.text + lastName.text,
+        name: "${firstName.text} ${middleName.text} ${lastName.text} ${extensionName.text}",
         section: "",
         enrolled: false,
         isTransferee: isTransferee,
@@ -713,6 +715,7 @@ class Application extends ChangeNotifier {
         emergencyInfo: getEmergencyInfo,
         residenceInfo: getResidenceInfo,
         familyInfo: getFamilyInfo,
+        createdAt: Timestamp.fromDate(now),
       );
 
       db.collection("user").doc(uid).set(userModel.toJson());
@@ -737,8 +740,8 @@ class Application extends ChangeNotifier {
           }
         } else if (isSenior) {
           // For stem
-          if (strand!.id == 1) {
-            if (semester!.id == 0) {
+          if (strand?.id == 1) {
+            if (semester?.id == 0) {
               for (Subject subject in Commons.stemFirstSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
@@ -753,8 +756,8 @@ class Application extends ChangeNotifier {
             }
           }
           // For gas
-          else if (strand!.id == 0) {
-            if (semester!.id == 0) {
+          else if (strand?.id == 0) {
+            if (semester?.id == 0) {
               for (Subject subject in Commons.gasFirstSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
@@ -769,8 +772,8 @@ class Application extends ChangeNotifier {
             }
           }
           // For humms
-          else if (strand!.id == 2) {
-            if (semester!.id == 0) {
+          else if (strand?.id == 2) {
+            if (semester?.id == 0) {
               for (Subject subject in Commons.hummsFirstSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())

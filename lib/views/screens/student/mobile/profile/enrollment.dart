@@ -30,8 +30,6 @@ class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentS
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final StudentDB studentDB = Provider.of<StudentDB>(context, listen: false);
       studentDB.updateListSubjectStream(widget.applicationInfo.userModel);
-
-      print("HI");
     });
   }
 

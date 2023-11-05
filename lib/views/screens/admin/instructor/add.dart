@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +15,7 @@ class AdminAddInstructorScreen extends StatefulWidget {
   });
 
   @override
-  State<AdminAddInstructorScreen> createState() =>
-      _AdminAddInstructorScreenState();
+  State<AdminAddInstructorScreen> createState() => _AdminAddInstructorScreenState();
 }
 
 class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
@@ -24,263 +24,290 @@ class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
     final AdminDB adminDB = Provider.of<AdminDB>(context);
     final ThemeData theme = Theme.of(context);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              adminDB.clearInstructorForm();
-              context.popRoute();
+    return WillPopScope(
+      onWillPop: () async {
+        adminDB.clearInstructorForm();
+        return true;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: !kIsWeb ? AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                adminDB.clearInstructorForm();
+                context.popRoute();
+              },
+            ),
+          ) : null,
+          body: GestureDetector(
+            onTap: () {
+              setState(() {});
             },
-          ),
-        ),
-        body: GestureDetector(
-          onTap: () {
-            setState(() {});
-          },
-          child: Form(
-            key: AdminDB.addInstructorFormKey,
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    PrimaryTextField(
-                      fieldKey: AdminDB.usernameKey,
-                      controller: AdminDB.username,
-                      label: "Username",
-                      hintText: "Username",
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'[a-zA-Z0-9]')),
-                      ],
-                      validator: Commons.forcedTextValidator,
-                    ),
-                    PrimaryTextField(
-                      fieldKey: AdminDB.firstNameKey,
-                      controller: AdminDB.firstName,
-                      label: "First Name",
-                      hintText: "First Name",
-                      validator: Commons.forcedTextValidator,
-                    ),
-                    PrimaryTextField(
-                      fieldKey: AdminDB.lastNameKey,
-                      controller: AdminDB.lastName,
-                      label: "Last Name",
-                      hintText: "Last Name",
-                      validator: Commons.forcedTextValidator,
-                    ),
-                    const SizedBox(height: 24.0),
-                    Text(
-                      "Please choose a grade for the instructor",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
+            child: Form(
+              key: AdminDB.addInstructorFormKey,
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      PrimaryTextField(
+                        fieldKey: AdminDB.usernameKey,
+                        controller: AdminDB.username,
+                        label: "Username",
+                        hintText: "Username",
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'[a-zA-Z0-9]')),
+                        ],
+                        validator: Commons.forcedTextValidator,
                       ),
-                    ),
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: adminDB.gradeList.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio: 2,
+                      PrimaryTextField(
+                        fieldKey: AdminDB.firstNameKey,
+                        controller: AdminDB.firstName,
+                        label: "First Name",
+                        hintText: "First Name",
+                        validator: Commons.forcedTextValidator,
                       ),
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            adminDB.updateGradeInstructor(
-                                adminDB.gradeList[index]);
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.all(5.0),
-                            decoration: BoxDecoration(
-                                color: adminDB.gradeInstructor ==
-                                        adminDB.gradeList[index]
-                                    ? Colors.grey
-                                    : Colors.white,
-                                border: Border.all(
-                                  color: Colors.black,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0)),
-                            child: Center(
-                                child: Text(adminDB.gradeList[index].label!)),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 24.0),
-                    Text(
-                      "Please choose a section for the instructor",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
+                      PrimaryTextField(
+                        fieldKey: AdminDB.lastNameKey,
+                        controller: AdminDB.lastName,
+                        label: "Last Name",
+                        hintText: "Last Name",
+                        validator: Commons.forcedTextValidator,
                       ),
-                    ),
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: adminDB.sectionList.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio: 2,
+                      const SizedBox(height: 24.0),
+                      Text(
+                        "Please choose a grade for the instructor",
+                        style: theme.textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            adminDB.updateInstructorSection(
-                                adminDB.sectionList[index]);
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.all(5.0),
-                            decoration: BoxDecoration(
-                                color: adminDB.instructorSection ==
-                                        adminDB.sectionList[index]
-                                    ? Colors.grey
-                                    : Colors.white,
-                                border: Border.all(
-                                  color: Colors.black,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0)),
-                            child: Center(
-                                child: Text(adminDB.sectionList[index].label!)),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 24.0),
-                    Visibility(
-                      visible: adminDB.gradeInstructor?.id == 4 || adminDB.gradeInstructor?.id == 5,
-                      child: Column(
-                        children: [
-                          Text(
-                            "Please choose a strand for the instructor",
-                            style: theme.textTheme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: adminDB.gradeList.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: 2,
+                        ),
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              adminDB.updateGradeInstructor(
+                                  adminDB.gradeList[index]);
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.all(5.0),
+                              decoration: BoxDecoration(
+                                  color: adminDB.gradeInstructor ==
+                                          adminDB.gradeList[index]
+                                      ? Colors.grey
+                                      : Colors.white,
+                                  border: Border.all(
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0)),
+                              child: Center(
+                                  child: Text(adminDB.gradeList[index].label!)),
                             ),
-                          ),
-                          GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: adminDB.strandInstructorList.length,
-                            gridDelegate:
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 24.0),
+                      Text(
+                        "Please choose a section for the instructor",
+                        style: theme.textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: adminDB.sectionList.length,
+                        gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              childAspectRatio: 2,
+                          crossAxisCount: 3,
+                          childAspectRatio: 2,
+                        ),
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              adminDB.updateInstructorSection(
+                                  adminDB.sectionList[index]);
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.all(5.0),
+                              decoration: BoxDecoration(
+                                  color: adminDB.instructorSection ==
+                                          adminDB.sectionList[index]
+                                      ? Colors.grey
+                                      : Colors.white,
+                                  border: Border.all(
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0)),
+                              child: Center(
+                                  child: Text(adminDB.sectionList[index].label!)),
                             ),
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  adminDB.updateStrandInstructorOption(
-                                      adminDB.strandInstructorList[index],
-                                  );
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.all(5.0),
-                                  decoration: BoxDecoration(
-                                      color: adminDB.strandInstructorOption ==
-                                          adminDB.strandInstructorList[index]
-                                          ? Colors.grey
-                                          : Colors.white,
-                                      border: Border.all(
-                                        color: Colors.black,
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 24.0),
+                      Visibility(
+                        visible: adminDB.gradeInstructor?.id == 4 || adminDB.gradeInstructor?.id == 5,
+                        child: Column(
+                          children: [
+                            Text(
+                              "Please choose a section for the instructor",
+                              style: theme.textTheme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: adminDB.sectionList.length,
+                              gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                childAspectRatio: 2,
+                              ),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    adminDB.updateSemesterInstructorOption(adminDB.semesterList[index]);
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.all(5.0),
+                                    decoration: BoxDecoration(
+                                        color: adminDB.semesterInstructorOption == adminDB.semesterList[index]
+                                            ? Colors.grey
+                                            : Colors.white,
+                                        border: Border.all(
+                                          color: Colors.black,
+                                        ),
+                                        borderRadius: BorderRadius.circular(12.0)),
+                                    child: Center(
+                                        child: Text(adminDB.semesterList[index].label!)),
+                                  ),
+                                );
+                              },
+                            ),
+
+                            const SizedBox(height: 24.0),
+
+                            Text(
+                              "Please choose a strand for the instructor",
+                              style: theme.textTheme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: adminDB.strandInstructorList.length,
+                              gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                childAspectRatio: 2,
+                              ),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    adminDB.updateStrandInstructorOption(
+                                        adminDB.strandInstructorList[index],
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.all(5.0),
+                                    decoration: BoxDecoration(
+                                        color: adminDB.strandInstructorOption ==
+                                            adminDB.strandInstructorList[index]
+                                            ? Colors.grey
+                                            : Colors.white,
+                                        border: Border.all(
+                                          color: Colors.black,
+                                        ),
+                                        borderRadius: BorderRadius.circular(12.0)),
+                                    child: Center(
+                                      child: Text(adminDB.strandInstructorList[index].label ?? "",
                                       ),
-                                      borderRadius: BorderRadius.circular(12.0)),
-                                  child: Center(
-                                    child: Text(adminDB.strandInstructorList[index].label ?? "",
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
 
-                    Visibility(
-                      visible: adminDB.gradeInstructor != null,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const SizedBox(height: 24.0),
-                          Text(
-                            "Please choose a subject for the instructor",
-                            style: theme.textTheme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
+                      Visibility(
+                        visible: adminDB.gradeInstructor != null,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const SizedBox(height: 24.0),
+                            Text(
+                              "Please choose a subject for the instructor",
+                              style: theme.textTheme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: adminDB.getSubjectInstructor.length,
-                            gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              childAspectRatio: 1,
-                            ),
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  adminDB.updateSubjectOption(
-                                    adminDB.getSubjectInstructor[index],
-                                  );
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(4.0),
-                                  margin: const EdgeInsets.all(5.0),
-                                  decoration: BoxDecoration(
-                                      color: adminDB.subjectOption.contains(adminDB.getSubjectInstructor[index])
-                                          ? Colors.grey
-                                          : Colors.white,
-                                      border: Border.all(
-                                        color: Colors.black,
+                            GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: adminDB.getSubjectInstructor.length,
+                              gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                childAspectRatio: 1,
+                              ),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    adminDB.updateSubjectOption(
+                                      adminDB.getSubjectInstructor[index],
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(4.0),
+                                    margin: const EdgeInsets.all(5.0),
+                                    decoration: BoxDecoration(
+                                        color: adminDB.subjectOption.contains(adminDB.getSubjectInstructor[index])
+                                            ? Colors.grey
+                                            : Colors.white,
+                                        border: Border.all(
+                                          color: Colors.black,
+                                        ),
+                                        borderRadius: BorderRadius.circular(12.0)),
+                                    child: Center(
+                                      child: Text(adminDB.getSubjectInstructor[index].name,
+                                        style: theme.textTheme.bodySmall,
                                       ),
-                                      borderRadius: BorderRadius.circular(12.0)),
-                                  child: Center(
-                                    child: Text(adminDB.getSubjectInstructor[index].name,
-                                      style: theme.textTheme.bodySmall,
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
 
-                    const SizedBox(height: 50.0),
-                    PrimaryButton(
-                      onPressed: adminDB.validateAddInstructor
-                          ? () {
-                              if (AdminDB.addInstructorFormKey.currentState!.validate()) {
-                                adminDB.addInstructor(context);
+                      const SizedBox(height: 50.0),
+                      PrimaryButton(
+                        onPressed: adminDB.validateAddInstructor
+                            ? () {
+                                if (AdminDB.addInstructorFormKey.currentState!.validate()) {
+                                  adminDB.addInstructor(context);
+                                }
                               }
-                            }
-                          : null,
-                      label: "Submit",
-                    ),
-                    // ElevatedButton(
-                    //   onPressed: adminDB.validateAddInstructor
-                    //       ? () {
-                    //           if (AdminDB.addInstructorFormKey.currentState!
-                    //               .validate()) {
-                    //             adminDB.addInstructor(context);
-                    //           }
-                    //         }
-                    //       : null,
-                    //   style: ElevatedButton.styleFrom(
-                    //       backgroundColor: ColorTheme.primaryRed,
-                    //       maximumSize: const Size(double.infinity, 60),
-                    //       padding: const EdgeInsets.symmetric(vertical: 12.0),
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(12.0),
-                    //       )),
-                    //   child: const Text("Submit"),
-                    // ),
-                  ],
+                            : null,
+                        label: "Submit",
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

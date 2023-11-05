@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:web_school/models/user.dart';
+import 'package:web_school/views/screens/layout/web/student/home.dart';
 import 'package:web_school/views/screens/student/mobile/home.dart';
-import 'package:web_school/views/screens/web/student/home.dart';
 
 @RoutePage()
 class StudentLayoutBuilder extends StatelessWidget {
@@ -22,9 +22,7 @@ class StudentLayoutBuilder extends StatelessWidget {
             userModel: userModel,
           );
         } else {
-          return WebStudentHomeScreen(
-            userModel: userModel,
-          );
+          return WebStudentHomeScreen();
         }
       },
     );

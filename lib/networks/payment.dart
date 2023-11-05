@@ -19,7 +19,7 @@ class PaymentDB extends ChangeNotifier {
     return snapshot.docs.map((docs) {
       final data = docs.data() as Map<String, dynamic>;
 
-      final payment = Payment.fromMap(data);
+      final payment = Payment.fromJson(data);
 
       return payment;
     }).toList();
@@ -55,14 +55,16 @@ class PaymentDB extends ChangeNotifier {
     required String status,
     required String id,
   }) async {
-    await db.collection("payment").doc(id).set({
-      "status": status,
-    }, SetOptions(merge: true)).then((value) {
-      context.popRoute();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Success!"),
-      ));
-    });
+    // await db.collection("payment").doc(id).set({
+    //   "paymentDescription": [
+    //
+    //   ],
+    // }, SetOptions(merge: true)).then((value) {
+    //   context.popRoute();
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: Text("Success!"),
+    //   ));
+    // });
 
     notifyListeners();
   }
@@ -88,7 +90,7 @@ class PaymentDB extends ChangeNotifier {
       paymentDescription: [paymentInfo],
     );
 
-    await db.collection("payment").doc(id).set(payment.toMap()).then((value) {
+    await db.collection("payment").doc(id).set(payment.toJson()).then((value) {
       context.popRoute();
       clearPaymentText();
 

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:web_school/models/option.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/models/user.dart';
@@ -11,6 +12,7 @@ class Instructor {
   final SelectionOption? section;
   final List<Subject>? subject;
   final SelectionOption? strand;
+  final Timestamp createdAt;
 
   Instructor({
     required this.userModel,
@@ -21,6 +23,7 @@ class Instructor {
     this.section,
     this.subject,
     this.strand,
+    required this.createdAt,
   });
 
   factory Instructor.fromJson(Map<String, dynamic> json) {
@@ -37,6 +40,7 @@ class Instructor {
       strand: json["strand"] != null
           ? SelectionOption?.fromJson(json["strand"])
           : null,
+      createdAt: json["createdAt"],
     );
   }
 
@@ -49,5 +53,6 @@ class Instructor {
         "section": section!.toJson(),
         "subject": subject!.map((e) => e.toMap()).toList(),
         "strand": strand?.toJson(),
+        "createdAt": createdAt,
       };
 }

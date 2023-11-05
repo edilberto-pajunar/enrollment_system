@@ -47,8 +47,8 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Welcome: ${personal.name}",
-                      style: theme.textTheme.titleSmall,
+                    Text("Welcome, ${personal.name}",
+                      style: theme.textTheme.titleLarge,
                     ),
                     const SizedBox(height: 24.0),
 
@@ -58,6 +58,18 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                       itemCount: subjectList!.length,
                       itemBuilder: (context, index) {
 
+                        double gwa = 0;
+                        double total = 0;
+
+                        final overallSubject = subjectList[index].grades.length;
+
+                        subjectList[index].grades.forEach((element) {
+                          total += element.grade!;
+                        });
+
+                        gwa = total / overallSubject;
+
+
                         return Column(
                           children: [
                             Container(
@@ -66,7 +78,6 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: Colors.black,
-                                  width: 1.5,
                                 ),
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(12.0),
@@ -76,7 +87,10 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: Text("${subjectList[index].name} - GWA: 90"),
+                                    child: Text("${subjectList[index].name} - GWA: $gwa",
+                                      style: theme.textTheme.titleSmall!.copyWith(
+                                      ),
+                                    ),
                                   ),
                                   IconButton(
                                     onPressed: () {},
@@ -89,7 +103,6 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                             Visibility(
                               child: Container(
                                 padding: const EdgeInsets.all(12.0),
-                                height: 150,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: Colors.black,
@@ -110,12 +123,17 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                                         children: [
                                           Expanded(
                                             child: Text(subjects[indexes].title!,
-                                              style: theme.textTheme.bodyLarge!.copyWith(
-                                                fontWeight: FontWeight.w700,
+                                              style: theme.textTheme.bodyMedium!.copyWith(
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
                                           ),
-                                          Text("${subjects[indexes].grade!}"),
+                                          Text("${subjects[indexes].grade!}",
+                                            style: theme.textTheme.bodyMedium!.copyWith(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
 
                                         ],
                                       ),
@@ -148,211 +166,11 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                     "Please enroll first to see your grades",
                   ),
                   const SizedBox(height: 24.0),
-                  // InkWell(
-                  //   onTap: () {
-                  //     //   context.pushRoute(StudentMobileEnrollmentRoute(
-                  //     //     applicationInfo: widget.applicationInfo,
-                  //     //   ));
-                  //     // },
-                  //     child: Text(
-                  //       "Click here to enroll ->",
-                  //       style: theme.textTheme.bodyMedium!.copyWith(
-                  //         color: ColorTheme.primaryRed,
-                  //         decoration: TextDecoration.underline,
-                  //       ),
-                  //     );
-                  //   }
-                  // ),
+
                 ],
               ),
             ),
       ),
     );
-
-
-    // return SafeArea(
-    //   child: Scaffold(
-    //     body: Form(
-    //       child: widget.applicationInfo.studentInfo.enrolled
-    //             ? StreamWrapper<List<Subject>>(
-    //                 stream: studentDB.listSubjectStream,
-    //                 child: (subjectList) {
-    //                   return Padding(
-    //                     padding: const EdgeInsets.all(24.0),
-    //                     child: SingleChildScrollView(
-    //                       child: Column(
-    //                         crossAxisAlignment: CrossAxisAlignment.stretch,
-    //                         children: [
-    //                           Row(
-    //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                             children: [
-    //                               Text(
-    //                                 "Welcome, ${personal.firstName} ${personal.lastName}",
-    //                                 style: theme.textTheme.titleSmall,
-    //                               ),
-    //
-    //                               // TextButton(
-    //                               //   onPressed: () {
-    //                               //     context.pushRoute(StudentScheduleRoute(
-    //                               //         subjectList: subjectList!,
-    //                               //         applicationInfo: studentData,
-    //                               //       ),
-    //                               //     );
-    //                               //   },
-    //                               //   child: Text("See my schedule",
-    //                               //     style: theme.textTheme.bodySmall!.copyWith(
-    //                               //       color: ColorTheme.primaryRed,
-    //                               //     ),
-    //                               //   ),
-    //                               // ),
-    //                             ],
-    //                           ),
-    //                           const SizedBox(height: 24.0),
-    //                           Container(
-    //                             padding: const EdgeInsets.all(12.0),
-    //                             decoration: BoxDecoration(
-    //                               border: Border.all(
-    //                                 color: Colors.black,
-    //                               ),
-    //                             ),
-    //                             child: SingleChildScrollView(
-    //                               scrollDirection: Axis.horizontal,
-    //                               child: widget.applicationInfo.schoolInfo
-    //                                           .gradeToEnroll.label!
-    //                                           .contains("7") ||
-    //                                   widget.applicationInfo.schoolInfo
-    //                                           .gradeToEnroll.label!
-    //                                           .contains("8") ||
-    //                                   widget.applicationInfo.schoolInfo
-    //                                           .gradeToEnroll.label!
-    //                                           .contains("9") ||
-    //                                   widget.applicationInfo.schoolInfo
-    //                                           .gradeToEnroll.label!
-    //                                           .contains("10")
-    //                                   ? DataTable(
-    //                                       columnSpacing: 20,
-    //                                       columns: const [
-    //                                         DataColumn(
-    //                                           label: SizedBox(
-    //                                             width: 80,
-    //                                             child: Text("Name"),
-    //                                           ),
-    //                                         ),
-    //                                         DataColumn(
-    //                                           label: Text("First"),
-    //                                         ),
-    //                                         DataColumn(
-    //                                           label: Text("Second"),
-    //                                         ),
-    //                                         DataColumn(
-    //                                           label: Text("Third"),
-    //                                         ),
-    //                                         DataColumn(
-    //                                           label: Text("Fourth"),
-    //                                         ),
-    //                                       ],
-    //                                       rows: subjectList!
-    //                                           .map((Subject data) {
-    //                                         return DataRow(
-    //                                           cells: [
-    //                                             DataCell(
-    //                                               Padding(
-    //                                                 padding:
-    //                                                     const EdgeInsets
-    //                                                         .all(8.0),
-    //                                                 child: SizedBox(
-    //                                                     width: 100,
-    //                                                     child: Text(
-    //                                                         data.name)),
-    //                                               ),
-    //                                             ),
-    //                                             ...data.grades.map((e) {
-    //                                               return DataCell(
-    //                                                 Center(
-    //                                                   child: Text(
-    //                                                       "${e.grade}"),
-    //                                                 ),
-    //                                               );
-    //                                             }).toList(),
-    //                                           ],
-    //                                         );
-    //                                       }).toList(),
-    //                                     )
-    //                                   : DataTable(
-    //                                       columnSpacing: 20,
-    //                                       columns: const [
-    //                                         DataColumn(
-    //                                           label: SizedBox(
-    //                                             width: 80,
-    //                                             child: Text("Name"),
-    //                                           ),
-    //                                         ),
-    //                                         DataColumn(
-    //                                           label: Text("Grade"),
-    //                                         ),
-    //                                       ],
-    //                                       rows: subjectList!.map((e) {
-    //                                         return DataRow(
-    //                                           cells: [
-    //                                             DataCell(
-    //                                               SizedBox(
-    //                                                   width: MediaQuery.of(
-    //                                                               context)
-    //                                                           .size
-    //                                                           .width *
-    //                                                       0.5,
-    //                                                   child: Text(e.name)),
-    //                                             ),
-    //                                             DataCell(
-    //                                               Center(
-    //                                                   child: Text(
-    //                                                       "${e.grades[0].grade}")),
-    //                                             ),
-    //                                           ],
-    //                                         );
-    //                                       }).toList(),
-    //                                     ),
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                     ),
-    //                   );
-    //                 },
-    //               )
-    //             : Center(
-    //                 child: Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.center,
-    //                   mainAxisAlignment: MainAxisAlignment.center,
-    //                   children: [
-    //                     Text(
-    //                       "You are currently not enrolled.",
-    //                       style: theme.textTheme.titleMedium,
-    //                     ),
-    //                     const SizedBox(height: 4.0),
-    //                     const Text(
-    //                       "Please enroll first to see your grades",
-    //                     ),
-    //                     const SizedBox(height: 24.0),
-    //                     InkWell(
-    //                       onTap: () {
-    //                         context.pushRoute(StudentMobileEnrollmentRoute(
-    //                           applicationInfo: widget.applicationInfo,
-    //                         ));
-    //                       },
-    //                       child: Text(
-    //                         "Click here to enroll ->",
-    //                         style: theme.textTheme.bodyMedium!.copyWith(
-    //                           color: ColorTheme.primaryRed,
-    //                           decoration: TextDecoration.underline,
-    //                         ),
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //     ),
-    //   ),
-    // );
   }
 }

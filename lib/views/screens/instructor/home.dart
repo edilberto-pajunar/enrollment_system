@@ -44,8 +44,7 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
     final InstructorDB instructorDB = Provider.of<InstructorDB>(context);
 
     return Scaffold(
-      appBar: AppBar(
-      ),
+      appBar: AppBar(),
       drawer: InstructorDrawer(),
       body: SafeArea(
         child: StreamWrapper<Instructor>(

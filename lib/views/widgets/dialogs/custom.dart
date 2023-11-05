@@ -15,22 +15,170 @@ class CustomDialog {
     BuildContext context, {
     required Function()? onTap,
     required String message,
+    String? rightText,
+    String? leftText,
   }) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: onTap,
-              child: const Text("Yes"),
-            ),
-            TextButton(
-              onPressed: () => context.popRoute(),
-              child: const Text("No"),
-            ),
-          ],
+          contentPadding: const EdgeInsets.all(0.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 18.0),
+                child: Text(message,
+                  style: TextStyle(
+                    color: Colors.black87
+                  ),
+                ),
+              ),
+              Divider(
+                height: 0,
+              ),
+              IntrinsicHeight(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () => context.popRoute(),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text(leftText ?? "Cancel",
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Color(0xFF2194FF),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1.0,
+                          color: Colors.grey.shade300,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: onTap,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12.0),
+                            child: Text(rightText ?? "Yes",
+                              style: TextStyle(
+                                color: Color(0xFF2194FF),
+                                fontWeight: FontWeight.w500,
+                              ),
+
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void assignSection(
+      BuildContext context, {
+        required Function()? leftTap,
+        required Function()? rightTap,
+        required String message,
+        String? rightText,
+        String? leftText,
+      }) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(0.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 18.0),
+                child: Text(message,
+                  style: TextStyle(
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+              Divider(
+                height: 0,
+              ),
+              IntrinsicHeight(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: leftTap,
+                        child: Container(
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Text(leftText ?? "Cancel",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: Color(0xFF2194FF),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1.0,
+                          color: Colors.grey.shade300,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: rightTap,
+                        child: Container(
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 12.0),
+                              child: Text(rightText ?? "Yes",
+                                style: TextStyle(
+                                  color: Color(0xFF2194FF),
+                                  fontWeight: FontWeight.w500,
+                                ),
+
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         );
       },
     );

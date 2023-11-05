@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/networks/admin.dart';
@@ -6,17 +7,32 @@ import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/values/strings/colors.dart';
 
 @RoutePage()
-class AdminInstructorGradeScreen extends StatelessWidget {
+class AdminInstructorGradeScreen extends StatefulWidget {
   const AdminInstructorGradeScreen({super.key});
+
+  @override
+  State<AdminInstructorGradeScreen> createState() => _AdminInstructorGradeScreenState();
+}
+
+class _AdminInstructorGradeScreenState extends State<AdminInstructorGradeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final AdminDB adminDB = Provider.of<AdminDB>(context, listen: false);
+      adminDB.updateGeneralYearLocal();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final AdminDB adminDB = Provider.of<AdminDB>(context);
     return Scaffold(
-      appBar: AppBar(
+      appBar: !kIsWeb ? AppBar(
         title: const Text("Instructor"),
         actions: const [],
-      ),
+      ) : null,
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorTheme.primaryRed,
         onPressed: () {

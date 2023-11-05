@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
@@ -13,6 +16,7 @@ import 'package:web_school/views/widgets/dialogs/custom.dart';
 
 class AdminDB extends ChangeNotifier {
   bool isLoading = false;
+  final CustomDialog customDialog = CustomDialog();
 
   void showHUD(bool value) {
     isLoading = value;
@@ -24,8 +28,18 @@ class AdminDB extends ChangeNotifier {
 
   String? studentId;
 
-  void updateStudentId(String? value) {
+  void updateStudentId(String? value) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+
+    sp.setString("studentId", value!);
     studentId = value;
+    notifyListeners();
+  }
+
+  Future<void> getStudentIdLocal() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+
+    studentId = sp.getString("studentId");
     notifyListeners();
   }
 
@@ -86,7 +100,9 @@ class AdminDB extends ChangeNotifier {
   }
 
   /// delete individual student stream
-  Future<void> deleteStudent(BuildContext context) async {
+  Future<void> deleteStudent(BuildContext context, {
+    required String id,
+  }) async {
     CustomDialog().showAgree(
       context,
       onTap: () async {
@@ -140,9 +156,11 @@ class AdminDB extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateStudentSection(
-      BuildContext context, SelectionOption? value, List<Subject> subjectList) {
-    studentSection = value;
+  void updateStudentSection(BuildContext context, {
+    SelectionOption? section,
+    required List<Subject> subjectList
+  }) {
+    studentSection = section;
     updateSection(context, subjectList: subjectList);
     notifyListeners();
   }
@@ -207,6 +225,8 @@ class AdminDB extends ChangeNotifier {
   }
 
   Future<void> addInstructor(BuildContext context) async {
+    
+    final DateTime now = DateTime.now();
 
     final String id = Uuid().v1();
 
@@ -234,11 +254,14 @@ class AdminDB extends ChangeNotifier {
           section: instructorSection,
           strand: strandInstructorOption,
           subject: subjectOption,
+          createdAt: Timestamp.fromDate(now),
         );
-        
-        db.collection("user").doc(id).set(instructor.userModel.toJson());
+
 
         db.collection("instructor").doc(id).set(instructor.toJson()).then((value) {
+
+          db.collection("user").doc(id).set(instructor.userModel.toJson());
+
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("Added successfully!"),
@@ -260,9 +283,13 @@ class AdminDB extends ChangeNotifier {
               section: instructorSection,
               strand: strandInstructorOption,
               subject: subjectOption,
+              createdAt: Timestamp.fromDate(now)
             );
 
             db.collection("instructor").doc(id).set(instructor.toJson()).then((value) {
+
+              db.collection("user").doc(id).set(instructor.userModel.toJson());
+
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text("Added successfully!"),
@@ -288,6 +315,8 @@ class AdminDB extends ChangeNotifier {
   Future<void> editInstructor(BuildContext context, String id) async {
 
     try {
+      
+      final DateTime now = DateTime.now();
 
       final UserModel userModel = UserModel(
         controlNumber: username.text,
@@ -305,6 +334,7 @@ class AdminDB extends ChangeNotifier {
         section: instructorSection,
         strand: strandInstructorOption,
         subject: subjectOption,
+        createdAt: Timestamp.fromDate(now),
       );
 
       db.collection("instructor").doc(instructorId)
@@ -385,10 +415,12 @@ class AdminDB extends ChangeNotifier {
         onTap: () {
           debugPrint("Deleting: $instructorId");
           db.collection("instructor").doc(instructorId).delete().then((value) {
+            db.collection("user").doc(instructorId).delete();
+
+            context.popRoute();
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("Deleted successfully!"),
             ));
-            context.popRoute();
           });
         },
       message: "Are you sure you want to delete?",
@@ -407,8 +439,17 @@ class AdminDB extends ChangeNotifier {
     return generalYear!.id == 0;
   }
 
-  void updateGeneralYear(SelectionOption? value) {
+  void updateGeneralYear(SelectionOption? value) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setString("generalYear", jsonEncode(value!.toJson()));
     generalYear = value;
+    notifyListeners();
+  }
+
+  void updateGeneralYearLocal() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final data = sp.getString("generalYear");
+    generalYear ??= SelectionOption.fromJson(jsonDecode(data!));
     notifyListeners();
   }
 
@@ -474,6 +515,18 @@ class AdminDB extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<SelectionOption> semesterList = [
+    const SelectionOption(id: 0, label: "First"),
+    const SelectionOption(id: 1, label: "Second"),
+  ];
+
+  SelectionOption? semesterInstructorOption;
+
+  void updateSemesterInstructorOption(value) {
+    semesterInstructorOption = value;
+    notifyListeners();
+  }
+
 
   List<Subject> get getSubjectInstructor {
     if (gradeInstructor?.id == 0
@@ -483,11 +536,23 @@ class AdminDB extends ChangeNotifier {
       return Commons.juniorSubject;
     } else {
       if (strandInstructorOption?.id == 0) {
-        return Commons.stemFirstSubjectList + Commons.stemSecondSubjectList;
+        if (semesterInstructorOption?.id == 0) {
+          return Commons.stemFirstSubjectList;
+        } else {
+          return Commons.stemSecondSubjectList;
+        }
       } else if (strandInstructorOption?.id == 1) {
-        return Commons.gasFirstSubjectList + Commons.gasSecondSubjectList;
+        if (semesterInstructorOption?.id == 0) {
+          return Commons.gasFirstSubjectList;
+        } else {
+          return Commons.gasSecondSubjectList;
+        }
       } else {
-        return Commons.hummsFirstSubjectList + Commons.hummsSecondSubjectList;
+        if (semesterInstructorOption?.id == 0) {
+          return Commons.hummsFirstSubjectList;
+        } else {
+          return Commons.hummsSecondSubjectList;
+        }
       }
     }
   }
@@ -501,5 +566,26 @@ class AdminDB extends ChangeNotifier {
       subjectOption.remove(value);
     }
     notifyListeners();
+  }
+
+  Future<void> assignSection(BuildContext context, List<Subject> subjectList) async {
+    CustomDialog().assignSection(
+      context,
+      leftTap: () async {
+        updateStudentSection(context,
+          subjectList: [],
+          section: sectionList[0],
+        );
+      },
+      rightTap: () async {
+        updateStudentSection(context,
+          subjectList: [],
+          section: sectionList[1],
+        );
+      },
+      message: "Assign a section",
+      leftText: sectionList[0].label,
+      rightText: sectionList[1].label,
+    );
   }
 }

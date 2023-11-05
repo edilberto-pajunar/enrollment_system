@@ -24,7 +24,7 @@ class StudentDB extends ChangeNotifier {
   Stream<List<ApplicationInfo>>? studentListStream;
 
   Stream<List<ApplicationInfo>> getStudentList() {
-    return db.collection("student").snapshots().map(studentListFromSnapshot);
+    return db.collection("student").orderBy("createdAt", descending: true).snapshots().map(studentListFromSnapshot);
   }
 
   List<ApplicationInfo> studentListFromSnapshot(QuerySnapshot snapshot) {

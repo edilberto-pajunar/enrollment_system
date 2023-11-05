@@ -2,8 +2,9 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
-import 'package:web_school/models/user.dart';
+import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/student.dart';
+import 'package:web_school/views/screens/student/mobile/payment/home.dart';
 import 'package:web_school/views/screens/student/web/profile/change_pass.dart';
 import 'package:web_school/views/screens/student/web/profile/enrollment.dart';
 import 'package:web_school/views/screens/student/web/profile/grades.dart';
@@ -15,11 +16,9 @@ import 'package:web_school/views/widgets/drawer/student.dart';
 @RoutePage()
 class WebStudentHomeScreen extends StatefulWidget {
   const WebStudentHomeScreen({
-    required this.userModel,
     super.key,
   });
 
-  final UserModel userModel;
 
   @override
   State<WebStudentHomeScreen> createState() => _WebStudentHomeScreenState();
@@ -32,9 +31,8 @@ class _WebStudentHomeScreenState extends State<WebStudentHomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final StudentDB studentDB = Provider.of<StudentDB>(context, listen: false);
-      studentDB.updateStudentStream(
-        widget.userModel,
-      );
+      final Auth auth = Provider.of<Auth>(context, listen: false);
+      studentDB.updateStudentStream(auth.user!);
     });
   }
 
@@ -80,6 +78,9 @@ class _WebStudentHomeScreenState extends State<WebStudentHomeScreen> {
                                 applicationInfo: applicationInfo,
                               ),
                               StudentWebScheduleScreen(
+                                applicationInfo: applicationInfo,
+                              ),
+                              StudentPaymentHomeScreen(
                                 applicationInfo: applicationInfo,
                               ),
                               StudentWebChangePassScreen(

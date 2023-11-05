@@ -63,9 +63,7 @@ class OtherSchoolScreen extends StatelessWidget {
                           await application.submitApplicationForm(context,
                             isSenior: true,
                             isTransferee: true,
-                          )
-                              .then((value) {
-                            context.popRoute();
+                          ).then((value) {
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -76,6 +74,7 @@ class OtherSchoolScreen extends StatelessWidget {
                                     ),
                                   );
                                 });
+                            context.popRoute();
                           });
                         }
                       },

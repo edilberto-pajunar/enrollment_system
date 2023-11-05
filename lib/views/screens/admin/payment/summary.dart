@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/payment.dart';
@@ -30,7 +31,7 @@ class _SummaryPaymentScreenState extends State<SummaryPaymentScreen> {
     final applicationInfo = widget.applicationInfo;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: !kIsWeb ? AppBar() : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -46,8 +47,9 @@ class _SummaryPaymentScreenState extends State<SummaryPaymentScreen> {
                     child: InkWell(
                       onTap: () {
                         context.pushRoute(PaymentHistoryRoute(
-                          applicationInfo: applicationInfo,
-                            paymentList: paymentList,
+                          applicationInfo: applicationInfo[index],
+                          paymentList: paymentList,
+                          summaryIndex: index,
                         ));
                       },
                       child: Padding(

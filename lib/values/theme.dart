@@ -18,6 +18,20 @@ class CustomTheme {
       style: ElevatedButton.styleFrom(
       ),
     ),
+    dialogTheme: DialogTheme(
+      titleTextStyle: TextStyle(
+
+      ),
+      contentTextStyle: TextStyle(
+        fontSize: 14.0,
+      ),
+    ),
+    listTileTheme: ListTileThemeData(
+      titleTextStyle: TextStyle(
+        fontSize: 14.0,
+        fontWeight: FontWeight.w400,
+      )
+    ),
     // textButtonTheme: TextButtonThemeData(
     //   style: TextButton.styleFrom(
     //     textStyle: TextStyle(

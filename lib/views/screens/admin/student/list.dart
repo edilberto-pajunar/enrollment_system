@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
@@ -43,18 +45,18 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
     final ThemeData theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
 
-    return SafeArea(
-      child: Scaffold(
-        key: scaffoldKey,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              context.popRoute();
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: !kIsWeb ? AppBar(
+        leading: IconButton(
+          onPressed: () {
+            context.popRoute();
+          },
+          icon: const Icon(Icons.arrow_back),
         ),
-        body: ModalProgressHUD(
+      ) : null,
+      body: SafeArea(
+        child: ModalProgressHUD(
           inAsyncCall: studentDB.isLoading,
           child: StreamWrapper<List<ApplicationInfo>>(
               stream: studentDB.studentListStream,
@@ -66,7 +68,8 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                     child: SizedBox(
                       width: size.width,
                       child: DataTable(
-                        columnSpacing: 5,
+                        dataRowMaxHeight: 60,
+                        columnSpacing: 3,
                         headingTextStyle: theme.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -95,27 +98,36 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                               child: Text("Grade"),
                             ),
                           ),
-                          DataColumn(
-                            label: Icon(Icons.group_remove_rounded),
-                          ),
+                          // DataColumn(
+                          //   label: Icon(Icons.group_remove_rounded),
+                          // ),
                         ],
                         rows: student!.map((e) {
                           return DataRow(cells: [
                             DataCell(
                               SizedBox(
-                                width: 80,
-                                child: Text(e.studentInfo.name),
+                                width: 120,
+                                child: Row(
+                                  children: [
+                                    Expanded(child: Text(e.studentInfo.name)),
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(CupertinoIcons.delete,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
                               ),
                             ),
                             DataCell(
                               SizedBox(
                                 width: 100,
-                                child: InkWell(
+                                child: GestureDetector(
                                   onTap: () {
                                     adminDB.updateStudentId(e.userModel.id);
-                                    context.pushRoute(AdminStudentProfileRoute(
-                                      applicationInfo: e,
-                                    ));
+                                    context.pushRoute(AdminStudentProfileRoute());
                                   },
                                   child: Text(
                                     e.userModel.controlNumber,
@@ -131,8 +143,7 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                                 onTap: () => toggleShowPass(),
                                 child: Text(
                                   showPass
-                                      ? e.userModel.password
-                                          .replaceAll(RegExp(r"."), "*")
+                                      ? e.userModel.password.replaceAll(RegExp(r"."), "*")
                                       : e.userModel.password,
                                 ),
                               ),
@@ -140,19 +151,19 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                             DataCell(
                               SizedBox(
                                   width: 80,
-                                  child: Text(
-                                      "${e.schoolInfo.gradeToEnroll.label}")),
+                                  child: Text("${e.schoolInfo.gradeToEnroll.label}")),
                             ),
-                            DataCell(
-                              InkWell(
-                                borderRadius: BorderRadius.circular(24.0),
-                                onTap: () async {
-                                  adminDB.updateStudentId(e.userModel.id);
-                                  await adminDB.deleteStudent(context);
-                                },
-                                child: const Icon(Icons.close),
-                              ),
-                            ),
+                            // DataCell(
+                            //   InkWell(
+                            //     borderRadius: BorderRadius.circular(24.0),
+                            //     onTap: () async {
+                            //       await adminDB.deleteStudent(context,
+                            //         id: e.userModel.id,
+                            //       );
+                            //     },
+                            //     child: const Icon(CupertinoIcons.delete),
+                            //   ),
+                            // ),
                           ]);
                         }).toList(),
                       ),

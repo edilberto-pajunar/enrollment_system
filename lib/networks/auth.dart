@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_school/models/user.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 
@@ -20,10 +24,7 @@ class Auth extends ChangeNotifier {
   static TextEditingController controlNumber = TextEditingController();
   static TextEditingController password = TextEditingController();
 
-  static GlobalKey<FormState> loginKey = GlobalKey<FormState>();
 
-  static GlobalKey<FormFieldState> emailKey = GlobalKey<FormFieldState>();
-  static GlobalKey<FormFieldState> passwordKey = GlobalKey<FormFieldState>();
 
   String? author;
 
@@ -37,49 +38,43 @@ class Auth extends ChangeNotifier {
   UserModel? user;
 
   /// [loginAccount] will prompt the user to log in
-  Future<UserCredential?> loginAccount(BuildContext context) async {
+  Future<void> loginAccount(BuildContext context) async {
     final ThemeData theme = Theme.of(context);
-    showHUD(true);
+    // final SharedPreferences sp = await SharedPreferences.getInstance();
 
-    db.collection("user").get().then((value) {
-      try {
-        final List<UserModel> userModels = value.docs.map((doc) {
-          final data = doc.data();
+    await db.collection("user").get().then((value) {
 
-          return UserModel.fromJson(data);
-        }).toList();
-
-        userModels.forEach((userModel) {
-
-          if (userModel.controlNumber == controlNumber.text && userModel.password == password.text) {
-            if (userModel.type == "instructor") {
-              user = userModel;
-              context.pushRoute(InstructorHomeRoute(
-                userModel: userModel
-              ));
-            } else if (userModel.type == "student") {
-              user = userModel;
-              context.pushRoute(StudentLayoutBuilder(
-                userModel: userModel,
-              ));
-            } else if (userModel.type == "admin") {
-              user = userModel;
-              context.pushRoute(AdminHomeRoute(
-                userModel: userModel
-              ));
-            }
-          }
+      final List<UserModel> userModels = value.docs.map((doc) {
+        final data = doc.data();
+        return UserModel.fromJson(data);
+      }).toList();
 
 
+      bool authenticated = userModels.any((element) {
+        if (element.controlNumber == controlNumber.text && element.password == password.text) {
+          user = element;
           notifyListeners();
 
-        });
+          return true;
+        } else {
+          return false;
+        }
+      });
 
-        showHUD(false);
-      } catch (e) {
-        showHUD(false);
+      if (authenticated && user != null) {
+        if (user!.type == "instructor") {
+          AutoRouter.of(context).replace(InstructorHomeRoute(
+            userModel: user!
+          ));
+        } else if (user!.type == "student") {
+          AutoRouter.of(context).replace(StudentLayoutBuilder(
+            userModel: user!,
+          ));
 
-        print(e);
+        } else if (user!.type == "admin") {
+          AutoRouter.of(context).replace(AdminHomeRoute());
+        }
+      } else {
         showDialog(
           context: context,
           builder: (context) {
@@ -93,79 +88,28 @@ class Auth extends ChangeNotifier {
             );
           });
       }
+      showHUD(false);
     });
-    return null;
-    // try {
-    //   UserCredential userCredential = await auth
-    //       .signInWithEmailAndPassword(
-    //     email: "${controlNumber.text}@gmail.com",
-    //     password: password.text,
-    //   )
-    //       .then((UserCredential value) {
-    //     if (uids.contains(value.user!.uid)) {
-    //       // Update the user model
-    //       // user = UserModel(
-    //       //   controlNumber: controlNumber.text,
-    //       //   type: author!,
-    //       //   id: value.user!.uid,
-    //       // );
-    //
-    //       if (author == "instructor") {
-    //         context.pushRoute(const InstructorHomeRoute());
-    //       } else if (author == "student") {
-    //         context.pushRoute(const StudentLayoutBuilder());
-    //       } else if (author == "admin") {
-    //         context.pushRoute(const AdminHomeRoute());
-    //       }
-    //       notifyListeners();
-    //     } else {
-    //       showDialog(
-    //           context: context,
-    //           builder: (context) {
-    //             return AlertDialog(
-    //               content: Text(
-    //                 "Wrong control number/password.",
-    //                 style: theme.textTheme.bodyMedium!.copyWith(
-    //                   color: Colors.red,
-    //                 ),
-    //               ),
-    //             );
-    //           });
-    //     }
-    //     return value;
-    //   });
-    //
-    //   showHUD(false);
-    //   return userCredential;
-    // } catch (e) {
-    //   showHUD(false);
-    //   Future.delayed(Duration.zero, () {
-    //     showDialog(
-    //         context: context,
-    //         builder: (context) {
-    //           return AlertDialog(
-    //             content: Text(
-    //               "Wrong control number/password.",
-    //               style: theme.textTheme.bodyMedium!.copyWith(
-    //                 color: Colors.red,
-    //               ),
-    //             ),
-    //           );
-    //         });
-    //   });
-    //   throw "Error: $e";
-    // }
+  }
+
+  Future<void> updateUserModelLocal() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final data = sp.getString("userModel");
+    user ??= UserModel.fromJson(jsonDecode(data!));
+    notifyListeners();
   }
 
   /// [logOut] lets the user logout and clear the
   /// credentials
   Future<void> logout(BuildContext context) async {
     await auth.signOut().then((value) {
-      context.router.popUntilRoot();
+      AutoRouter.of(context).popUntilRoot();
+      // context.navigateNamedTo("/");
       // AutoRouter.of(context).replace(const ResponsiveBuilder());
       clearForm();
     });
   }
+
 
   void clearForm() {
     controlNumber.clear();
@@ -194,4 +138,7 @@ class Auth extends ChangeNotifier {
     authListStream = getAuth();
     notifyListeners();
   }
+
+
+
 }
