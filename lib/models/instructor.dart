@@ -36,7 +36,7 @@ class Instructor {
       section: SelectionOption?.fromJson(json["section"]),
       subject: json["subject"] == null
           ? []
-          : List<Subject>.from(json["subject"].map((e) => Subject.fromMap(e))),
+          : List<Subject>.from(json["subject"].map((e) => Subject.fromJson(e))),
       strand: json["strand"] != null
           ? SelectionOption?.fromJson(json["strand"])
           : null,
@@ -51,7 +51,7 @@ class Instructor {
         "lastName": lastName,
         "grade": grade!.toJson(),
         "section": section!.toJson(),
-        "subject": subject!.map((e) => e.toMap()).toList(),
+        "subject": subject!.map((e) => e.toJson()).toList(),
         "strand": strand?.toJson(),
         "createdAt": createdAt,
       };

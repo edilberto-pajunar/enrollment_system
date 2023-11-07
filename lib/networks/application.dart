@@ -227,8 +227,7 @@ class Application extends ChangeNotifier {
 
   final List<SelectionOption> strandList = const [
     SelectionOption(id: 0, label: "GAS(General Academic Strand)"),
-    SelectionOption(
-        id: 1, label: "STEM(Science, Technology, Engineering and Mathematics)"),
+    SelectionOption(id: 1, label: "STEM(Science, Technology, Engineering and Mathematics)"),
     SelectionOption(id: 2, label: "HUMMS(Humanities and Social Sciences)"),
   ];
 
@@ -736,7 +735,7 @@ class Application extends ChangeNotifier {
 
         if (isJunior) {
           for (Subject subject in Commons.juniorSubject) {
-            subjectsCollection.doc(subject.id.toString()).set(subject.toMap());
+            subjectsCollection.doc(subject.id.toString()).set(subject.toJson());
           }
         } else if (isSenior) {
           // For stem
@@ -745,13 +744,13 @@ class Application extends ChangeNotifier {
               for (Subject subject in Commons.stemFirstSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toMap());
+                    .set(subject.toJson());
               }
             } else {
               for (Subject subject in Commons.stemSecondSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toMap());
+                    .set(subject.toJson());
               }
             }
           }
@@ -761,13 +760,13 @@ class Application extends ChangeNotifier {
               for (Subject subject in Commons.gasFirstSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toMap());
+                    .set(subject.toJson());
               }
             } else {
               for (Subject subject in Commons.gasSecondSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toMap());
+                    .set(subject.toJson());
               }
             }
           }
@@ -777,13 +776,13 @@ class Application extends ChangeNotifier {
               for (Subject subject in Commons.hummsFirstSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toMap());
+                    .set(subject.toJson());
               }
             } else {
               for (Subject subject in Commons.hummsSecondSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toMap());
+                    .set(subject.toJson());
               }
             }
           }

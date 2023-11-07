@@ -58,7 +58,7 @@ class InstructorDB extends ChangeNotifier {
 
   List<Subject> subjectListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      return Subject.fromMap(doc.data() as Map<String, dynamic>);
+      return Subject.fromJson(doc.data() as Map<String, dynamic>);
     }).toList();
   }
 
@@ -169,7 +169,7 @@ class InstructorDB extends ChangeNotifier {
           .update(
         {
           "grades": FieldValue.arrayRemove(
-              currentGradeList.map((e) => e.toMap()).toList()),
+              currentGradeList.map((e) => e.toJson()).toList()),
         },
       ).then((value) {
         db
@@ -180,7 +180,7 @@ class InstructorDB extends ChangeNotifier {
             .update(
           {
             "grades":
-            FieldValue.arrayUnion(object.map((e) => e.toMap()).toList()),
+            FieldValue.arrayUnion(object.map((e) => e.toJson()).toList()),
           },
         );
         showHUD(false);

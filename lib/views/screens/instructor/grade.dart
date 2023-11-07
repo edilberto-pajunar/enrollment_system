@@ -216,7 +216,9 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
                               final List<Subject> instructorSubject = widget.instructor.subject!.map((e) => e).toList();
 
                               return instructorSubject.any((data) => data.id == element.id);
+
                             }).toList();
+
 
                             for (var subject in subjectFiltered) {
 
@@ -270,6 +272,8 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
                                     child: SingleChildScrollView(
                                       child: Column(
                                         children: List.generate(subjectFiltered[index].grades.length, (indexes) {
+
+                                          print(subjectFiltered[index].grades.first.grade);
 
                                           final List<Grade> subjects = subjectFiltered[index].grades;
 

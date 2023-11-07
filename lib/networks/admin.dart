@@ -99,24 +99,6 @@ class AdminDB extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// delete individual student stream
-  Future<void> deleteStudent(BuildContext context, {
-    required String id,
-  }) async {
-    CustomDialog().showAgree(
-      context,
-      onTap: () async {
-        await db.collection("student").doc(studentId).delete().then((value) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Deleted successfully!")),
-          );
-          context.popRoute();
-        });
-      },
-      message: "Are you sure you want to delete?",
-    );
-  }
-
   /// update individual student list of
   /// subject stream
   Stream<List<Subject>>? listSubjectStream;
@@ -133,7 +115,7 @@ class AdminDB extends ChangeNotifier {
   List<Subject> listSubjectSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       final data = doc.data() as Map<String, dynamic>;
-      return Subject.fromMap(data);
+      return Subject.fromJson(data["subject"]);
     }).toList();
   }
 
@@ -169,23 +151,25 @@ class AdminDB extends ChangeNotifier {
     BuildContext context, {
     required List<Subject> subjectList,
   }) async {
-    print(studentId);
     await db.collection("student").doc(studentId).set({
       "studentInfo": {
         "section": studentSection?.label,
       }
     }, SetOptions(merge: true)).then((value) {
       subjectList.map((subject) {
-        db
-            .collection("student")
+        final subjectData = Subject(
+          id: subject.id,
+          name: subject.name,
+          grades: subject.grades,
+          units: subject.units,
+          schedule: Commons.grade7SectionA[subject.id],
+        );
+        db.collection("student")
             .doc(studentId)
             .collection("subjects")
             .doc(subject.id.toString())
             .set({
-          "schedule":
-              FieldValue.arrayUnion(Commons.grade7SectionA[subject.id].map((e) {
-            return e.toJson();
-          }).toList())
+          "subject": subjectData.toJson(),
         }, SetOptions(merge: true));
       }).toList();
 
@@ -194,6 +178,7 @@ class AdminDB extends ChangeNotifier {
       );
       context.popRoute();
     });
+
   }
 
   static GlobalKey<FormState> addInstructorFormKey = GlobalKey();
@@ -301,7 +286,7 @@ class AdminDB extends ChangeNotifier {
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("Current username is existing",),
+                content: Text("Username already exists",),
                 backgroundColor: Colors.red,
               ),
             );
@@ -568,18 +553,46 @@ class AdminDB extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> assignSection(BuildContext context, List<Subject> subjectList) async {
-    CustomDialog().assignSection(
-      context,
-      leftTap: () async {
-        updateStudentSection(context,
-          subjectList: [],
+  List<Subject> getStudentSectionSubjects(ApplicationInfo applicationInfo) {
+    final grade = applicationInfo.schoolInfo.gradeToEnroll;
+    final strand = applicationInfo.schoolInfo.strand;
+
+    if (grade.label!.contains("7")
+        || grade.label!.contains("8")
+        || grade.label!.contains("9")
+        || grade.label!.contains("10")) {
+      return Commons.juniorSubject;
+    } else if (grade.label!.contains("11")) {
+      if (strand?.id == 0) {
+        return Commons.gasFirstSubjectList;
+      } else if (strand?.id == 1) {
+        return Commons.stemFirstSubjectList;
+      } else {
+        return Commons.hummsFirstSubjectList;
+      }
+    } else {
+      if (strand?.id == 0) {
+        return Commons.gasSecondSubjectList;
+      } else if (strand?.id == 1) {
+        return Commons.stemSecondSubjectList;
+      } else {
+        return Commons.hummsSecondSubjectList;
+      }
+    }
+  }
+
+  Future<void> assignSection(BuildContext context, ApplicationInfo applicationInfo) async {
+
+    CustomDialog().assignSection(context,
+      leftTap: () {
+        return updateStudentSection(context,
+          subjectList: getStudentSectionSubjects(applicationInfo),
           section: sectionList[0],
         );
       },
-      rightTap: () async {
-        updateStudentSection(context,
-          subjectList: [],
+      rightTap: () {
+        return updateStudentSection(context,
+          subjectList: getStudentSectionSubjects(applicationInfo),
           section: sectionList[1],
         );
       },
@@ -587,5 +600,12 @@ class AdminDB extends ChangeNotifier {
       leftText: sectionList[0].label,
       rightText: sectionList[1].label,
     );
+  }
+
+  int indexDashboard = 0;
+
+  void updateIndexDashboard(int value) {
+    indexDashboard = value;
+    notifyListeners();
   }
 }

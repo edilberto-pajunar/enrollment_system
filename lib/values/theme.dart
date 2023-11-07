@@ -32,14 +32,7 @@ class CustomTheme {
         fontWeight: FontWeight.w400,
       )
     ),
-    // textButtonTheme: TextButtonThemeData(
-    //   style: TextButton.styleFrom(
-    //     textStyle: TextStyle(
-    //       fontSize: 12.0,
-    //     ),
-    //   ),
-    // ),
+
     textTheme: CustomTypography.theme,
-    // fontFamily: "PlayfairDisplay",
   );
 }

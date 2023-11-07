@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
@@ -30,60 +31,64 @@ class _SummaryPaymentScreenState extends State<SummaryPaymentScreen> {
     final paymentList = widget.paymentList;
     final applicationInfo = widget.applicationInfo;
 
-    return Scaffold(
-      appBar: !kIsWeb ? AppBar() : null,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: paymentList.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: InkWell(
-                      onTap: () {
-                        context.pushRoute(PaymentHistoryRoute(
-                          applicationInfo: applicationInfo[index],
-                          paymentList: paymentList,
-                          summaryIndex: index,
-                        ));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: ColorTheme.primaryRed.withOpacity(0.8),
-                              child: Text("${index + 1}",
-                                style: theme.textTheme.bodyMedium!.copyWith(
-                                  color: Colors.white,
-                                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text("List of Payments",
+          style: theme.textTheme.titleSmall,
+        ),
+        const SizedBox(height: 24.0),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: paymentList.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: InkWell(
+                onTap: () {
+                  context.pushRoute(PaymentHistoryRoute(
+                    applicationInfo: applicationInfo[index],
+                    paymentList: paymentList,
+                    summaryIndex: index,
+                  ));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: ColorTheme.primaryRed,
+                            child: Text("${index + 1}",
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-                            const SizedBox(width: 8.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(applicationInfo[index].studentInfo.name),
-                                Text("${applicationInfo[index].schoolInfo.gradeToEnroll.label}"),
-                              ],
-                            ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(width: 8.0),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(applicationInfo[index].studentInfo.name),
+                              Text("${applicationInfo[index].schoolInfo.gradeToEnroll.label}"),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                  );
 
-                },
+                      Icon(CupertinoIcons.arrow_right),
+                    ],
+                  ),
+                ),
               ),
-            ],
-          ),
+            );
+
+          },
         ),
-      ),
+      ],
     );
 
   }

@@ -12,7 +12,7 @@ class Payment {
   factory Payment.fromJson(Map<String, dynamic> map) {
     return Payment(
       id: map['id'] as String,
-      paymentDescription: List<PaymentDescription>.from(map["paymentDescription"].map((x) => PaymentDescription.fromJson(x))),
+      paymentDescription: List<PaymentDescription>.from(map["paymentModel"].map((x) => PaymentDescription.fromJson(x))),
     );
   }
 

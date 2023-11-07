@@ -2,25 +2,21 @@ class Schedule {
   Schedule({
     required this.day,
     required this.start,
-    // required this.end,
   });
 
   final int day;
   final TimeData start;
-  // final TimeData end;
 
   factory Schedule.fromJson(Map<String, dynamic> json) {
     return Schedule(
       day: json["day"],
       start: TimeData.fromJson(json["start"]),
-      // end: TimeData.fromJson(json["end"]),
     );
   }
 
   Map<String, dynamic> toJson() => {
         "day": day,
         "start": start.toJson(),
-        // "end": end.toJson(),
       };
 }
 

@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:web_school/extensions/date.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/schedule.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/student.dart';
-import 'package:web_school/views/screens/admin/student/calendar.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
 @RoutePage()

@@ -60,8 +60,7 @@ class StudentDetails extends StatelessWidget {
             Row(
               children: [
                 InkWell(
-                  onTap: () =>
-                      adminDB.updatePersonalInfoShow(),
+                  onTap: () => adminDB.updatePersonalInfoShow(),
                   child: Icon(
                     adminDB.personalInfoShow
                         ? Icons.arrow_drop_up
@@ -80,8 +79,7 @@ class StudentDetails extends StatelessWidget {
             Visibility(
               visible: adminDB.personalInfoShow,
               child: BasicPersonalInfoForm(
-                personalInfo:
-                applicationInfo.personalInfo,
+                personalInfo: applicationInfo.personalInfo,
                 viewOnly: true,
               ),
             ),

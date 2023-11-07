@@ -127,6 +127,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 controller:
                     TextEditingController(text: application.schoolYear?.label),
                 label: "A1. School Year",
+                readOnly: true,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.schoolYear,
@@ -150,6 +151,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 controller: TextEditingController(
                     text: application.gradeToEnroll?.label),
                 label: "Grade Level to Enroll in:",
+                readOnly: true,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.gradeToEnroll,
@@ -186,6 +188,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 controller: TextEditingController(
                     text: application.lastGradeCompleted?.label),
                 label: "Last Grade Level Completed",
+                readOnly: true,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.lastGradeCompleted,
@@ -222,6 +225,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 controller: TextEditingController(
                     text: application.lastSchoolYearCompleted?.label),
                 label: "Last School Year Completed",
+                readOnly: true,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.lastSchoolYearCompleted,
@@ -245,6 +249,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 controller:
                     TextEditingController(text: application.residence?.label),
                 label: "Residency",
+                readOnly: true,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.residence,
@@ -284,7 +289,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
         PrimaryTextField(
           fieldKey: Application.schoolNameKey,
           controller: Application.schoolName,
-          readOnly: widget.continueJunior,
+          readOnly: widget.viewOnly,
           hintText: "Name of School",
           label: "Name of school",
           validator: Commons.forcedTextValidator,
@@ -292,7 +297,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
         PrimaryTextField(
           fieldKey: Application.schoolIDKey,
           controller: Application.schoolID,
-          readOnly: widget.continueJunior,
+          readOnly: widget.viewOnly,
           hintText: "School ID",
           label: "School ID",
           validator: Commons.forcedTextValidator,
@@ -300,7 +305,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
         PrimaryTextField(
           fieldKey: Application.schoolAddressKey,
           controller: Application.schoolAddress,
-          readOnly: widget.continueJunior,
+          readOnly: widget.viewOnly,
           hintText: "School Address",
           label: "School Address",
           validator: Commons.forcedTextValidator,
@@ -311,6 +316,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 controller:
                     TextEditingController(text: application.schoolType?.label),
                 label: "School Type",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.schoolType,
@@ -335,6 +341,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 controller: TextEditingController(
                     text: application.submitCopyPSA?.label),
                 label: "Copy of Certificate (PSA) Submitted",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.submitCopyPSA,
@@ -359,6 +366,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
           hintText: "PSA Birth Certificate No.",
           label: "PSA Birth Certificate No.",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
         const SizedBox(height: 12.0),
         widget.viewOnly
@@ -367,6 +375,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                     text: application.otherRequirements?.label),
                 label:
                     "Other Enrollment Requirements Submitted as of this Date",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.otherRequirements,
@@ -412,6 +421,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                 controller: Application.track,
                 label: "Track",
                 validator: Commons.forcedTextValidator,
+                readOnly: widget.viewOnly,
               ),
               const SizedBox(height: 12.0),
               widget.viewOnly
@@ -419,6 +429,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
                       controller: TextEditingController(
                           text: application.strand?.label),
                       label: "Strand",
+                      readOnly: widget.viewOnly,
                     )
                   : CustomDropdown<SelectionOption>(
                       initialValue: application.strand,

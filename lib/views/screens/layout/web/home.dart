@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -69,12 +68,6 @@ class _ResponsiveWebScreenState extends State<ResponsiveWebScreen> {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 100),
-                        Text(
-                          "Logged in as a",
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                          ),
-                        ),
-                        const SizedBox(height: 12.0),
                         SizedBox(
                           width: size.width * 0.5,
                           child: PrimaryButton(

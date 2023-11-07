@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/student.dart';
+import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
 class StudentMobileGradeScreen extends StatefulWidget {
@@ -73,12 +74,13 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                         return Column(
                           children: [
                             Container(
-                              padding: const EdgeInsets.only(left: 12.0),
-                              height: 50,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0,
+                                vertical: 8.0,
+                              ),
                               decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                ),
+                                color: ColorTheme.primaryRed.withOpacity(0.8),
+                                border: Border.all(),
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(12.0),
                                   topRight: Radius.circular(12.0),
@@ -89,12 +91,14 @@ class _StudentMobileGradeScreenState extends State<StudentMobileGradeScreen> {
                                   Expanded(
                                     child: Text("${subjectList[index].name} - GWA: $gwa",
                                       style: theme.textTheme.titleSmall!.copyWith(
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
                                   IconButton(
                                     onPressed: () {},
                                     icon: Icon(Icons.grade,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ],

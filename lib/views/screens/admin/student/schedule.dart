@@ -3,12 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:web_school/extensions/date.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/schedule.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/networks/admin.dart';
-import 'package:web_school/views/screens/admin/student/calendar.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
 @RoutePage()
@@ -41,7 +40,7 @@ class _AdminScheduleStudentScreenState extends State<AdminScheduleStudentScreen>
     final AdminDB adminDB = Provider.of<AdminDB>(context);
 
     return Scaffold(
-      appBar: !kIsWeb ? AppBar() : null,
+      appBar: AppBar(),
       body: SafeArea(
         child: StreamWrapper<ApplicationInfo>(
           stream: adminDB.studentStream,
@@ -66,8 +65,9 @@ class _AdminScheduleStudentScreenState extends State<AdminScheduleStudentScreen>
                         Container(
                           decoration: BoxDecoration(
                               border: Border.all(
-                            color: Colors.black,
-                          )),
+                              color: Colors.black,
+                            ),
+                          ),
                           child: DataTable(
                             dataRowMaxHeight: 150,
                             columnSpacing: 0,
@@ -92,20 +92,15 @@ class _AdminScheduleStudentScreenState extends State<AdminScheduleStudentScreen>
                                     padding: const EdgeInsets.symmetric(vertical: 2.0),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children:
-                                          subject.schedule!.map((Schedule? schedule) {
-                                        final DateTime date =
-                                            schedule!.getNextDayTime(schedule);
-                                        final String startDate =
-                                            DateFormat("EEEE, h:mma").format(date);
-                                        final String endDate =
-                                            DateFormat("h:mma").format(date.add(
+                                      children: subject.schedule!.map((Schedule? schedule) {
+                                        final DateTime date = schedule!.getNextDayTime(schedule);
+                                        final String startDate = DateFormat("EEEE, h:mma").format(date);
+                                        final String endDate = DateFormat("h:mma").format(date.add(
                                           Duration(hours: 1),
                                         ));
                                         return Expanded(
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 1.0),
+                                            padding: const EdgeInsets.symmetric(vertical: 1.0),
                                             child: Text(
                                               "$startDate/$endDate",
                                               style: theme.textTheme.bodySmall,
@@ -133,8 +128,4 @@ class _AdminScheduleStudentScreenState extends State<AdminScheduleStudentScreen>
   }
 }
 
-class DataSource extends CalendarDataSource {
-  DataSource(List<TimeRegion> source) {
-    appointments = source;
-  }
-}
+

@@ -41,85 +41,84 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(24.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: !kIsWeb
-                    ? CrossAxisAlignment.stretch
-                    : CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      PngImages.background,
-                      height: 120,
-                      width: 120,
-                    ),
-                    const SizedBox(height: 24.0),
-                    Text("St.Jude Agro Industrial Secondary School",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.w700,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        PngImages.background,
+                        height: 120,
+                        width: 120,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text("Topas Proper Nabua, Camarines Sur",
-                      style: theme.textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 24.0),
-                    SizedBox(
-                      width: size.width * 0.5,
-                      child: PrimaryTextField(
-                        fieldKey: emailKey,
-                        label: "Control Number",
-                        controller: Auth.controlNumber,
-                        hintText: "Control Number",
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "This field is required";
-                          } else {
-                            return null;
-                          }
+                      const SizedBox(height: 24.0),
+                      Text("St.Jude Agro Industrial Secondary School",
+                        style: theme.textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text("Topas Proper Nabua, Camarines Sur",
+                        style: theme.textTheme.bodyMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 24.0),
+                      SizedBox(
+                        width: size.width * 0.5,
+                        child: PrimaryTextField(
+                          fieldKey: emailKey,
+                          label: "Control Number",
+                          controller: Auth.controlNumber,
+                          hintText: "Control Number",
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "This field is required";
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                      SizedBox(
+                        width: size.width * 0.5,
+                        child: PasswordTextField(
+                          fieldKey: passwordKey,
+                          label: "Password",
+                          controller: Auth.password,
+                          hintText: "Password",
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "This field is required";
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 24.0),
+                      SizedBox(
+                        width: size.width * 0.5,
+                        child: PrimaryButton(
+                          onPressed: () async {
+                            if (loginKey.currentState!.validate()) {
+                              auth.loginAccount(context);
+                              // context.pushRoute(const AdminHomeRoute());
+                            }
+                          },
+                          label: "Login",
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      TextButton(
+                        onPressed: () {
+                          context.router.pushNamed("/");
+                          auth.clearForm();
                         },
+                        child: const Text("Return to main screen"),
                       ),
-                    ),
-                    const SizedBox(height: 12.0),
-                    SizedBox(
-                      width: size.width * 0.5,
-                      child: PasswordTextField(
-                        fieldKey: passwordKey,
-                        label: "Password",
-                        controller: Auth.password,
-                        hintText: "Password",
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "This field is required";
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 24.0),
-                    SizedBox(
-                      width: size.width * 0.5,
-                      child: PrimaryButton(
-                        onPressed: () async {
-                          if (loginKey.currentState!.validate()) {
-                            auth.loginAccount(context);
-                            // context.pushRoute(const AdminHomeRoute());
-                          }
-                        },
-                        label: "Login",
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    TextButton(
-                      onPressed: () {
-                        context.router.pushNamed("/");
-                        auth.clearForm();
-                      },
-                      child: const Text("Return to main screen"),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

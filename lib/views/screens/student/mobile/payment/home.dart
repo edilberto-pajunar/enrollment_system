@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/payment.dart';
 import 'package:web_school/networks/payment.dart';
+import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
 @RoutePage()
@@ -50,66 +51,72 @@ class _StudentPaymentHomeScreenState extends State<StudentPaymentHomeScreen> {
               : SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text("Your current balance is: ${widget.applicationInfo.studentInfo.balance}"),
-                  const SizedBox(height: 24.0),
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: paymentList.length,
-                    itemBuilder: (context, index) {
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text("Payment",
+                      style: theme.textTheme.titleSmall!.copyWith(
+                      ),
+                    ),
+                    // Text("Your current balance is: ${widget.applicationInfo.studentInfo.balance}"),
+                    const SizedBox(height: 24.0),
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: paymentList.length,
+                      itemBuilder: (context, index) {
 
-                      final payment = paymentList[index];
-                      final date = payment.dateTime?.toDate();
+                        final payment = paymentList[index];
+                        final date = payment.dateTime.toDate();
 
-                      final formattedDate = DateFormat("MMMM dd, yyyy").format(date!);
+                        final formattedDate = DateFormat("MMMM dd, yyyy").format(date);
 
-                      return Container(
-                        padding: const EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(),
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  child: Text("${index + 1}"),
-                                  radius: 15,
-                                ),
-                                const SizedBox(width: 4.0),
-                                Text("#${payment.refNumber}",
-                                  style: theme.textTheme.bodyLarge!.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                            const SizedBox(height: 12.0),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 32.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                        return Container(
+                          padding: const EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                            color: ColorTheme.primaryYellow,
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
-                                  Text("Status: ${payment.status}"),
-                                  Text("Amount: ₱${payment.amount}"),
-                                  Text("Date transaction: ${formattedDate}"),
+                                  CircleAvatar(
+                                    child: Icon(Icons.money),
+                                    radius: 15,
+                                    backgroundColor: Colors.white,
+                                  ),
+                                  const SizedBox(width: 4.0),
+                                  Text("Ref number: ${payment.refNumber}",
+                                    style: theme.textTheme.bodyLarge!.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ),
+                              const SizedBox(height: 12.0),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 32.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Status: ${payment.status}"),
+                                    Text("Amount: ₱${payment.amount}"),
+                                    Text("Date transaction: ${formattedDate}"),
+                                  ],
+                                ),
+                              ),
 
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           );

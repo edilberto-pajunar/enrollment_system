@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/values/strings/colors.dart';
+import 'package:web_school/views/widgets/hover/button.dart';
 
 @RoutePage()
 class AdminInstructorSectionScreen extends StatelessWidget {
@@ -13,11 +14,13 @@ class AdminInstructorSectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AdminDB adminDB = Provider.of<AdminDB>(context);
+    final ThemeData theme = Theme.of(context);
+
     return Scaffold(
-      appBar: !kIsWeb ? AppBar(
+      appBar: AppBar(
         title: const Text("Instructor"),
         actions: const [],
-      ) : null,
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorTheme.primaryRed,
         onPressed: () {
@@ -30,26 +33,23 @@ class AdminInstructorSectionScreen extends StatelessWidget {
         child: ListView.builder(
           itemCount: adminDB.sectionList.length,
           itemBuilder: (context, index) {
-            return InkWell(
+            return OnHoverButton(
               onTap: () {
                 adminDB.updateGeneralSection(adminDB.sectionList[index]);
                 context.pushRoute(const AdminInstructorStudentListRoute());
               },
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 5.0),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 24.0, vertical: 12.0),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                  ),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
+              builder: (isHovered) => Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(adminDB.sectionList[index].label!),
-                    const Icon(Icons.arrow_right),
+                    Text(adminDB.sectionList[index].label!,
+                      style: theme.textTheme.bodyMedium!.copyWith(
+                        color: isHovered ? Colors.white : Colors.black87,
+                      ),
+                    ),
+                    Icon(Icons.arrow_right,
+                      color: isHovered ? Colors.white : Colors.black87,
+                    ),
                   ],
                 ),
               ),

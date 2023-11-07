@@ -72,7 +72,7 @@ class Auth extends ChangeNotifier {
           ));
 
         } else if (user!.type == "admin") {
-          AutoRouter.of(context).replace(AdminHomeRoute());
+          AutoRouter.of(context).replace(const WrapperAdminRoute());
         }
       } else {
         showDialog(
@@ -103,13 +103,12 @@ class Auth extends ChangeNotifier {
   /// credentials
   Future<void> logout(BuildContext context) async {
     await auth.signOut().then((value) {
-      AutoRouter.of(context).popUntilRoot();
-      // context.navigateNamedTo("/");
+      !kIsWeb ? AutoRouter.of(context).popUntilRoot()
+          : AutoRouter.of(context).popUntil((route) => route.isFirst);
       // AutoRouter.of(context).replace(const ResponsiveBuilder());
       clearForm();
     });
   }
-
 
   void clearForm() {
     controlNumber.clear();

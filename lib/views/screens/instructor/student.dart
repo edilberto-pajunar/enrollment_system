@@ -47,7 +47,7 @@ class InstructorStudentScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Please select a subject:"),
+                        Text("Please select a student:"),
                         InkWell(
                           onTap: () async {
                             if (!kIsWeb) {
@@ -120,6 +120,8 @@ class InstructorStudentScreen extends StatelessWidget {
                             || studentGradeList[index].schoolInfo.gradeToEnroll.id == 2
                             || studentGradeList[index].schoolInfo.gradeToEnroll.id == 3;
 
+                        print(studentList[index]);
+
 
                         return InkWell(
                           onTap: () {
@@ -129,7 +131,7 @@ class InstructorStudentScreen extends StatelessWidget {
                             context.pushRoute(
                                 InstructorGradeRoute(
                                   isJunior: isJunior,
-                                  studentData: studentList[index],
+                                  studentData: studentGradeList[index],
                                   instructor: instructor,
                               ),
                             );
@@ -154,8 +156,7 @@ class InstructorStudentScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     "${studentGradeList[index].studentInfo.name}",
-                                    style: theme.textTheme.bodyLarge!
-                                        .copyWith(
+                                    style: theme.textTheme.bodyLarge!.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -167,8 +168,8 @@ class InstructorStudentScreen extends StatelessWidget {
                               const Icon(Icons.arrow_right_alt),
                             ],
                           ),
-                      ),
-                        );
+                         ),
+                      );
                     }),
                   ],
                 ),

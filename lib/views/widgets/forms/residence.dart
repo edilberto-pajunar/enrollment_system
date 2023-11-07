@@ -74,6 +74,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
                 controller: TextEditingController(
                     text: application.currentHousehold?.label),
                 label: "Household currently living in",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.currentHousehold,
@@ -99,34 +100,13 @@ class _ResidenceFormState extends State<ResidenceForm> {
             fontWeight: FontWeight.bold,
           ),
         ),
-
-        // Row(
-        //   children: [
-        //     SizedBox(
-        //         width: MediaQuery.of(context).size.width * 0.2,
-        //         child: const Text("B.3.1. Household Currently living in",)),
-        //     const SizedBox(width: 12.0),
-        //     Column(
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: application.householdList.map((SelectionOption value) {
-        //         return Padding(
-        //           padding: const EdgeInsets.only(top: 12.0),
-        //           child: CustomRadioButton(
-        //             value: application.currentHousehold == value,
-        //             onTap: () => application.updateCurrentHousehold(value),
-        //             label: value.label,
-        //           ),
-        //         );
-        //       }).toList(),
-        //     ),
-        //   ],
-        // ),
         PrimaryTextField(
           fieldKey: Application.addressKey,
           controller: Application.address,
           hintText: "Address",
           label: "House Number & Street of Barangay Zone/Purok",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -135,6 +115,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
           hintText: "Barangay",
           label: "Barangay",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -143,6 +124,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
           hintText: "City",
           label: "City/Municipality",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -151,6 +133,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
           hintText: "Province",
           label: "Province",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -159,6 +142,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
           hintText: "Region",
           label: "Region",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         const SizedBox(height: 12.0),
@@ -175,6 +159,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
           controller: Application.familyAddress,
           hintText: "Address",
           label: "House Number & Street of Barangay Zone/Purok",
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -182,6 +167,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
           controller: Application.familyBarangay,
           hintText: "Barangay",
           label: "Barangay",
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -189,6 +175,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
           controller: Application.familyCity,
           hintText: "City",
           label: "City/Municipality",
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -196,6 +183,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
           controller: Application.familyProvince,
           hintText: "Province",
           label: "Province",
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -203,6 +191,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
           controller: Application.familyRegion,
           hintText: "Region",
           label: "Region",
+          readOnly: widget.viewOnly,
         ),
       ],
     );

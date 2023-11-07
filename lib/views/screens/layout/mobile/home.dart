@@ -50,12 +50,6 @@ class _ResponsiveMobileScreenState extends State<ResponsiveMobileScreen> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 100),
-                    Text(
-                      "Logged in as a",
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                      ),
-                    ),
-                    const SizedBox(height: 12.0),
                     PrimaryButton(
                       label: "Instructor",
                       onPressed: () {

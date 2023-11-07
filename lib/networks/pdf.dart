@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:open_file/open_file.dart';
+import 'package:path_provider_android/path_provider_android.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
+import 'package:shared_preferences_android/shared_preferences_android.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:web_school/models/instructor.dart';
@@ -18,6 +20,8 @@ class PdfApi {
     required String name,
     required Document pdf,
   }) async {
+
+
     final bytes = await pdf.save();
 
     final dir = await getApplicationDocumentsDirectory();
@@ -32,9 +36,14 @@ class PdfApi {
     required List<ApplicationInfo> studentList,
     required Instructor instructorData,
   }) async {
-    final pdf = Document();
-    final pdfFile = await PdfInvoiceApi.generate(studentList, instructorData);
-    await pdfFile.writeAsBytes(await pdf.save());
+
+    if (Platform.isAndroid) SharedPreferencesAndroid.registerWith();
+
+    if (Platform.isWindows) {
+      final pdf = Document();
+      final pdfFile = await PdfInvoiceApi.generate(studentList, instructorData);
+      await pdfFile.writeAsBytes(await pdf.save());
+    }
   }
 }
 

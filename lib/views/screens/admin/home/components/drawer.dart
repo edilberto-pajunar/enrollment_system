@@ -1,9 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/payment.dart';
+import 'package:web_school/networks/admin.dart';
+import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
+import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/values/strings/images.dart';
 
 class AdminDrawer extends StatelessWidget {
@@ -22,6 +26,8 @@ class AdminDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final ThemeData theme = Theme.of(context);
+    final AdminDB adminDB = Provider.of<AdminDB>(context);
+    final Auth auth = Provider.of<Auth>(context);
 
     final style = theme.textTheme.bodyMedium!.copyWith(
       color: Colors.white,
@@ -31,19 +37,19 @@ class AdminDrawer extends StatelessWidget {
       height: size.height,
       child: Drawer(
         width: 230,
-        backgroundColor: Colors.black,
+        backgroundColor: ColorTheme.primaryBlack,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Text("Admin Dashboard",
-                style: theme.textTheme.titleLarge!.copyWith(
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(12.0),
+            //   child: Text("Admin Dashboard",
+            //     style: theme.textTheme.titleLarge!.copyWith(
+            //       color: Colors.white,
+            //     ),
+            //     textAlign: TextAlign.center,
+            //   ),
+            // ),
             SizedBox(
               height: 120,
               child: DrawerHeader(
@@ -72,7 +78,10 @@ class AdminDrawer extends StatelessWidget {
               leading: Icon(Icons.dashboard,
                 color: Colors.white,
               ),
-              onTap: () {},
+              onTap: () {
+                adminDB.updateIndexDashboard(0);
+                context.popRoute();
+              },
             ),
             ListTile(
               title: Text("Teachers",
@@ -81,8 +90,10 @@ class AdminDrawer extends StatelessWidget {
               leading: Icon(Icons.supervised_user_circle_rounded,
                 color: Colors.white,
               ),
-              onTap: () => context.pushRoute(AdminInstructorListRoute(),
-              ),
+              onTap: () {
+                adminDB.updateIndexDashboard(2);
+                context.popRoute();
+              },
             ),
             ListTile(
               title: Text("Students",
@@ -91,7 +102,10 @@ class AdminDrawer extends StatelessWidget {
               leading: Icon(Icons.supervised_user_circle_rounded,
                 color: Colors.white,
               ),
-              onTap: () => context.pushRoute(const AdminStudentsRoute()),
+              onTap: () {
+                adminDB.updateIndexDashboard(1);
+                context.popRoute();
+              },
             ),
             ListTile(
               title: Text("Payments",
@@ -100,10 +114,10 @@ class AdminDrawer extends StatelessWidget {
               leading: Icon(Icons.payment,
                 color: Colors.white,
               ),
-              onTap: () => context.pushRoute(SummaryPaymentRoute(
-                applicationInfo: studentList,
-                paymentList: paymentList,
-              )),
+              onTap: () {
+                adminDB.updateIndexDashboard(3);
+                context.popRoute();
+              },
             ),
             ListTile(
               title: Text("Logout",
@@ -112,7 +126,7 @@ class AdminDrawer extends StatelessWidget {
               leading: Icon(Icons.logout,
                 color: Colors.white,
               ),
-              onTap: () {},
+              onTap: () => auth.logout(context),
             ),
           ],
         ),

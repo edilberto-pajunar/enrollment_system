@@ -69,6 +69,7 @@ class _EmergencyFormState extends State<EmergencyForm> {
                 controller:
                     TextEditingController(text: application.accessComm?.label),
                 label: "Best Communication Access",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.accessComm,
@@ -109,6 +110,7 @@ class _EmergencyFormState extends State<EmergencyForm> {
                 return null;
               }
             },
+            readOnly: widget.viewOnly,
           ),
         ),
         const SizedBox(height: 12.0),
@@ -124,18 +126,21 @@ class _EmergencyFormState extends State<EmergencyForm> {
           controller: Application.emergencyFirstName,
           hintText: "Enter",
           label: "First Name",
+          readOnly: widget.viewOnly,
         ),
         PrimaryTextField(
           fieldKey: Application.emergencyMiddleNameKey,
           controller: Application.emergencyMiddleName,
           hintText: "Enter",
           label: "Middle Name",
+          readOnly: widget.viewOnly,
         ),
         PrimaryTextField(
           fieldKey: Application.emergencyLastNameKey,
           controller: Application.emergencyLastName,
           hintText: "Enter",
           label: "Last Name",
+          readOnly: widget.viewOnly,
         ),
         const SizedBox(height: 12.0),
         widget.viewOnly
@@ -143,6 +148,7 @@ class _EmergencyFormState extends State<EmergencyForm> {
                 controller: TextEditingController(
                     text: application.relationship?.label),
                 label: "Relationship",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.relationship,
@@ -167,12 +173,14 @@ class _EmergencyFormState extends State<EmergencyForm> {
           controller: Application.emergencyAddress,
           hintText: "Enter",
           label: "Address",
+          readOnly: widget.viewOnly,
         ),
         PrimaryTextField(
           fieldKey: Application.emergencyPhoneKey,
           controller: Application.emergencyPhone,
           hintText: "Enter",
           label: "Contact Number",
+          readOnly: widget.viewOnly,
         ),
       ],
     );

@@ -97,8 +97,8 @@ class CustomDialog {
 
   void assignSection(
       BuildContext context, {
-        required Function()? leftTap,
-        required Function()? rightTap,
+        required Function() leftTap,
+        required Function() rightTap,
         required String message,
         String? rightText,
         String? leftText,
@@ -125,57 +125,53 @@ class CustomDialog {
               Divider(
                 height: 0,
               ),
-              IntrinsicHeight(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: leftTap,
-                        child: Container(
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Text(leftText ?? "Cancel",
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: Color(0xFF2194FF),
-                                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: leftTap,
+                      child: Container(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text(leftText ?? "Cancel",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFF2194FF),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1.0,
-                          color: Colors.grey.shade300,
-                        ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1.0,
+                        color: Colors.grey.shade300,
                       ),
                     ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: rightTap,
-                        child: Container(
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Text(rightText ?? "Yes",
-                                style: TextStyle(
-                                  color: Color(0xFF2194FF),
-                                  fontWeight: FontWeight.w500,
-                                ),
-
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: rightTap,
+                      child: Container(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text(rightText ?? "Yes",
+                              style: TextStyle(
+                                color: Color(0xFF2194FF),
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -236,15 +232,15 @@ class CustomDialog {
                       style: theme.textTheme.bodyMedium,
                     ),
                     PrimaryTextField(
-                      fieldKey: PaymentDB.amountKey,
-                      controller: PaymentDB.amountText,
+                      fieldKey: PaymentDB.referenceKey,
+                      controller: PaymentDB.referenceText,
                       label: "Reference Number:",
                       validator: Commons.forcedTextValidator,
                     ),
 
                     PrimaryTextField(
-                      fieldKey: PaymentDB.referenceKey,
-                      controller: PaymentDB.referenceText,
+                      fieldKey: PaymentDB.amountKey,
+                      controller: PaymentDB.amountText,
                       label: "Amount:",
                       textInput: TextInputType.number,
                       inputFormatters: [

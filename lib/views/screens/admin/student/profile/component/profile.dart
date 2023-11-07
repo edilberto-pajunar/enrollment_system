@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +41,7 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: !kIsWeb ? AppBar(
+        appBar: AppBar(
           actions: [
             TextButton.icon(
               label: Icon(Icons.report,
@@ -57,10 +56,16 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
               ),
             )
           ],
-        ) : null,
+        ),
         body: StreamWrapper<ApplicationInfo>(
         stream: adminDB.studentStream,
         child: (applicationInfo) {
+          // return StreamWrapper<List<Subject>>(
+          //   stream: adminDB.listSubjectStream,
+          //   child: (subjectList) {
+          //     return Text("$subjectList");
+          //   },
+          // );
           return StreamWrapper<List<Subject>>(
               stream: adminDB.listSubjectStream,
               child: (subjectList) {
@@ -71,27 +76,6 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Visibility(
-                          visible: kIsWeb,
-                          child: Align(
-                            alignment: Alignment.topRight,
-                            child: TextButton.icon(
-                              style: TextButton.styleFrom(
-                                backgroundColor: ColorTheme.primaryRed,
-                              ),
-                              label: Icon(Icons.report,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {},
-                              /// TODO: Add generate report
-                              icon: Text("Generated Report",
-                                style: theme.textTheme.bodyMedium!.copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                         Card(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -121,9 +105,7 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
                                       alignment: Alignment.topRight,
                                       child: TextButton(
                                         onPressed: () {
-                                          adminDB.assignSection(context,
-                                            subjectList!
-                                          );
+                                          adminDB.assignSection(context, applicationInfo);
                                         },
                                         child: Text(
                                           "Assign",

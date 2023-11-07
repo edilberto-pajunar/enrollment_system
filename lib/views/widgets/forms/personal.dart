@@ -80,6 +80,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
                 controller:
                     TextEditingController(text: application.hasLRN?.label),
                 label: "Learning References Number (LRN)",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.hasLRN,
@@ -108,6 +109,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
             hintText: "Enter your assigned LRN",
             label: "Learning Reference Number (LRN)",
             validator: Commons.forcedTextValidator,
+            readOnly: widget.viewOnly,
           ),
         ),
         const SizedBox(height: 12.0),
@@ -124,6 +126,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "Last name",
           label: "Last name",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -132,6 +135,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "First name",
           label: "First name",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -140,6 +144,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "Middle name",
           label: "Middle name",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -147,6 +152,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           controller: Application.extensionName,
           hintText: "Extension name e.g. Jr.(if applicable)",
           label: "Extension name e.g. Jr.(if applicable)",
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -155,6 +161,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "Place of Birth",
           label: "Place of Birth",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -163,7 +170,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "Enter",
           label: "Date of Birth",
           readOnly: true,
-          onTap: () => application.updateBirthDate(context),
+          onTap: () => widget.viewOnly ? null : application.updateBirthDate(context),
         ),
 
         PrimaryTextField(
@@ -172,6 +179,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "Enter",
           label: "Age (today)",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         const SizedBox(height: 12.0),
@@ -181,6 +189,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
                 controller:
                     TextEditingController(text: application.gender?.label),
                 label: "Gender",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.gender,
@@ -207,6 +216,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
                 controller: TextEditingController(
                     text: application.isIndigenousPeople?.label),
                 label: "Belong to Indigenous People",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.isIndigenousPeople,
@@ -242,6 +252,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "Enter",
           label: "Mother Tounge",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
 
         PrimaryTextField(
@@ -249,6 +260,7 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           controller: Application.otherLanguages,
           hintText: "Enter",
           label: "Other Languages Spoken",
+          readOnly: widget.viewOnly,
         ),
       ],
     );

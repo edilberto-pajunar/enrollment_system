@@ -77,6 +77,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
                     TextEditingController(text: application.responsible?.label),
                 label:
                     "Person’s mainly responsible for taking care of learner of this school year",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.responsible,
@@ -102,6 +103,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
                 controller:
                     TextEditingController(text: application.status?.label),
                 label: "Status of Parents",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.status,
@@ -131,6 +133,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           label: "Number of Brothers",
           hintText: "Enter",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
         PrimaryTextField(
           fieldKey: Application.numberOfSisterKey,
@@ -142,6 +145,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           label: "Number of Sisters",
           hintText: "Enter",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
         PrimaryTextField(
           fieldKey: Application.birthOrderKey,
@@ -153,6 +157,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           label: "Learners Birth Order Among Siblings",
           hintText: "Enter",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
         const SizedBox(height: 12.0),
         widget.viewOnly
@@ -160,6 +165,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
                 controller: TextEditingController(
                     text: application.is4psBeneficiary?.label),
                 label: "Is the family a 4Ps beneficiary",
+                readOnly: widget.viewOnly,
               )
             : CustomDropdown<SelectionOption>(
                 initialValue: application.is4psBeneficiary,
@@ -186,6 +192,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
             label: "Since When?",
             hintText: "Enter",
             validator: Commons.forcedTextValidator,
+            readOnly: widget.viewOnly,
           ),
         ),
         const SizedBox(height: 12.0),
@@ -201,6 +208,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           hintText: "First name",
           label: "First name",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
         PrimaryTextField(
           fieldKey: Application.lastNamePrintedKey,
@@ -208,6 +216,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           hintText: "Last name",
           label: "Last name",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
         PrimaryTextField(
           fieldKey: Application.middleNamePrintedKey,
@@ -215,6 +224,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           hintText: "Middle name",
           label: "Middle name",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
         PrimaryTextField(
           fieldKey: Application.learnerRelationKey,
@@ -222,6 +232,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           hintText: "Enter",
           label: "Relationship to Learner (if not learner)",
           validator: Commons.forcedTextValidator,
+          readOnly: widget.viewOnly,
         ),
         PrimaryTextField(
           fieldKey: Application.dateEnteredKey,
@@ -229,7 +240,7 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           hintText: "Enter",
           label: "Date",
           readOnly: true,
-          onTap: () => application.updateDateEntered(context),
+          onTap: () => widget.viewOnly ? null : application.updateDateEntered(context),
         ),
       ],
     );

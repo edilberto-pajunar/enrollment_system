@@ -86,7 +86,7 @@ class StudentsInstructors extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      context.pushRoute(const AdminStudentsRoute());
+
                     },
                     icon: Icon(Icons.arrow_circle_right),
                   ),
@@ -127,7 +127,6 @@ class StudentsInstructors extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      context.pushRoute(const AdminInstructorListRoute());
                     },
                     icon: Icon(Icons.arrow_circle_right),
                   ),

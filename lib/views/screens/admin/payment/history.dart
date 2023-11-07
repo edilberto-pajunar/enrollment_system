@@ -40,7 +40,7 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("${applicationInfo.studentInfo.name} Payment",
+              Text("${applicationInfo.studentInfo.name} Payment/s",
                 style: theme.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w700,
                 ),

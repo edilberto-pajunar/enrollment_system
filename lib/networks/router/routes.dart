@@ -28,6 +28,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: StudentMobileScheduleRoute.page, path: "/studentMobileSchedule"),
 
 
+        AutoRoute(page: WrapperAdminRoute.page, path: "/wrapperAdminRoute"),
         AutoRoute(page: AdminInstructorListRoute.page, path: "/adminInstructorHome"),
         AutoRoute(page: AdminAddInstructorRoute.page, path: "/adminAddInstructor"),
         AutoRoute(page: AdminInstructorSectionRoute.page, path: "/adminInstructorSection"),

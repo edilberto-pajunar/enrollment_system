@@ -54,7 +54,6 @@ class StudentDB extends ChangeNotifier {
 
     final data = snapshot.data() as Map<String, dynamic>;
 
-
     return ApplicationInfo.fromJson(data);
   }
 
@@ -138,7 +137,8 @@ class StudentDB extends ChangeNotifier {
   List<Subject> listSubjectSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       final data = doc.data() as Map<String, dynamic>;
-      return Subject.fromMap(data);
+      return Subject.fromJson(data["subject"]);
+
     }).toList();
   }
 
@@ -178,12 +178,15 @@ class StudentDB extends ChangeNotifier {
 
   Future<void> updateEnrollProfile(BuildContext context, ApplicationInfo applicationInfo) async {
     customDialog.showPayment(context, applicationInfo);
-
     notifyListeners();
   }
 
   bool validateEnrollment(List<Subject> subjectList) {
-    return subjectEnrollList.length == subjectList.length;
+    if (subjectList.isEmpty) {
+      return false;
+    } else {
+      return subjectEnrollList.length == subjectList.length;
+    }
   }
 
   Future<void> handleBackgroundMessage(RemoteMessage message) async {
@@ -210,12 +213,14 @@ class StudentDB extends ChangeNotifier {
 
   List<Subject> subjectEnrollList = [];
 
-  void updateSubjectEnrollList(Subject value) {
-    if (!subjectEnrollList.contains(value)) {
-      subjectEnrollList.add(value);
-    } else {
-      subjectEnrollList.remove(value);
-    }
+  void updateAddSubjectEnrollList(Subject value) {
+    subjectEnrollList.add(value);
     notifyListeners();
   }
+
+  void updateRemoveSubjectEnrollList(int index) {
+    subjectEnrollList.removeAt(index);
+    notifyListeners();
+  }
+
 }

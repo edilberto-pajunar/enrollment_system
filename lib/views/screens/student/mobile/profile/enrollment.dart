@@ -100,10 +100,10 @@ class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentS
                                   return Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(subject.name),
+                                      Expanded(child: Text(subject.name)),
                                       IconButton(
                                         onPressed: () {
-                                          studentDB.updateSubjectEnrollList(subjectList![index]);
+                                          studentDB.updateRemoveSubjectEnrollList(index);
                                         },
                                         icon: Icon(Icons.remove,
                                           color: Colors.red,
@@ -133,11 +133,11 @@ class _StudentMobileEnrollmentScreenState extends State<StudentMobileEnrollmentS
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(subjectList[index].name),
+                                          Expanded(child: Text(subjectList[index].name)),
                                           CustomCheckbox(
                                             value: studentDB.subjectEnrollList.contains(subjectList[index]),
                                             onChanged: (value) {
-                                              studentDB.updateSubjectEnrollList(subjectList[index]);
+                                              studentDB.updateAddSubjectEnrollList(subjectList[index]);
                                             },
                                           ),
                                         ],
