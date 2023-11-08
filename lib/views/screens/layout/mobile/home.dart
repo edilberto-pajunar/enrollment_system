@@ -21,6 +21,7 @@ class _ResponsiveMobileScreenState extends State<ResponsiveMobileScreen> {
   Widget build(BuildContext context) {
     final Auth auth = Provider.of<Auth>(context);
     final ThemeData theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Stack(
@@ -50,12 +51,14 @@ class _ResponsiveMobileScreenState extends State<ResponsiveMobileScreen> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 100),
-                    PrimaryButton(
-                      label: "Instructor",
-                      onPressed: () {
-                        auth.updateAuthor("instructor");
-                        context.pushRoute(const LoginRoute());
-                      },
+                    SizedBox(
+                      child: PrimaryButton(
+                        label: "Instructor",
+                        onPressed: () {
+                          auth.updateAuthor("instructor");
+                          context.pushRoute(const LoginRoute());
+                        },
+                      ),
                     ),
                     const SizedBox(height: 12.0),
                     PrimaryButton(

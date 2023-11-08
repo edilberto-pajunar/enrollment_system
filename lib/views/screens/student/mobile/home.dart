@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/user.dart';
+import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/views/screens/student/mobile/grades/grades.dart';
 import 'package:web_school/views/screens/student/mobile/payment/home.dart';
@@ -33,7 +34,10 @@ class _StudentMobileHomeScreenState extends State<StudentMobileHomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final StudentDB studentDB = Provider.of<StudentDB>(context, listen: false);
-      studentDB.updateStudentStream(widget.userModel);
+      final AdminDB adminDB = Provider.of<AdminDB>(context, listen: false);
+      adminDB.getStudentIdLocal().then((_) {
+        studentDB.updateStudentStream(adminDB.studentId!);
+      });
     });
   }
 

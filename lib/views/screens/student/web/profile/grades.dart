@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/subject.dart';
+import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
@@ -24,7 +25,10 @@ class _StudentWebGradesScreenState extends State<StudentWebGradesScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final StudentDB studentDB =
           Provider.of<StudentDB>(context, listen: false);
-      studentDB.updateListSubjectStream(widget.applicationInfo.userModel);
+      final AdminDB adminDB = Provider.of<AdminDB>(context, listen: false);
+      adminDB.getStudentIdLocal().then((_) {
+        studentDB.updateListSubjectStream(adminDB.studentId!);
+      });
     });
   }
 

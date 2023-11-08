@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:web_school/extensions/date.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/student/subject.dart';
+import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
@@ -31,7 +32,10 @@ class _StudentMobileProfileScreenState extends State<StudentMobileProfileScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final StudentDB studentDB = Provider.of<StudentDB>(context, listen: false);
       final Auth auth = Provider.of<Auth>(context, listen: false);
-      studentDB.updateListSubjectStream(auth.user!);
+      final AdminDB adminDB = Provider.of<AdminDB>(context, listen: false);
+      adminDB.getStudentIdLocal().then((_) {
+        studentDB.updateListSubjectStream(adminDB.studentId!);
+      });
     });
   }
 

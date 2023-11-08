@@ -25,30 +25,22 @@ class StudentPieChart extends StatelessWidget {
     for (var data in studentList) {
       if (data.schoolInfo.gradeToEnroll.label!.contains("7")) {
         grade7++;
-      } else if (data.schoolInfo.gradeToEnroll.label!
-          .contains("8")) {
+      } else if (data.schoolInfo.gradeToEnroll.label!.contains("8")) {
         grade8++;
-      } else if (data.schoolInfo.gradeToEnroll.label!
-          .contains("9")) {
+      } else if (data.schoolInfo.gradeToEnroll.label!.contains("9")) {
         grade9++;
-      } else if (data.schoolInfo.gradeToEnroll.label!
-          .contains("10")) {
+      } else if (data.schoolInfo.gradeToEnroll.label!.contains("10")) {
         grade10++;
-      } else if (data.schoolInfo.gradeToEnroll.label!
-          .contains("11")) {
+      } else if (data.schoolInfo.gradeToEnroll.label!.contains("11")) {
         grade11++;
-      } else if (data.schoolInfo.gradeToEnroll.label!
-          .contains("12")) {
+      } else if (data.schoolInfo.gradeToEnroll.label!.contains("12")) {
         grade12++;
       }
     }
 
     return Container(
       padding: const EdgeInsets.all(24.0),
-      decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black,
-          )),
+      decoration: BoxDecoration(),
       child: Column(
         children: [
           Text(
@@ -59,6 +51,15 @@ class StudentPieChart extends StatelessWidget {
           ),
           PieChart(
             chartRadius: size.width * 0.2,
+            baseChartColor: Colors.black,
+            colorList: [
+              Colors.black,
+              Colors.yellow,
+              Colors.red,
+              Colors.orange,
+              Colors.deepPurple,
+              Colors.blueAccent,
+            ],
             dataMap: {
               "grade7": grade7,
               "grade8": grade8,

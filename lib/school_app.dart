@@ -14,21 +14,9 @@ class SchoolApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (_, widget) => MaterialApp.router(
-        builder: (ctx, child) {
-          ScreenUtil.init(ctx);
-          return MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: child!,
-          );
-        },
-        theme: CustomTheme.themeData,
-        routerConfig: appRouter.config(),
-      ),
+    return MaterialApp.router(
+      theme: CustomTheme.themeData,
+      routerConfig: appRouter.config(),
     );
   }
 }

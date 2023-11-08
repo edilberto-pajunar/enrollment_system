@@ -9,31 +9,36 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i42;
-import 'package:flutter/cupertino.dart' as _i47;
+import 'package:flutter/cupertino.dart' as _i49;
 import 'package:flutter/foundation.dart' as _i44;
-import 'package:flutter/material.dart' as _i48;
+import 'package:flutter/material.dart' as _i47;
 import 'package:web_school/models/application/application.dart' as _i45;
 import 'package:web_school/models/instructor.dart' as _i43;
 import 'package:web_school/models/payment.dart' as _i46;
-import 'package:web_school/models/user.dart' as _i49;
-import 'package:web_school/views/screens/admin/home/home.dart' as _i3;
-import 'package:web_school/views/screens/admin/home/wrapper_admin.dart' as _i41;
-import 'package:web_school/views/screens/admin/instructor/add.dart' as _i1;
-import 'package:web_school/views/screens/admin/instructor/edit.dart' as _i2;
-import 'package:web_school/views/screens/admin/instructor/general/grade.dart'
+import 'package:web_school/models/user.dart' as _i48;
+import 'package:web_school/views/screens/admin/admin_home.dart' as _i3;
+import 'package:web_school/views/screens/admin/admin_wrapper.dart' as _i41;
+import 'package:web_school/views/screens/admin/body/instructor/add_instructor.dart' as _i1;
+import 'package:web_school/views/screens/admin/body/instructor/edit_instructor.dart'
+    as _i2;
+import 'package:web_school/views/screens/admin/body/instructor/general/grade.dart'
     as _i4;
-import 'package:web_school/views/screens/admin/instructor/general/list.dart'
+import 'package:web_school/views/screens/admin/body/instructor/general/instructor_list.dart'
     as _i5;
-import 'package:web_school/views/screens/admin/instructor/general/section.dart'
+import 'package:web_school/views/screens/admin/body/instructor/general/section.dart'
     as _i6;
-import 'package:web_school/views/screens/admin/instructor/general/student/student.dart'
+import 'package:web_school/views/screens/admin/body/instructor/general/student/student.dart'
     as _i7;
-import 'package:web_school/views/screens/admin/payment/history.dart' as _i22;
-import 'package:web_school/views/screens/admin/payment/summary.dart' as _i38;
-import 'package:web_school/views/screens/admin/student/list.dart' as _i10;
-import 'package:web_school/views/screens/admin/student/profile/component/profile.dart'
+import 'package:web_school/views/screens/admin/body/payment/payment_student_list.dart'
+    as _i22;
+import 'package:web_school/views/screens/admin/body/payment/payment_list.dart'
+    as _i38;
+import 'package:web_school/views/screens/admin/body/student/profile/component/profile.dart'
     as _i9;
-import 'package:web_school/views/screens/admin/student/schedule.dart' as _i8;
+import 'package:web_school/views/screens/admin/body/student/schedule.dart'
+    as _i8;
+import 'package:web_school/views/screens/admin/body/student/student_list.dart'
+    as _i10;
 import 'package:web_school/views/screens/auth/login.dart' as _i19;
 import 'package:web_school/views/screens/forms/form.dart' as _i13;
 import 'package:web_school/views/screens/forms/junior/continue.dart' as _i11;
@@ -146,11 +151,11 @@ abstract class $AppRouter extends _i42.RootStackRouter {
         child: const _i9.AdminStudentProfileScreen(),
       );
     },
-    AdminStudentsRoute.name: (routeData) {
-      final args = routeData.argsAs<AdminStudentsRouteArgs>();
+    AdminStudentsListRoute.name: (routeData) {
+      final args = routeData.argsAs<AdminStudentsListRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.AdminStudentsScreen(
+        child: _i10.AdminStudentsListScreen(
           studentList: args.studentList,
           key: args.key,
         ),
@@ -482,7 +487,7 @@ class AdminHomeRoute extends _i42.PageRouteInfo<AdminHomeRouteArgs> {
     required List<_i45.ApplicationInfo> studentList,
     required List<_i46.Payment> paymentList,
     required List<_i43.Instructor> instructorList,
-    _i44.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           AdminHomeRoute.name,
@@ -515,7 +520,7 @@ class AdminHomeRouteArgs {
 
   final List<_i43.Instructor> instructorList;
 
-  final _i44.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -633,29 +638,30 @@ class AdminStudentProfileRoute extends _i42.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.AdminStudentsScreen]
-class AdminStudentsRoute extends _i42.PageRouteInfo<AdminStudentsRouteArgs> {
-  AdminStudentsRoute({
+/// [_i10.AdminStudentsListScreen]
+class AdminStudentsListRoute
+    extends _i42.PageRouteInfo<AdminStudentsListRouteArgs> {
+  AdminStudentsListRoute({
     required List<_i45.ApplicationInfo> studentList,
     _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
-          AdminStudentsRoute.name,
-          args: AdminStudentsRouteArgs(
+          AdminStudentsListRoute.name,
+          args: AdminStudentsListRouteArgs(
             studentList: studentList,
             key: key,
           ),
           initialChildren: children,
         );
 
-  static const String name = 'AdminStudentsRoute';
+  static const String name = 'AdminStudentsListRoute';
 
-  static const _i42.PageInfo<AdminStudentsRouteArgs> page =
-      _i42.PageInfo<AdminStudentsRouteArgs>(name);
+  static const _i42.PageInfo<AdminStudentsListRouteArgs> page =
+      _i42.PageInfo<AdminStudentsListRouteArgs>(name);
 }
 
-class AdminStudentsRouteArgs {
-  const AdminStudentsRouteArgs({
+class AdminStudentsListRouteArgs {
+  const AdminStudentsListRouteArgs({
     required this.studentList,
     this.key,
   });
@@ -666,7 +672,7 @@ class AdminStudentsRouteArgs {
 
   @override
   String toString() {
-    return 'AdminStudentsRouteArgs{studentList: $studentList, key: $key}';
+    return 'AdminStudentsListRouteArgs{studentList: $studentList, key: $key}';
   }
 }
 
@@ -734,7 +740,7 @@ class InstructorGradeRoute
     required bool isJunior,
     required _i45.ApplicationInfo studentData,
     required _i43.Instructor instructor,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           InstructorGradeRoute.name,
@@ -767,7 +773,7 @@ class InstructorGradeRouteArgs {
 
   final _i43.Instructor instructor;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -779,8 +785,8 @@ class InstructorGradeRouteArgs {
 /// [_i16.InstructorHomeScreen]
 class InstructorHomeRoute extends _i42.PageRouteInfo<InstructorHomeRouteArgs> {
   InstructorHomeRoute({
-    required _i49.UserModel userModel,
-    _i48.Key? key,
+    required _i48.UserModel userModel,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           InstructorHomeRoute.name,
@@ -803,9 +809,9 @@ class InstructorHomeRouteArgs {
     this.key,
   });
 
-  final _i49.UserModel userModel;
+  final _i48.UserModel userModel;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -819,7 +825,7 @@ class InstructorProfileRoute
     extends _i42.PageRouteInfo<InstructorProfileRouteArgs> {
   InstructorProfileRoute({
     required _i43.Instructor instructor,
-    _i47.Key? key,
+    _i49.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           InstructorProfileRoute.name,
@@ -844,7 +850,7 @@ class InstructorProfileRouteArgs {
 
   final _i43.Instructor instructor;
 
-  final _i47.Key? key;
+  final _i49.Key? key;
 
   @override
   String toString() {
@@ -858,7 +864,7 @@ class InstructorScheduleRoute
     extends _i42.PageRouteInfo<InstructorScheduleRouteArgs> {
   InstructorScheduleRoute({
     required _i45.ApplicationInfo applicationInfo,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           InstructorScheduleRoute.name,
@@ -883,7 +889,7 @@ class InstructorScheduleRouteArgs {
 
   final _i45.ApplicationInfo applicationInfo;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -940,7 +946,7 @@ class PaymentHistoryRoute extends _i42.PageRouteInfo<PaymentHistoryRouteArgs> {
     required _i45.ApplicationInfo applicationInfo,
     required List<_i46.Payment> paymentList,
     required int summaryIndex,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           PaymentHistoryRoute.name,
@@ -973,7 +979,7 @@ class PaymentHistoryRouteArgs {
 
   final int summaryIndex;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1028,8 +1034,8 @@ class ResponsiveWebRoute extends _i42.PageRouteInfo<void> {
 class StudentLayoutBuilder
     extends _i42.PageRouteInfo<StudentLayoutBuilderArgs> {
   StudentLayoutBuilder({
-    required _i49.UserModel userModel,
-    _i48.Key? key,
+    required _i48.UserModel userModel,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentLayoutBuilder.name,
@@ -1052,9 +1058,9 @@ class StudentLayoutBuilderArgs {
     this.key,
   });
 
-  final _i49.UserModel userModel;
+  final _i48.UserModel userModel;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1068,7 +1074,7 @@ class StudentMobileChangePassRoute
     extends _i42.PageRouteInfo<StudentMobileChangePassRouteArgs> {
   StudentMobileChangePassRoute({
     required String currentPassword,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentMobileChangePassRoute.name,
@@ -1093,7 +1099,7 @@ class StudentMobileChangePassRouteArgs {
 
   final String currentPassword;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1107,7 +1113,7 @@ class StudentMobileEnrollmentRoute
     extends _i42.PageRouteInfo<StudentMobileEnrollmentRouteArgs> {
   StudentMobileEnrollmentRoute({
     required _i45.ApplicationInfo applicationInfo,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentMobileEnrollmentRoute.name,
@@ -1132,7 +1138,7 @@ class StudentMobileEnrollmentRouteArgs {
 
   final _i45.ApplicationInfo applicationInfo;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1145,8 +1151,8 @@ class StudentMobileEnrollmentRouteArgs {
 class StudentMobileHomeRoute
     extends _i42.PageRouteInfo<StudentMobileHomeRouteArgs> {
   StudentMobileHomeRoute({
-    required _i49.UserModel userModel,
-    _i48.Key? key,
+    required _i48.UserModel userModel,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentMobileHomeRoute.name,
@@ -1169,9 +1175,9 @@ class StudentMobileHomeRouteArgs {
     this.key,
   });
 
-  final _i49.UserModel userModel;
+  final _i48.UserModel userModel;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1185,7 +1191,7 @@ class StudentMobileInfoRoute
     extends _i42.PageRouteInfo<StudentMobileInfoRouteArgs> {
   StudentMobileInfoRoute({
     required _i45.ApplicationInfo applicationInfo,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentMobileInfoRoute.name,
@@ -1210,7 +1216,7 @@ class StudentMobileInfoRouteArgs {
 
   final _i45.ApplicationInfo applicationInfo;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1224,7 +1230,7 @@ class StudentMobileProfileRoute
     extends _i42.PageRouteInfo<StudentMobileProfileRouteArgs> {
   StudentMobileProfileRoute({
     required _i45.ApplicationInfo applicationInfo,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentMobileProfileRoute.name,
@@ -1249,7 +1255,7 @@ class StudentMobileProfileRouteArgs {
 
   final _i45.ApplicationInfo applicationInfo;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1263,7 +1269,7 @@ class StudentMobileScheduleRoute
     extends _i42.PageRouteInfo<StudentMobileScheduleRouteArgs> {
   StudentMobileScheduleRoute({
     required _i45.ApplicationInfo applicationInfo,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentMobileScheduleRoute.name,
@@ -1288,7 +1294,7 @@ class StudentMobileScheduleRouteArgs {
 
   final _i45.ApplicationInfo applicationInfo;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1302,7 +1308,7 @@ class StudentPaymentHomeRoute
     extends _i42.PageRouteInfo<StudentPaymentHomeRouteArgs> {
   StudentPaymentHomeRoute({
     required _i45.ApplicationInfo applicationInfo,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentPaymentHomeRoute.name,
@@ -1327,7 +1333,7 @@ class StudentPaymentHomeRouteArgs {
 
   final _i45.ApplicationInfo applicationInfo;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1341,7 +1347,7 @@ class StudentWebChangePassRoute
     extends _i42.PageRouteInfo<StudentWebChangePassRouteArgs> {
   StudentWebChangePassRoute({
     required _i45.ApplicationInfo applicationInfo,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentWebChangePassRoute.name,
@@ -1366,7 +1372,7 @@ class StudentWebChangePassRouteArgs {
 
   final _i45.ApplicationInfo applicationInfo;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1380,7 +1386,7 @@ class StudentWebEnrollmentRoute
     extends _i42.PageRouteInfo<StudentWebEnrollmentRouteArgs> {
   StudentWebEnrollmentRoute({
     required _i45.ApplicationInfo applicationInfo,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentWebEnrollmentRoute.name,
@@ -1405,7 +1411,7 @@ class StudentWebEnrollmentRouteArgs {
 
   final _i45.ApplicationInfo applicationInfo;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1419,7 +1425,7 @@ class StudentWebProfileRoute
     extends _i42.PageRouteInfo<StudentWebProfileRouteArgs> {
   StudentWebProfileRoute({
     required _i45.ApplicationInfo applicationInfo,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentWebProfileRoute.name,
@@ -1444,7 +1450,7 @@ class StudentWebProfileRouteArgs {
 
   final _i45.ApplicationInfo applicationInfo;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1458,7 +1464,7 @@ class StudentWebScheduleRoute
     extends _i42.PageRouteInfo<StudentWebScheduleRouteArgs> {
   StudentWebScheduleRoute({
     required _i45.ApplicationInfo applicationInfo,
-    _i48.Key? key,
+    _i47.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           StudentWebScheduleRoute.name,
@@ -1483,7 +1489,7 @@ class StudentWebScheduleRouteArgs {
 
   final _i45.ApplicationInfo applicationInfo;
 
-  final _i48.Key? key;
+  final _i47.Key? key;
 
   @override
   String toString() {
@@ -1497,7 +1503,7 @@ class SummaryPaymentRoute extends _i42.PageRouteInfo<SummaryPaymentRouteArgs> {
   SummaryPaymentRoute({
     required List<_i45.ApplicationInfo> applicationInfo,
     required List<_i46.Payment> paymentList,
-    _i47.Key? key,
+    _i49.Key? key,
     List<_i42.PageRouteInfo>? children,
   }) : super(
           SummaryPaymentRoute.name,
@@ -1526,7 +1532,7 @@ class SummaryPaymentRouteArgs {
 
   final List<_i46.Payment> paymentList;
 
-  final _i47.Key? key;
+  final _i49.Key? key;
 
   @override
   String toString() {

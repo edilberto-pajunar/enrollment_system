@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:web_school/networks/auth.dart';
 import 'package:web_school/values/strings/colors.dart';
 
 class CustomAdminAppBar extends StatelessWidget {
@@ -9,6 +11,7 @@ class CustomAdminAppBar extends StatelessWidget {
 
     final Size size = MediaQuery.of(context).size;
     final ThemeData theme = Theme.of(context);
+    final Auth auth = Provider.of<Auth>(context);
 
     return Container(
       height: 50,
@@ -27,7 +30,7 @@ class CustomAdminAppBar extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerRight,
         child: TextButton(
-          onPressed: () {},
+          onPressed: () => auth.logout(context),
           child: Text("Logout",
             style: theme.textTheme.bodyMedium!.copyWith(
               color: Colors.white,

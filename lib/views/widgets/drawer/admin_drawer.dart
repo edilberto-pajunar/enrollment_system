@@ -1,26 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_school/models/application/application.dart';
-import 'package:web_school/models/instructor.dart';
-import 'package:web_school/models/payment.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/auth.dart';
-import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/values/strings/images.dart';
+import 'package:web_school/views/widgets/hover/tile_button.dart';
 
 class AdminDrawer extends StatelessWidget {
   const AdminDrawer({super.key,
-    required this.studentList,
-    required this.instructorList,
-    required this.paymentList,
   });
 
-  final List<ApplicationInfo> studentList;
-  final List<Instructor> instructorList;
-  final List<Payment> paymentList;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -30,105 +20,104 @@ class AdminDrawer extends StatelessWidget {
     final Auth auth = Provider.of<Auth>(context);
 
     final style = theme.textTheme.bodyMedium!.copyWith(
-      color: Colors.white,
     );
 
     return SizedBox(
       height: size.height,
       child: Drawer(
         width: 230,
-        backgroundColor: ColorTheme.primaryBlack,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Padding(
-            //   padding: const EdgeInsets.all(12.0),
-            //   child: Text("Admin Dashboard",
-            //     style: theme.textTheme.titleLarge!.copyWith(
-            //       color: Colors.white,
-            //     ),
-            //     textAlign: TextAlign.center,
-            //   ),
-            // ),
-            SizedBox(
-              height: 120,
-              child: DrawerHeader(
-                decoration: BoxDecoration(
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Image.asset(PngImages.background,
-                        fit: BoxFit.cover,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: 120,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: Image.asset(PngImages.background,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    Text("Administrator",
-                      style: style,
-                    ),
-                  ],
+                      Text("Administrator",
+                        style: style,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            ListTile(
-              title: Text("Dashboard",
-                style: style,
+              OnHoverListTileButton(
+                onTap: () {
+                  if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
+                    adminDB.updateIndexDashboard(0);
+                  } else {
+                    AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
+                  }
+
+                },
+                title: Text("Dashboard",
+                  style: style,
+                ),
+                leading: Icon(Icons.dashboard,
+                ),
               ),
-              leading: Icon(Icons.dashboard,
-                color: Colors.white,
+              OnHoverListTileButton(
+                onTap: () {
+                  if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
+                    adminDB.updateIndexDashboard(2);
+                  } else {
+                    AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
+                  }
+                },
+                title: Text("Teachers",
+                  style: style,
+                ),
+                leading: Icon(Icons.supervised_user_circle_rounded,
+                ),
               ),
-              onTap: () {
-                adminDB.updateIndexDashboard(0);
-                context.popRoute();
-              },
-            ),
-            ListTile(
-              title: Text("Teachers",
-                style: style,
+              OnHoverListTileButton(
+                onTap: () {
+                  if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
+                    adminDB.updateIndexDashboard(1);
+                  } else {
+                    AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
+                  }
+                },
+                title: Text("Students",
+                  style: style,
+                ),
+                leading: Icon(Icons.supervised_user_circle_rounded,
+                ),
               ),
-              leading: Icon(Icons.supervised_user_circle_rounded,
-                color: Colors.white,
+              OnHoverListTileButton(
+                onTap: () {
+                  if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
+                    adminDB.updateIndexDashboard(3);
+                  } else {
+                    AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
+                  }
+                },
+                title: Text("Payments",
+                  style: style,
+                ),
+                leading: Icon(Icons.payment,
+                ),
               ),
-              onTap: () {
-                adminDB.updateIndexDashboard(2);
-                context.popRoute();
-              },
-            ),
-            ListTile(
-              title: Text("Students",
-                style: style,
+              OnHoverListTileButton(
+                onTap: () => auth.logout(context),
+                title: Text("Logout",
+                  style: style,
+                ),
+                leading: Icon(Icons.logout,
+                ),
               ),
-              leading: Icon(Icons.supervised_user_circle_rounded,
-                color: Colors.white,
-              ),
-              onTap: () {
-                adminDB.updateIndexDashboard(1);
-                context.popRoute();
-              },
-            ),
-            ListTile(
-              title: Text("Payments",
-                style: style,
-              ),
-              leading: Icon(Icons.payment,
-                color: Colors.white,
-              ),
-              onTap: () {
-                adminDB.updateIndexDashboard(3);
-                context.popRoute();
-              },
-            ),
-            ListTile(
-              title: Text("Logout",
-                style: style,
-              ),
-              leading: Icon(Icons.logout,
-                color: Colors.white,
-              ),
-              onTap: () => auth.logout(context),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

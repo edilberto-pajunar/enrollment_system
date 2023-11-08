@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/student/subject.dart';
+import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/commons.dart';
 import 'package:web_school/networks/instructor.dart';
 import 'package:web_school/networks/student.dart';
@@ -37,7 +38,10 @@ class _InstructorGradeScreenState extends State<InstructorGradeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final StudentDB studentDB =
           Provider.of<StudentDB>(context, listen: false);
-      studentDB.updateListSubjectStream(widget.studentData.userModel);
+      final AdminDB adminDB = Provider.of<AdminDB>(context, listen: false);
+      adminDB.getStudentIdLocal().then((_) {
+        studentDB.updateListSubjectStream(adminDB.studentId!);
+      });
     });
   }
 

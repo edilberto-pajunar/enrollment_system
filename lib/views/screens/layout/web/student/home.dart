@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
-import 'package:web_school/networks/auth.dart';
+import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/views/screens/student/mobile/payment/home.dart';
 import 'package:web_school/views/screens/student/web/profile/change_pass.dart';
@@ -31,8 +31,11 @@ class _WebStudentHomeScreenState extends State<WebStudentHomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final StudentDB studentDB = Provider.of<StudentDB>(context, listen: false);
-      final Auth auth = Provider.of<Auth>(context, listen: false);
-      studentDB.updateStudentStream(auth.user!);
+      final AdminDB adminDB = Provider.of<AdminDB>(context, listen: false);
+      adminDB.getStudentIdLocal().then((_) {
+        studentDB.updateStudentStream(adminDB.studentId!);
+      });
+
     });
   }
 

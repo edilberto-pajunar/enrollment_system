@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:web_school/values/strings/images.dart';
 
 class CustomAdminCard extends StatelessWidget {
   const CustomAdminCard({
@@ -59,6 +58,7 @@ class CustomAdminCard extends StatelessWidget {
                 Text(title,
                   style: theme.textTheme.bodyMedium!.copyWith(
                     color: Colors.white,
+                    fontSize: size.width * 0.014,
                   ),
                 ),
                 const SizedBox(height: 4.0),
@@ -66,64 +66,9 @@ class CustomAdminCard extends StatelessWidget {
                   style: theme.textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w500,
                     color: Colors.white,
+                    fontSize: size.width * 0.015,
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       Column(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           Text(title,
-                //             style: theme.textTheme.titleSmall!.copyWith(
-                //               color: Colors.white,
-                //               fontWeight: FontWeight.w700,
-                //             ),
-                //           ),
-                //           const SizedBox(height: 4.0),
-                //           Text(subtitle,
-                //             style: theme.textTheme.bodyMedium!.copyWith(
-                //               color: Colors.white,
-                //               fontSize: 12.0
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //       Opacity(
-                //         opacity: 0.3,
-                //         child: Image.asset(PngImages.addPeople),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // InkWell(
-                //   onTap: onTap,
-                //   child: Container(
-                //     padding: const EdgeInsets.symmetric(vertical: 4.0),
-                //     color: color,
-                //     child: Center(
-                //       child: Row(
-                //         crossAxisAlignment: CrossAxisAlignment.center,
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           Text("More info",
-                //             style: theme.textTheme.bodyMedium!.copyWith(
-                //               color: Colors.white,
-                //             ),
-                //           ),
-                //           const SizedBox(width: 8.0),
-                //           Icon(Icons.arrow_circle_right,
-                //             color: Colors.white,
-                //             size: 15,
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
-
               ],
             ),
           ),

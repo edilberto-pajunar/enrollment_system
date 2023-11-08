@@ -26,10 +26,10 @@ class PrimaryButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: isEnabled ? onPressed : null,
       style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 12.0),
-          backgroundColor: backgroundColor ?? ColorTheme.primaryRed,
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 4.0),
+          backgroundColor: backgroundColor ?? ColorTheme.primaryBlack,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(16.0),
           )),
       child: icon != null
           ? Padding(

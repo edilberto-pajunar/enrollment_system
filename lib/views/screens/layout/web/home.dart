@@ -69,7 +69,7 @@ class _ResponsiveWebScreenState extends State<ResponsiveWebScreen> {
                         ),
                         const SizedBox(height: 100),
                         SizedBox(
-                          width: size.width * 0.5,
+                          width: size.width * 0.3,
                           child: PrimaryButton(
                             label: "Instructor",
                             onPressed: () {
@@ -80,7 +80,7 @@ class _ResponsiveWebScreenState extends State<ResponsiveWebScreen> {
                         ),
                         const SizedBox(height: 12.0),
                         SizedBox(
-                          width: size.width * 0.5,
+                          width: size.width * 0.3,
                           child: PrimaryButton(
                             label: "Student",
                             onPressed: () {
@@ -91,7 +91,7 @@ class _ResponsiveWebScreenState extends State<ResponsiveWebScreen> {
                         ),
                         const SizedBox(height: 12.0),
                         SizedBox(
-                          width: size.width * 0.5,
+                          width: size.width * 0.3,
                           child: PrimaryButton(
                             label: "Admin",
                             onPressed: () {
@@ -102,7 +102,7 @@ class _ResponsiveWebScreenState extends State<ResponsiveWebScreen> {
                         ),
                         const SizedBox(height: 24.0),
                         Container(
-                          width: size.width * 0.5,
+                          width: size.width * 0.3,
                           padding: const EdgeInsets.all(12.0),
                           decoration: BoxDecoration(
                             color: Colors.white,

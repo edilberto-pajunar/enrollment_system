@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:path_provider_android/path_provider_android.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:web_school/app.dart';
@@ -33,9 +34,10 @@ void main() async {
     // await StudentDB().initNotifications();
   }
 
-  setPathUrlStrategy();
+  setUrlStrategy(null);
 
   runApp(MyApp());
 }
+
 
 

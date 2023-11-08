@@ -103,8 +103,10 @@ class Auth extends ChangeNotifier {
   /// credentials
   Future<void> logout(BuildContext context) async {
     await auth.signOut().then((value) {
-      !kIsWeb ? AutoRouter.of(context).popUntilRoot()
-          : AutoRouter.of(context).popUntil((route) => route.isFirst);
+      // !kIsWeb ? AutoRouter.of(context).popUntilRoot()
+      //     : AutoRouter.of(context).popUntil((route) => route.isFirst);
+
+      AutoRouter.of(context).pop();
       // AutoRouter.of(context).replace(const ResponsiveBuilder());
       clearForm();
     });

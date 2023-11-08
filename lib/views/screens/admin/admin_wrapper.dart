@@ -7,7 +7,7 @@ import 'package:web_school/models/payment.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/payment.dart';
 import 'package:web_school/networks/student.dart';
-import 'package:web_school/views/screens/admin/home/home.dart';
+import 'package:web_school/views/screens/admin/admin_home.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
 @RoutePage()
@@ -41,25 +41,27 @@ class _WrapperAdminScreenState extends State<WrapperAdminScreen> {
     final AdminDB adminDB = Provider.of<AdminDB>(context);
 
     return Scaffold(
-      body: StreamWrapper<List<Instructor>>(
-        stream: adminDB.instructorListStream,
-        child: (instructorList) {
-          return StreamWrapper<List<Payment>>(
-              stream: paymentDB.paymentModelStream,
-              child: (paymentList) {
-                return StreamWrapper<List<ApplicationInfo>>(
-                  stream: studentDB.studentListStream,
-                  child: (studentList) {
-                    return AdminHomeScreen(
-                      instructorList: instructorList!,
-                      paymentList: paymentList!,
-                      studentList: studentList!,
-                    );
-                  },
-                );
-              }
-          );
-        },
+      body: SafeArea(
+        child: StreamWrapper<List<Instructor>>(
+          stream: adminDB.instructorListStream,
+          child: (instructorList) {
+            return StreamWrapper<List<Payment>>(
+                stream: paymentDB.paymentModelStream,
+                child: (paymentList) {
+                  return StreamWrapper<List<ApplicationInfo>>(
+                    stream: studentDB.studentListStream,
+                    child: (studentList) {
+                      return AdminHomeScreen(
+                        instructorList: instructorList!,
+                        paymentList: paymentList!,
+                        studentList: studentList!,
+                      );
+                    },
+                  );
+                }
+            );
+          },
+        ),
       ),
     );
   }

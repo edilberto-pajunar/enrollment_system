@@ -7,10 +7,11 @@ import 'package:web_school/models/payment.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/values/strings/images.dart';
+import 'package:web_school/views/screens/admin/home/components/student_pie.dart';
 import 'package:web_school/views/widgets/cards/custom_admin.dart';
 
-class AdminBody extends StatelessWidget {
-  const AdminBody({
+class AdminDashboardTablet extends StatelessWidget {
+  const AdminDashboardTablet({
     required this.studentList,
     required this.instructorList,
     required this.paymentList,
@@ -51,9 +52,13 @@ class AdminBody extends StatelessWidget {
                     imageIcon: PngImages.students,
                     subtitle: "MANAGE STUDENTS",
                     onTap: () {
+                      // context.pushRoute(AdminStudentsListRoute(
+                      //     studentList: studentList,
+                      //   ),
+                      // );
                       adminDB.updateIndexDashboard(1);
                     },
-                    color: Colors.deepPurple.shade300,
+                    color: Colors.deepPurple.shade200,
                   ),
                 ),
 
@@ -65,7 +70,7 @@ class AdminBody extends StatelessWidget {
                     onTap: () {
                       adminDB.updateIndexDashboard(2);
                     },
-                    color: Colors.blue,
+                    color: Colors.lightBlue,
                   ),
                 ),
 
@@ -77,47 +82,15 @@ class AdminBody extends StatelessWidget {
                     onTap: () {
                       adminDB.updateIndexDashboard(3);
                     },
-                    color: Colors.green,
+                    color: Colors.lightGreen,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 12.0),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: CustomAdminCard(
-            //         title: "${studentList.length}",
-            //         subtitle: "Total Students",
-            //         onTap: () {
-            //           adminDB.updateIndexDashboard(1);
-            //         },
-            //         color: Colors.blue,
-            //       ),
-            //     ),
-            //     const SizedBox(width: 12.0),
-            //     Expanded(
-            //       child: CustomAdminCard(
-            //         title: "${instructorList.length}",
-            //         subtitle: "Total Instructors",
-            //         onTap: () {
-            //           adminDB.updateIndexDashboard(2);
-            //         },
-            //         color: Colors.green,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(height: 12.0),
-            // CustomAdminCard(
-            //   title: "${paymentList.length}",
-            //   subtitle: "Total Payments",
-            //   onTap: () {
-            //     adminDB.updateIndexDashboard(3);
-            //   },
-            //   color: Colors.red,
-            // ),
-
+            StudentPieChart(
+              studentList: studentList,
+            ),
           ],
         ),
       ),

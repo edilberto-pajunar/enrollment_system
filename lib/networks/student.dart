@@ -42,10 +42,10 @@ class StudentDB extends ChangeNotifier {
 
   Stream<ApplicationInfo>? studentStream;
 
-  Stream<ApplicationInfo> getStudent(UserModel userModel) {
+  Stream<ApplicationInfo> getStudent(String id) {
     return db
         .collection("student")
-        .doc(userModel.id)
+        .doc(id)
         .snapshots()
         .map(studentFromSnapshot);
   }
@@ -57,8 +57,8 @@ class StudentDB extends ChangeNotifier {
     return ApplicationInfo.fromJson(data);
   }
 
-  void updateStudentStream(UserModel userModel) {
-    studentStream = getStudent(userModel);
+  void updateStudentStream(String id) {
+    studentStream = getStudent(id);
     notifyListeners();
   }
 
@@ -125,10 +125,10 @@ class StudentDB extends ChangeNotifier {
   /// subject stream
   Stream<List<Subject>>? listSubjectStream;
 
-  Stream<List<Subject>> getListSubjectStream(UserModel userModel) {
+  Stream<List<Subject>> getListSubjectStream(String id) {
     return db
         .collection("student")
-        .doc(userModel.id)
+        .doc(id)
         .collection("subjects")
         .snapshots()
         .map(listSubjectSnapshot);
@@ -142,8 +142,8 @@ class StudentDB extends ChangeNotifier {
     }).toList();
   }
 
-  void updateListSubjectStream(UserModel userModel) {
-    listSubjectStream = getListSubjectStream(userModel);
+  void updateListSubjectStream(String id) {
+    listSubjectStream = getListSubjectStream(id);
     notifyListeners();
   }
 
