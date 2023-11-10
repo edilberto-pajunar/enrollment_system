@@ -34,7 +34,7 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: CustomNavigationBar(
+        child: AdminNavigationBar(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: SingleChildScrollView(

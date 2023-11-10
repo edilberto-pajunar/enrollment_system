@@ -53,7 +53,7 @@ class _AdminEditInstructorScreenState extends State<AdminEditInstructorScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: CustomNavigationBar(
+        child: AdminNavigationBar(
           child: GestureDetector(
             onTap: () {
               setState(() {});

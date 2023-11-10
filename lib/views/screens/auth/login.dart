@@ -105,7 +105,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () async {
                               if (loginKey.currentState!.validate()) {
                                 auth.loginAccount(context);
-                                // context.pushRoute(const AdminHomeRoute());
                               }
                             },
                             label: "Login",

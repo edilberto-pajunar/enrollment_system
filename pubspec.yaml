@@ -23,7 +23,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   cloud_firestore: ^4.8.4
   equatable: ^2.0.5
-  file_picker: ^5.3.3
+  file_picker: ^6.1.1
   firebase_auth: ^4.7.2
   firebase_core: ^2.15.0
   fl_chart: ^0.64.0
@@ -32,7 +32,7 @@ dependencies:
   flutter_native_splash: ^2.3.2
   flutter_screenutil: ^5.9.0
   flutter_slidable: ^3.0.0
-  firebase_storage: ^11.2.6
+  firebase_storage: ^11.5.0
 #  flutter_stripe: ^9.3.0
   http: ^1.1.0
   intl: ^0.18.1

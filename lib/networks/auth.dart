@@ -5,8 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_school/models/user.dart';
+import 'package:web_school/networks/instructor.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 
 class Auth extends ChangeNotifier {
@@ -39,8 +41,9 @@ class Auth extends ChangeNotifier {
 
   /// [loginAccount] will prompt the user to log in
   Future<void> loginAccount(BuildContext context) async {
+    final InstructorDB instructorDB = Provider.of<InstructorDB>(context, listen: false);
     final ThemeData theme = Theme.of(context);
-    // final SharedPreferences sp = await SharedPreferences.getInstance();
+    final SharedPreferences sp = await SharedPreferences.getInstance();
 
     await db.collection("user").get().then((value) {
 
@@ -63,13 +66,11 @@ class Auth extends ChangeNotifier {
 
       if (authenticated && user != null) {
         if (user!.type == "instructor") {
-          AutoRouter.of(context).replace(InstructorHomeRoute(
-            userModel: user!
-          ));
+          sp.setString("instructorId", user!.id);
+          AutoRouter.of(context).replace(InstructorHomeRoute());
         } else if (user!.type == "student") {
-          AutoRouter.of(context).replace(StudentLayoutBuilder(
-            userModel: user!,
-          ));
+          sp.setString("studentId", user!.id);
+          AutoRouter.of(context).replace(StudentHomeRoute());
 
         } else if (user!.type == "admin") {
           AutoRouter.of(context).replace(const WrapperAdminRoute());
@@ -106,7 +107,9 @@ class Auth extends ChangeNotifier {
       // !kIsWeb ? AutoRouter.of(context).popUntilRoot()
       //     : AutoRouter.of(context).popUntil((route) => route.isFirst);
 
-      AutoRouter.of(context).pop();
+
+      AutoRouter.of(context).popUntil((route) => route.isFirst);
+      // AutoRouter.of(context).pop();
       // AutoRouter.of(context).replace(const ResponsiveBuilder());
       clearForm();
     });

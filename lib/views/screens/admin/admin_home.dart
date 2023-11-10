@@ -49,7 +49,7 @@ class AdminHomeScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        body: CustomNavigationBar(
+        body: AdminNavigationBar(
           child: dashboardList[adminDB.indexDashboard],
         ),
       ),

@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/values/strings/colors.dart';
 
-class CustomAdminAppBar extends StatelessWidget {
-  const CustomAdminAppBar({super.key});
+class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

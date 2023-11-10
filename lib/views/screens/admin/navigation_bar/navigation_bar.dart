@@ -5,8 +5,8 @@ import 'package:web_school/views/screens/admin/navigation_bar/navigation_bar_mob
 import 'package:web_school/views/screens/admin/navigation_bar/navigation_bar_tablet.dart';
 import 'package:web_school/views/screens/admin/navigation_bar/navigation_bar_web.dart';
 
-class CustomNavigationBar extends StatelessWidget {
-  const CustomNavigationBar({
+class AdminNavigationBar extends StatelessWidget {
+  const AdminNavigationBar({
     required this.child,
     super.key,
   });
@@ -17,13 +17,13 @@ class CustomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (context) => NavigationBarMobile(
+      mobile: (context) => AdminNavigationBarMobile(
         child: child,
       ),
-      tablet: (context) => NavigationBarTablet(
+      tablet: (context) => AdminNavigationBarTablet(
         child: child,
       ),
-      desktop: (context) => NavigationBarWeb(
+      desktop: (context) => AdminNavigationBarTablet(
         child: child,
       ),
     );

@@ -40,7 +40,7 @@ class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
       //   ),
       // ),
       body: SafeArea(
-        child: CustomNavigationBar(
+        child: AdminNavigationBar(
           child: GestureDetector(
             onTap: () {
               setState(() {});

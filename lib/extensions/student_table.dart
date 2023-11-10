@@ -19,13 +19,6 @@ class StudentDataList extends DataTableSource {
   final List<ApplicationInfo> dataList;
   final BuildContext context;
 
-  final data = List.generate(200, (index) {
-    return {
-      "id": index,
-      "title": "Item $index",
-      "price": Random().nextInt(10000)
-    };
-  }).toList();
 
   @override
   DataRow? getRow(int index) {
@@ -60,6 +53,7 @@ class StudentDataList extends DataTableSource {
         DataCell(IconButton(
           onPressed: () {
             print("delete");
+            adminDB.deleteStudent(context, id);
           },
             icon: Icon(CupertinoIcons.trash,
               color: Colors.red,

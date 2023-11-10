@@ -8,7 +8,7 @@ import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/views/screens/admin/body/student/profile/component/student_details.dart';
 import 'package:web_school/views/screens/admin/navigation_bar/navigation_bar.dart';
-import 'package:web_school/views/widgets/app_bar/admin.dart';
+import 'package:web_school/views/widgets/app_bar/custom.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
 @RoutePage()
@@ -42,23 +42,7 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
 
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   actions: [
-        //     TextButton.icon(
-        //       label: Icon(Icons.report,
-        //         color: Colors.white,
-        //       ),
-        //       onPressed: () {},
-        //       /// TODO: Add generate report
-        //       icon: Text("Generated Report",
-        //         style: theme.textTheme.bodyMedium!.copyWith(
-        //           color: Colors.white,
-        //         ),
-        //       ),
-        //     )
-        //   ],
-        // ),
-        body: CustomNavigationBar(
+        body: AdminNavigationBar(
           child: Center(
             child: StreamWrapper<ApplicationInfo>(
               stream: adminDB.studentStream,
@@ -113,11 +97,14 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
                                             ),
                                           ),
                                         ),
+                                        /// TODO: Add generate report
                                         Tooltip(
                                           message: "Generate report",
                                           child: IconButton(
                                             icon: Icon(CupertinoIcons.cloud_download_fill),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              print("generate report");
+                                            },
                                           ),
                                         ),
                                       ],

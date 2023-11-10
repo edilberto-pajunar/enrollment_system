@@ -64,7 +64,7 @@ class _StudentMobileHomeScreenState extends State<StudentMobileHomeScreen> {
               StudentMobileChangePassScreen(currentPassword: applicationInfo.userModel.password),
             ];
 
-            return screenList[studentDB.studentDrawerIndex];
+            return screenList[studentDB.studentIndex];
           },
         ),
       ),

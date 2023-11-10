@@ -1,32 +1,16 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_school/models/instructor.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/instructor.dart';
 import 'package:web_school/values/strings/images.dart';
-import 'package:web_school/views/widgets/body/wrapper/stream.dart';
+import 'package:web_school/views/widgets/hover/tile_button.dart';
 
-class InstructorDrawer extends StatefulWidget {
+class InstructorDrawer extends StatelessWidget {
   const InstructorDrawer({
     super.key,
   });
-
-  @override
-  State<InstructorDrawer> createState() => _InstructorDrawerState();
-}
-
-class _InstructorDrawerState extends State<InstructorDrawer> {
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final InstructorDB instructorDB = Provider.of<InstructorDB>(context, listen: false);
-      final Auth auth = Provider.of<Auth>(context, listen: false);
-      instructorDB.updateInstructorStream(auth.user!);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +18,13 @@ class _InstructorDrawerState extends State<InstructorDrawer> {
     final ThemeData theme = Theme.of(context);
     final InstructorDB instructorDB = Provider.of<InstructorDB>(context);
     final Auth auth = Provider.of<Auth>(context);
+    final Size size = MediaQuery.of(context).size;
 
-    return StreamWrapper<Instructor>(
-      stream: instructorDB.instructorStream,
-      child: (instructor) {
-        return Drawer(
-          width: 200,
+    return SizedBox(
+      height: size.height,
+      child: Drawer(
+        width: 230,
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -55,21 +40,33 @@ class _InstructorDrawerState extends State<InstructorDrawer> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24.0),
-              ListTile(
+              OnHoverListTileButton(
+                leading: Icon(CupertinoIcons.home),
                 onTap: () {
-                  instructorDB.updateDrawerIndex(0);
-                  context.popRoute();
+                  if (AutoRouter.of(context).root.current.name == "InstructorHomeRoute") {
+                    instructorDB.updateDrawerIndex(0);
+                  } else {
+                    AutoRouter.of(context).popUntil((route) => route.settings.name == "InstructorHomeRoute");
+                    instructorDB.updateDrawerIndex(0);
+                  }
                 },
-                title: Text("Home",
-                  style: theme.textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                 title: Text("Home",
+                   style: theme.textTheme.bodyLarge!.copyWith(
+                     fontWeight: FontWeight.w700,
+                   ),
+                 ),
               ),
-              ListTile(
+              OnHoverListTileButton(
+                leading: Icon(CupertinoIcons.profile_circled),
                 onTap: () {
-                  instructorDB.updateDrawerIndex(1);
-                  context.popRoute();
+                  if (AutoRouter.of(context).root.current.name == "InstructorHomeRoute") {
+                    instructorDB.updateDrawerIndex(1);
+
+                  } else {
+                    AutoRouter.of(context).popUntil((route) => route.settings.name == "InstructorHomeRoute");
+                    instructorDB.updateDrawerIndex(1);
+
+                  }
                 },
                 title: Text("Profile",
                   style: theme.textTheme.bodyLarge!.copyWith(
@@ -77,10 +74,11 @@ class _InstructorDrawerState extends State<InstructorDrawer> {
                   ),
                 ),
               ),
-              ListTile(
+              OnHoverListTileButton(
                 onTap: () {
                   auth.logout(context);
                 },
+                leading: Icon(Icons.logout),
                 title: Text("Logout",
                   style: theme.textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.w700,
@@ -89,8 +87,8 @@ class _InstructorDrawerState extends State<InstructorDrawer> {
               ),
             ],
           ),
-        );
-      }
+        ),
+      ),
     );
   }
 }

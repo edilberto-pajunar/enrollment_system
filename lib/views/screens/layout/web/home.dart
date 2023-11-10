@@ -35,7 +35,7 @@ class _ResponsiveWebScreenState extends State<ResponsiveWebScreen> {
               child: Opacity(
                 opacity: 0.3,
                 child: ColorFiltered(
-                  colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.srcOver),
+                  colorFilter: ColorFilter.mode(Colors.black, BlendMode.exclusion),
                   child: Image.asset(PngImages.schoolBg,
                     fit: BoxFit.cover,
                   ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:web_school/views/widgets/drawer/admin_drawer.dart';
 import 'package:web_school/views/widgets/app_bar/custom.dart';
+import 'package:web_school/views/widgets/drawer/instructor.dart';
 
-class AdminNavigationBarTablet extends StatelessWidget {
-  const AdminNavigationBarTablet({
+class InstructorNavigationBarTablet extends StatelessWidget {
+  const InstructorNavigationBarTablet({
     required this.child,
     super.key,
   });
@@ -15,7 +15,7 @@ class AdminNavigationBarTablet extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AdminDrawer(),
+        InstructorDrawer(),
         Expanded(
           child: SingleChildScrollView(
             child: Column(

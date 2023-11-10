@@ -48,6 +48,7 @@ class InstructorDataList extends DataTableSource {
 
           DataCell(IconButton(
             onPressed: () {
+              adminDB.deleteInstructor(context, id);
               print("delete");
             },
             icon: Icon(CupertinoIcons.trash,

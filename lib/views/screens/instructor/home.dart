@@ -6,19 +6,16 @@ import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/user.dart';
 import 'package:web_school/networks/instructor.dart';
 import 'package:web_school/networks/student.dart';
-import 'package:web_school/views/screens/instructor/profile.dart';
-import 'package:web_school/views/screens/instructor/student.dart';
+import 'package:web_school/views/screens/instructor/body/students/student_list.dart';
+import 'package:web_school/views/screens/instructor/navigation_bar/navigation_bar.dart';
+import 'package:web_school/views/screens/instructor/body/profile/profile.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
-import 'package:web_school/views/widgets/drawer/instructor.dart';
 
 @RoutePage()
 class InstructorHomeScreen extends StatefulWidget {
   const InstructorHomeScreen({
-    required this.userModel,
     super.key,
   });
-
-  final UserModel userModel;
 
   @override
   State<InstructorHomeScreen> createState() => _InstructorHomeScreenState();
@@ -34,7 +31,12 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
       studentDB.updateStudentListStream();
 
       final InstructorDB instructorDB = Provider.of<InstructorDB>(context, listen: false);
-      instructorDB.updateInstructorStream(widget.userModel);
+      instructorDB.getInstructorIdLocal().then((value) {
+
+        print(instructorDB.instructorId!);
+        instructorDB.updateInstructorStream(instructorDB.instructorId!);
+      });
+
     });
   }
 
@@ -44,29 +46,28 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
     final InstructorDB instructorDB = Provider.of<InstructorDB>(context);
 
     return Scaffold(
-      appBar: AppBar(),
-      drawer: InstructorDrawer(),
       body: SafeArea(
-        child: StreamWrapper<Instructor>(
-          stream: instructorDB.instructorStream,
-          child: (instructor) {
-            return StreamWrapper<List<ApplicationInfo>>(
-              stream: studentDB.studentListStream,
-              child: (studentList) {
-
-                final List<Widget> screenList = [
-                  InstructorStudentScreen(
-                    studentList: studentList!,
-                    instructor: instructor!,
-                  ),
-                  InstructorProfileScreen(
-                    instructor: instructor,
-                  ),
-                ];
-                return screenList[instructorDB.drawerIndex];
-              }
-            );
-          }
+        child: InstructorNavigationBar(
+          child: StreamWrapper<Instructor>(
+            stream: instructorDB.instructorStream,
+            child: (instructor) {
+              return StreamWrapper<List<ApplicationInfo>>(
+                stream: studentDB.studentListStream,
+                child: (studentList) {
+                  final List<Widget> screenList = [
+                    InstructorStudentScreen(
+                      studentList: studentList!,
+                      instructor: instructor!,
+                    ),
+                    InstructorProfileScreen(
+                      instructor: instructor,
+                    ),
+                  ];
+                  return screenList[instructorDB.drawerIndex];
+                }
+              );
+            }
+          ),
         ),
       ),
     );

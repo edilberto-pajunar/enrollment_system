@@ -30,6 +30,7 @@ class StudentDB extends ChangeNotifier {
   List<ApplicationInfo> studentListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((e) {
       final Map<String, dynamic> doc = e.data() as Map<String, dynamic>;
+      print(doc);
 
       return ApplicationInfo.fromJson(doc);
     }).toList();
@@ -137,7 +138,7 @@ class StudentDB extends ChangeNotifier {
   List<Subject> listSubjectSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       final data = doc.data() as Map<String, dynamic>;
-      return Subject.fromJson(data["subject"]);
+      return Subject.fromJson(data);
 
     }).toList();
   }
@@ -204,13 +205,6 @@ class StudentDB extends ChangeNotifier {
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   }
 
-  int studentDrawerIndex = 1;
-
-  void updateStudentDrawerIndex(int value) {
-    studentDrawerIndex = value;
-    notifyListeners();
-  }
-
   List<Subject> subjectEnrollList = [];
 
   void updateAddSubjectEnrollList(Subject value) {
@@ -220,6 +214,13 @@ class StudentDB extends ChangeNotifier {
 
   void updateRemoveSubjectEnrollList(int index) {
     subjectEnrollList.removeAt(index);
+    notifyListeners();
+  }
+
+  int studentIndex = 0;
+
+  void updateStudentIndex(int value) {
+    studentIndex = value;
     notifyListeners();
   }
 

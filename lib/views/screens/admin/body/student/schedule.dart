@@ -17,7 +17,6 @@ class AdminScheduleStudentScreen extends StatefulWidget {
     super.key,
   });
 
-
   @override
   State<AdminScheduleStudentScreen> createState() => _AdminScheduleStudentScreenState();
 }
@@ -46,7 +45,7 @@ class _AdminScheduleStudentScreenState extends State<AdminScheduleStudentScreen>
 
     return Scaffold(
       body: SafeArea(
-        child: CustomNavigationBar(
+        child: AdminNavigationBar(
           child: StreamWrapper<ApplicationInfo>(
             stream: studentDB.studentStream,
             child: (studentInfo) {

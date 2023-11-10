@@ -43,6 +43,8 @@ class AdminDB extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
   Stream<ApplicationInfo>? studentStream;
 
   Stream<ApplicationInfo> getStudent() {
@@ -115,7 +117,7 @@ class AdminDB extends ChangeNotifier {
   List<Subject> listSubjectSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       final data = doc.data() as Map<String, dynamic>;
-      return Subject.fromJson(data["subject"]);
+      return Subject.fromJson(data);
     }).toList();
   }
 
@@ -168,9 +170,7 @@ class AdminDB extends ChangeNotifier {
             .doc(studentId)
             .collection("subjects")
             .doc(subject.id.toString())
-            .set({
-          "subject": subjectData.toJson(),
-        }, SetOptions(merge: true));
+            .set(subjectData.toJson(), SetOptions(merge: true));
       }).toList();
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -216,6 +216,7 @@ class AdminDB extends ChangeNotifier {
     final String id = Uuid().v1();
 
      db.collection("instructor").get().then((value) {
+
       final List<Instructor> instructor = (value.docs).map((doc) {
         final data = doc.data();
         return Instructor.fromJson(data);
@@ -245,7 +246,7 @@ class AdminDB extends ChangeNotifier {
 
         db.collection("instructor").doc(id).set(instructor.toJson()).then((value) {
 
-          db.collection("user").doc(id).set(instructor.userModel.toJson());
+          db.collection("user").doc(id).set(userModel.toJson());
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -273,7 +274,7 @@ class AdminDB extends ChangeNotifier {
 
             db.collection("instructor").doc(id).set(instructor.toJson()).then((value) {
 
-              db.collection("user").doc(id).set(instructor.userModel.toJson());
+              db.collection("user").doc(id).set(userModel.toJson());
 
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -390,17 +391,27 @@ class AdminDB extends ChangeNotifier {
 
   String? instructorId;
 
-  void updateInstructorId(String? value) {
+  void updateInstructorId(String? value) async {
     instructorId = value;
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+
+    sp.setString("instructorId", value!);
     notifyListeners();
   }
 
-  Future<void> deleteInstructor(BuildContext context) async {
+  Future<void> getInstructorIdLocal() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+
+    instructorId = sp.getString("instructorId");
+    notifyListeners();
+  }
+
+  Future<void> deleteInstructor(BuildContext context, String id) async {
     CustomDialog().showAgree(context,
         onTap: () {
-          debugPrint("Deleting: $instructorId");
-          db.collection("instructor").doc(instructorId).delete().then((value) {
-            db.collection("user").doc(instructorId).delete();
+          debugPrint("Deleting: $id");
+          db.collection("instructor").doc(id).delete().then((value) {
+            db.collection("user").doc(id).delete();
 
             context.popRoute();
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -408,6 +419,24 @@ class AdminDB extends ChangeNotifier {
             ));
           });
         },
+      message: "Are you sure you want to delete?",
+    );
+
+  }
+
+  Future<void> deleteStudent(BuildContext context, String studentId) async {
+    CustomDialog().showAgree(context,
+      onTap: () {
+        debugPrint("Deleting: $studentId");
+        db.collection("student").doc(studentId).delete().then((value) {
+          db.collection("user").doc(studentId).delete();
+
+          context.popRoute();
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Deleted successfully!"),
+          ));
+        });
+      },
       message: "Are you sure you want to delete?",
     );
 
@@ -488,8 +517,8 @@ class AdminDB extends ChangeNotifier {
   }
 
   List<SelectionOption> strandInstructorList = [
-    SelectionOption(id: 0, label: "STEM"),
-    SelectionOption(id: 1, label: "GAS"),
+    SelectionOption(id: 0, label: "GAS"),
+    SelectionOption(id: 1, label: "STEM"),
     SelectionOption(id: 2, label: "HUMMS"),
   ];
 

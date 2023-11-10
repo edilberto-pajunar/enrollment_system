@@ -670,6 +670,14 @@ class Application extends ChangeNotifier {
     return password;
   }
 
+  Subject getSubjectData(subject) => Subject(
+    id: subject.id,
+    name: subject.name,
+    grades: subject.grades,
+    units: subject.units,
+    schedule: [],
+  );
+
   Future<void> submitApplicationForm(
     BuildContext context, {
     bool isJunior = false,
@@ -728,6 +736,8 @@ class Application extends ChangeNotifier {
           password: password,
         );
 
+
+
         final CollectionReference subjectsCollection = db
             .collection("student")
             .doc(uid)
@@ -742,15 +752,18 @@ class Application extends ChangeNotifier {
           if (strand?.id == 1) {
             if (semester?.id == 0) {
               for (Subject subject in Commons.stemFirstSubjectList) {
+
+
+
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toJson());
+                    .set(getSubjectData(subject).toJson());
               }
             } else {
               for (Subject subject in Commons.stemSecondSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toJson());
+                    .set(getSubjectData(subject).toJson());
               }
             }
           }
@@ -760,13 +773,13 @@ class Application extends ChangeNotifier {
               for (Subject subject in Commons.gasFirstSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toJson());
+                    .set(getSubjectData(subject).toJson());
               }
             } else {
               for (Subject subject in Commons.gasSecondSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toJson());
+                    .set(getSubjectData(subject).toJson());
               }
             }
           }
@@ -776,13 +789,13 @@ class Application extends ChangeNotifier {
               for (Subject subject in Commons.hummsFirstSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toJson());
+                    .set(getSubjectData(subject).toJson());
               }
             } else {
               for (Subject subject in Commons.hummsSecondSubjectList) {
                 subjectsCollection
                     .doc(subject.id.toString())
-                    .set(subject.toJson());
+                    .set(getSubjectData(subject).toJson());
               }
             }
           }

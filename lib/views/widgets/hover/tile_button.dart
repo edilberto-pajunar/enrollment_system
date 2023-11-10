@@ -7,12 +7,14 @@ class OnHoverListTileButton extends StatefulWidget {
     required this.onTap,
     this.leading,
     required this.title,
+    this.backgroundColor,
     super.key,
   });
 
   final Function() onTap;
   final Widget? leading;
   final Widget title;
+  final Color? backgroundColor;
 
   @override
   State<OnHoverListTileButton> createState() => _OnHoverListTileButtonState();
@@ -42,13 +44,13 @@ class _OnHoverListTileButtonState extends State<OnHoverListTileButton> {
           transform: transform,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
-            color: isHovered ? ColorTheme.primaryRed.withOpacity(0.2) : Colors.transparent,
+            color: widget.backgroundColor ?? (isHovered ? ColorTheme.primaryRed.withOpacity(0.2) : Colors.transparent),
           ),
           child: Row(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: widget.leading!,
+                child: widget.leading ?? SizedBox(),
               ),
               const SizedBox(width: 8.0),
               widget.title,

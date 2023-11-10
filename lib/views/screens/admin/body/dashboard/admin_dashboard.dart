@@ -22,14 +22,21 @@ class CustomAdminDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      /// TODO: ADD PIE CHART
-      mobile: (context) => AdminDashboardMobile(),
+      mobile: (context) => AdminDashboardMobile(
+        studentList: studentList,
+        instructorList: instructorList,
+        paymentList: paymentList,
+      ),
       tablet: (context) => AdminDashboardTablet(
         studentList: studentList,
         instructorList: instructorList,
         paymentList: paymentList,
       ),
-      desktop: (context) => AdminDashboardWeb(),
+      desktop: (context) => AdminDashboardTablet(
+        studentList: studentList,
+        instructorList: instructorList,
+        paymentList: paymentList,
+      ),
     );
   }
 }

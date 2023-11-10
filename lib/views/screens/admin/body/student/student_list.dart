@@ -16,14 +16,10 @@ class AdminStudentsListScreen extends StatelessWidget {
 
   final List<ApplicationInfo> studentList;
 
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     final StudentDB studentDB = Provider.of<StudentDB>(context);
-    final AdminDB adminDB = Provider.of<AdminDB>(context);
-    final ThemeData theme = Theme.of(context);
-    final Size size = MediaQuery.of(context).size;
 
     final DataTableSource _dataList = StudentDataList(
       context: context,

@@ -39,89 +39,87 @@ class _StudentPaymentHomeScreenState extends State<StudentPaymentHomeScreen> {
     final ThemeData theme = Theme.of(context);
 
 
-    return Scaffold(
-      body: StreamWrapper<List<PaymentDescription>>(
-        stream: paymentDB.studentPaymentStream,
-        child: (paymentList) {
+    return StreamWrapper<List<PaymentDescription>>(
+      stream: paymentDB.studentPaymentStream,
+      child: (paymentList) {
 
-          return paymentList!.isEmpty
-              ? Center(
-            child: Text("You still have no history of payment"),
-          )
-              : SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text("Payment",
-                      style: theme.textTheme.titleSmall!.copyWith(
-                      ),
+        return paymentList!.isEmpty
+            ? Center(
+          child: Text("You still have no history of payment"),
+        )
+            : SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text("Payment",
+                    style: theme.textTheme.titleSmall!.copyWith(
                     ),
-                    // Text("Your current balance is: ${widget.applicationInfo.studentInfo.balance}"),
-                    const SizedBox(height: 24.0),
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: paymentList.length,
-                      itemBuilder: (context, index) {
+                  ),
+                  // Text("Your current balance is: ${widget.applicationInfo.studentInfo.balance}"),
+                  const SizedBox(height: 24.0),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: paymentList.length,
+                    itemBuilder: (context, index) {
 
-                        final payment = paymentList[index];
-                        final date = payment.dateTime.toDate();
+                      final payment = paymentList[index];
+                      final date = payment.dateTime.toDate();
 
-                        final formattedDate = DateFormat("MMMM dd, yyyy").format(date);
+                      final formattedDate = DateFormat("MMMM dd, yyyy").format(date);
 
-                        return Container(
-                          padding: const EdgeInsets.all(12.0),
-                          decoration: BoxDecoration(
-                            color: ColorTheme.primaryYellow,
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
+                      return Container(
+                        padding: const EdgeInsets.all(12.0),
+                        decoration: BoxDecoration(
+                          color: ColorTheme.primaryYellow,
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  child: Icon(Icons.money),
+                                  radius: 15,
+                                  backgroundColor: Colors.white,
+                                ),
+                                const SizedBox(width: 4.0),
+                                Text("Ref number: ${payment.refNumber}",
+                                  style: theme.textTheme.bodyLarge!.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12.0),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 32.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  CircleAvatar(
-                                    child: Icon(Icons.money),
-                                    radius: 15,
-                                    backgroundColor: Colors.white,
-                                  ),
-                                  const SizedBox(width: 4.0),
-                                  Text("Ref number: ${payment.refNumber}",
-                                    style: theme.textTheme.bodyLarge!.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
+                                  Text("Status: ${payment.status}"),
+                                  Text("Amount: ₱${payment.amount}"),
+                                  Text("Date transaction: ${formattedDate}"),
                                 ],
                               ),
-                              const SizedBox(height: 12.0),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 32.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Status: ${payment.status}"),
-                                    Text("Amount: ₱${payment.amount}"),
-                                    Text("Date transaction: ${formattedDate}"),
-                                  ],
-                                ),
-                              ),
+                            ),
 
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
-          );
-        }
-      ),
+          ),
+        );
+      }
     );
   }
 }

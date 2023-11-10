@@ -8,8 +8,12 @@ import 'package:web_school/values/strings/images.dart';
 import 'package:web_school/views/widgets/hover/tile_button.dart';
 
 class AdminDrawer extends StatelessWidget {
-  const AdminDrawer({super.key,
+  const AdminDrawer({
+    this.isMobile = false,
+    super.key,
   });
+
+  final bool isMobile;
 
 
   @override
@@ -52,11 +56,17 @@ class AdminDrawer extends StatelessWidget {
                 ),
               ),
               OnHoverListTileButton(
+                backgroundColor: adminDB.indexDashboard == 0
+                    ? ColorTheme.primaryRed.withOpacity(0.2)
+                    : null,
                 onTap: () {
                   if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
                     adminDB.updateIndexDashboard(0);
+                    isMobile ? context.popRoute() : false;
                   } else {
                     AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
+                    adminDB.updateIndexDashboard(0);
+                    isMobile ? context.popRoute() : false;
                   }
 
                 },
@@ -67,11 +77,17 @@ class AdminDrawer extends StatelessWidget {
                 ),
               ),
               OnHoverListTileButton(
+                backgroundColor: adminDB.indexDashboard == 2
+                  ? ColorTheme.primaryRed.withOpacity(0.2)
+                  : null,
                 onTap: () {
                   if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
                     adminDB.updateIndexDashboard(2);
+                    isMobile ? context.popRoute() : false;
                   } else {
                     AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
+                    adminDB.updateIndexDashboard(2);
+                    isMobile ? context.popRoute() : false;
                   }
                 },
                 title: Text("Teachers",
@@ -81,11 +97,18 @@ class AdminDrawer extends StatelessWidget {
                 ),
               ),
               OnHoverListTileButton(
+                backgroundColor: adminDB.indexDashboard == 1
+                    ? ColorTheme.primaryRed.withOpacity(0.2)
+                    : null,
                 onTap: () {
+
                   if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
                     adminDB.updateIndexDashboard(1);
+                    isMobile ? context.popRoute() : false;
                   } else {
                     AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
+                    adminDB.updateIndexDashboard(1);
+                    isMobile ? context.popRoute() : false;
                   }
                 },
                 title: Text("Students",
@@ -95,11 +118,17 @@ class AdminDrawer extends StatelessWidget {
                 ),
               ),
               OnHoverListTileButton(
+                backgroundColor: adminDB.indexDashboard == 3
+                    ? ColorTheme.primaryRed.withOpacity(0.2)
+                    : null,
                 onTap: () {
                   if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
                     adminDB.updateIndexDashboard(3);
+                    isMobile ? context.popRoute() : false;
                   } else {
                     AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
+                    adminDB.updateIndexDashboard(3);
+                    isMobile ? context.popRoute() : false;
                   }
                 },
                 title: Text("Payments",

@@ -1,16 +1,22 @@
 
+import 'dart:io' as io;
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/student/subject.dart';
-import 'package:web_school/models/user.dart';
 
 class InstructorDB extends ChangeNotifier {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 
   bool isLoading = false;
 
@@ -21,10 +27,10 @@ class InstructorDB extends ChangeNotifier {
 
   Stream<Instructor>? instructorStream;
 
-  Stream<Instructor> getInstructor(UserModel userModel) {
+  Stream<Instructor> getInstructor(String id) {
     return db
         .collection("instructor")
-        .doc(userModel.id)
+        .doc(id)
         .snapshots()
         .map(instructorFromSnapshot);
   }
@@ -33,15 +39,32 @@ class InstructorDB extends ChangeNotifier {
     return Instructor.fromJson(snapshot.data() as Map<String, dynamic>);
   }
 
-  void updateInstructorStream(UserModel userModel) {
-    instructorStream = getInstructor(userModel);
+  void updateInstructorStream(String id) {
+    instructorStream = getInstructor(id);
     notifyListeners();
   }
 
   String? studentId;
 
-  void updateStudentId(String? value) {
+  void updateStudentId(String? value) async {
     studentId = value;
+
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setString("studentId", studentId!);
+    notifyListeners();
+  }
+
+  Future<void> getStudentIdLocal() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    studentId = sp.getString("studentId");
+    notifyListeners();
+  }
+
+  String? instructorId;
+
+  Future<void> getInstructorIdLocal() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    instructorId = sp.getString("instructorId");
     notifyListeners();
   }
 
@@ -231,6 +254,78 @@ class InstructorDB extends ChangeNotifier {
   //       .snapshots()
   //       .map(_snapshotsFromSubjectStudent);
   // }
+  io.File? selectFile;
+  Uint8List? selectedImageInBytes;
+  String? fileName;
 
+  Future<void> addFile(bool imageFrom) async {
+    FilePickerResult? fileResult = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'jpeg', 'png'],
+    );
+
+    print(fileResult);
+
+    if (fileResult != null && fileResult.files.isNotEmpty) {
+      // selectFile = io.File(fileResult.files.single.path!);
+      fileName = fileResult.files.first.name;
+      selectedImageInBytes = fileResult.files.first.bytes;
+
+      print(fileName);
+
+      await firebaseStorage.ref("instructor/$fileName").putData(fileResult.files.single.bytes!);
+      
+      db.collection("instructor").doc(instructorId!).set({
+        "profilePic": fileName,
+      }, SetOptions(merge: true));
+    }
+    notifyListeners();
+  }
+
+
+
+  pickPhotoFromGallery() async {}
+
+  // uploadFileToFireStore() async {
+  //   try {
+  //     UploadTask uploadTask;
+  //
+  //     final Reference ref = firebaseStorage.ref().child("instructor").child("/" + selectFile!.path);
+  //
+  //     // final metadata = SettableMetadata(
+  //     //   contentType: 'image/jpeg',
+  //     //   customMetadata: {'picked-file-path': selectFile!.path},
+  //     // );
+  //
+  //     if (kIsWeb) {
+  //       print(selectedImageInBytes);
+  //       uploadTask = ref.putData(selectedImageInBytes!);
+  //     } else {
+  //       uploadTask = ref.putFile(io.File(selectFile!.path));
+  //     }
+  //
+  //     return Future.value(uploadTask);
+  //
+  //   } catch (e) {
+  //     throw e;
+  //
+  //   }
+  // }
+
+  Future<String> uploadImageandSaveItemInfo() async {
+    return "";
+  }
+
+  Stream<String>? instructorProfileStream;
+
+  Stream<String> getInstructorProfile() {
+    return db.collection("instructor").doc(instructorId).snapshots()
+        .map((event) => event["profilePic"]);
+  }
+
+  void updateInstructorProfileStream() {
+    instructorProfileStream = getInstructorProfile();
+    notifyListeners();
+  }
 
 }

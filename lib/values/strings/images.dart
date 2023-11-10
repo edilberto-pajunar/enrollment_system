@@ -10,6 +10,7 @@ class PngImages {
   static String students = "assets/images/students.png";
   static String instructors = "assets/images/instructors.png";
   static String payment = "assets/images/payment.png";
+  static String peopleCircle = "assets/images/people_circle.png";
 }
 
 class Videos {

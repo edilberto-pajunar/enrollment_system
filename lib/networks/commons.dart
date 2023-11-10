@@ -546,7 +546,7 @@ class Commons extends ChangeNotifier {
         units: 1,
         id: 3),
     Subject(
-        name: "s, & Critical Thinking in the 21st Century",
+        name: "Critical Thinking in the 21st Century",
         
         grades: [
           Grade(
