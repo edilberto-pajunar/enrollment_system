@@ -4,7 +4,7 @@
 // import 'package:web_school/models/application/application.dart';
 // import 'package:web_school/networks/admin.dart';
 // import 'package:web_school/networks/student.dart';
-// import 'package:web_school/views/screens/student/mobile/payment/home.dart';
+// import 'package:web_school/views/screens/student/mobile/payment/instructor_wrapper.dart';
 // import 'package:web_school/views/screens/student/web/profile/change_pass.dart';
 // import 'package:web_school/views/screens/student/web/profile/enrollment.dart';
 // import 'package:web_school/views/screens/student/web/profile/grades.dart';

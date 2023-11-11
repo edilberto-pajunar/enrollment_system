@@ -33,7 +33,8 @@ class AdminDashboardMobile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text("Dashboard",
               style: theme.textTheme.titleSmall!.copyWith(
@@ -44,9 +45,10 @@ class AdminDashboardMobile extends StatelessWidget {
             Divider(
               color: Colors.black,
             ),
-            Row(
+            Column(
               children: [
-                Expanded(
+                SizedBox(
+                  width: size.width,
                   child: CustomAdminCard(
                     title: "Total Students: ${studentList.length}",
                     imageIcon: PngImages.students,
@@ -62,7 +64,8 @@ class AdminDashboardMobile extends StatelessWidget {
                   ),
                 ),
 
-                Expanded(
+                SizedBox(
+                  width: size.width,
                   child: CustomAdminCard(
                     title: "Total Teachers: ${instructorList.length}",
                     imageIcon: PngImages.instructors,
@@ -74,7 +77,8 @@ class AdminDashboardMobile extends StatelessWidget {
                   ),
                 ),
 
-                Expanded(
+                SizedBox(
+                  width: size.width,
                   child: CustomAdminCard(
                     title: "Total Payments: ${paymentList.length}",
                     imageIcon: PngImages.payment,

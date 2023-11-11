@@ -9,8 +9,11 @@ import 'package:web_school/views/widgets/hover/tile_button.dart';
 
 class InstructorDrawer extends StatelessWidget {
   const InstructorDrawer({
+    this.isMobile = false,
     super.key,
   });
+
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +46,14 @@ class InstructorDrawer extends StatelessWidget {
               OnHoverListTileButton(
                 leading: Icon(CupertinoIcons.home),
                 onTap: () {
-                  if (AutoRouter.of(context).root.current.name == "InstructorHomeRoute") {
+                  print(AutoRouter.of(context).root.current.name);
+                  if (AutoRouter.of(context).root.current.name == "WrapperInstructorRoute") {
                     instructorDB.updateDrawerIndex(0);
+                    isMobile ? context.popRoute() : false;
                   } else {
-                    AutoRouter.of(context).popUntil((route) => route.settings.name == "InstructorHomeRoute");
+                    AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperInstructorRoute");
                     instructorDB.updateDrawerIndex(0);
+                    isMobile ? context.popRoute() : false;
                   }
                 },
                  title: Text("Home",
@@ -59,13 +65,14 @@ class InstructorDrawer extends StatelessWidget {
               OnHoverListTileButton(
                 leading: Icon(CupertinoIcons.profile_circled),
                 onTap: () {
-                  if (AutoRouter.of(context).root.current.name == "InstructorHomeRoute") {
+                  if (AutoRouter.of(context).root.current.name == "WrapperInstructorRoute") {
                     instructorDB.updateDrawerIndex(1);
+                    isMobile ? context.popRoute() : false;
 
                   } else {
-                    AutoRouter.of(context).popUntil((route) => route.settings.name == "InstructorHomeRoute");
+                    AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperInstructorRoute");
                     instructorDB.updateDrawerIndex(1);
-
+                    isMobile ? context.popRoute() : false;
                   }
                 },
                 title: Text("Profile",

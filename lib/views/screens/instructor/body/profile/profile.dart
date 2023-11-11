@@ -24,16 +24,6 @@ class InstructorProfileScreen extends StatefulWidget {
 class _InstructorProfileScreenState extends State<InstructorProfileScreen> {
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final InstructorDB instructorDB = Provider.of<InstructorDB>(context, listen: false);
-      instructorDB.updateInstructorProfileStream();
-
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
 
     final ThemeData theme = Theme.of(context);
@@ -55,25 +45,22 @@ class _InstructorProfileScreenState extends State<InstructorProfileScreen> {
               Center(
                 child: Stack(
                   children: [
-                    StreamWrapper<String>(
-                      stream: instructorDB.instructorProfileStream,
-                      child: (profilePic) {
-                        return Container(
-                          width: 100,
-                          height: 100,
-                          child: profilePic == null
-                              ? Image.asset(PngImages.peopleCircle,
-                            fit: BoxFit.cover,
-                          )
-                              : Image.network(profilePic,
-                            fit: BoxFit.cover,
-                          ),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                        );
-                      }
+                    Container(
+                      width: 100,
+                      height: 100,
+                      child: Icon(Icons.abc),
+                      // child: profilePic == null
+                      //     ? Image.asset(PngImages.peopleCircle,
+                      //   fit: BoxFit.cover,
+                      // )
+                      //     : Image.network(profilePic,
+                      //   fit: BoxFit.cover,
+                      // ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
                     ),
+
 
                     Positioned(
                       bottom: 0,

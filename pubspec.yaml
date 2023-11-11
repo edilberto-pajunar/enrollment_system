@@ -49,7 +49,7 @@ dependencies:
   shared_preferences_android: ^2.2.1
   shared_preferences_ios_sn: ^1.0.3
   sprung: ^3.0.1
-  syncfusion_flutter_calendar: ^22.2.12
+#  syncfusion_flutter_pdf: ^23.1.44
   uuid: ^3.0.7
   chewie: ^1.5.0
   url_strategy: ^0.2.0

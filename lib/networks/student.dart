@@ -30,7 +30,6 @@ class StudentDB extends ChangeNotifier {
   List<ApplicationInfo> studentListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((e) {
       final Map<String, dynamic> doc = e.data() as Map<String, dynamic>;
-      print(doc);
 
       return ApplicationInfo.fromJson(doc);
     }).toList();

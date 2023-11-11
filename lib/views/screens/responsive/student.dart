@@ -1,8 +1,8 @@
 // import 'package:auto_route/auto_route.dart';
 // import 'package:flutter/material.dart';
 // import 'package:web_school/models/user.dart';
-// import 'package:web_school/views/screens/layout/web/student/home.dart';
-// import 'package:web_school/views/screens/student/mobile/home.dart';
+// import 'package:web_school/views/screens/layout/web/student/instructor_wrapper.dart';
+// import 'package:web_school/views/screens/student/mobile/instructor_wrapper.dart';
 //
 // @RoutePage()
 // class StudentLayoutBuilder extends StatelessWidget {

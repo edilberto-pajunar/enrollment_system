@@ -3,25 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
-import 'package:web_school/models/user.dart';
+import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/instructor.dart';
 import 'package:web_school/networks/student.dart';
-import 'package:web_school/views/screens/instructor/body/students/student_list.dart';
+import 'package:web_school/views/screens/instructor/instructor_home.dart';
 import 'package:web_school/views/screens/instructor/navigation_bar/navigation_bar.dart';
-import 'package:web_school/views/screens/instructor/body/profile/profile.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
 
 @RoutePage()
-class InstructorHomeScreen extends StatefulWidget {
-  const InstructorHomeScreen({
+class WrapperInstructorScreen extends StatefulWidget {
+  const WrapperInstructorScreen({
     super.key,
   });
 
   @override
-  State<InstructorHomeScreen> createState() => _InstructorHomeScreenState();
+  State<WrapperInstructorScreen> createState() => _WrapperInstructorScreenState();
 }
 
-class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
+class _WrapperInstructorScreenState extends State<WrapperInstructorScreen> {
 
   @override
   void initState() {
@@ -31,12 +30,8 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
       studentDB.updateStudentListStream();
 
       final InstructorDB instructorDB = Provider.of<InstructorDB>(context, listen: false);
-      instructorDB.getInstructorIdLocal().then((value) {
-
-        print(instructorDB.instructorId!);
-        instructorDB.updateInstructorStream(instructorDB.instructorId!);
-      });
-
+      final Auth auth = Provider.of<Auth>(context, listen: false);
+      instructorDB.updateInstructorStream(auth.user!.id);
     });
   }
 
@@ -47,27 +42,19 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: InstructorNavigationBar(
-          child: StreamWrapper<Instructor>(
-            stream: instructorDB.instructorStream,
-            child: (instructor) {
-              return StreamWrapper<List<ApplicationInfo>>(
-                stream: studentDB.studentListStream,
-                child: (studentList) {
-                  final List<Widget> screenList = [
-                    InstructorStudentScreen(
-                      studentList: studentList!,
-                      instructor: instructor!,
-                    ),
-                    InstructorProfileScreen(
-                      instructor: instructor,
-                    ),
-                  ];
-                  return screenList[instructorDB.drawerIndex];
-                }
-              );
-            }
-          ),
+        child: StreamWrapper<Instructor>(
+          stream: instructorDB.instructorStream,
+          child: (instructor) {
+            return StreamWrapper<List<ApplicationInfo>>(
+              stream: studentDB.studentListStream,
+              child: (studentList) {
+                return InstructorHomeScreen(
+                  studentList: studentList!,
+                  instructor: instructor!,
+                );
+              }
+            );
+          }
         ),
       ),
     );

@@ -6,11 +6,13 @@ class OnHoverButton extends StatefulWidget {
   const OnHoverButton({
     required this.builder,
     required this.onTap,
+    this.backgroundColor,
     super.key,
   });
 
   final Widget Function(bool isHovered) builder;
   final Function() onTap;
+  final Color? backgroundColor;
 
   @override
   State<OnHoverButton> createState() => _OnHoverButtonState();
@@ -44,7 +46,7 @@ class _OnHoverButtonState extends State<OnHoverButton> {
             border: Border.all(
               color:  ColorTheme.primaryRed,
             ),
-            color: isHovered ? ColorTheme.primaryRed : Colors.white,
+            color: widget.backgroundColor ?? (isHovered ? ColorTheme.primaryRed : Colors.white),
           ),
           child: widget.builder(isHovered),
         ),

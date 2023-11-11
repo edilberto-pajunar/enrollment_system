@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+import 'dart:html';
 import 'dart:io' as io;
 
 import 'package:auto_route/auto_route.dart';
@@ -12,6 +14,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/student/subject.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'dart:html' as html;
+import 'package:web_school/views/screens/instructor/body/students/student_list.dart';
 
 class InstructorDB extends ChangeNotifier {
   final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -65,6 +71,8 @@ class InstructorDB extends ChangeNotifier {
   Future<void> getInstructorIdLocal() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     instructorId = sp.getString("instructorId");
+
+    print(instructorId);
     notifyListeners();
   }
 
@@ -328,4 +336,119 @@ class InstructorDB extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> createPdf({
+    required List<ApplicationInfo> studentList,
+    required Instructor instructor,
+  }) async {
+
+    final pdf = pw.Document();
+
+    pdf.addPage(pw.Page(
+      pageFormat: PdfPageFormat.a4,
+      build: (pw.Context context) {
+        final pw.ThemeData theme = pw.Theme.of(context);
+
+        return pw.Column(
+          children: [
+            pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              children: [
+                pw.Text("Master List",
+                  style: theme.header0,
+                ),
+                pw.Text("Instructor Name: ${instructor.firstName} ${instructor.lastName}"),
+              ]
+            ),
+            pw.Table(
+                border: pw.TableBorder.all(),
+                children: [
+                  // Header row
+                  pw.TableRow(
+                      children: [
+                        pw.Center(child: pw.Text("Name")),
+                        pw.Center(child: pw.Text("Id")),
+                        pw.Center(child: pw.Text("Grade")),
+                        pw.Center(child: pw.Text("Section")),
+                      ]
+                  ),
+                  // Data rows
+                  for (var user in studentList)
+                    pw.TableRow(
+                        children: [
+                          pw.Center(child: pw.Text(user.personalInfo.firstName)),
+                          pw.Center(child: pw.Text(user.userModel.id)),
+                          pw.Center(child: pw.Text("${user.schoolInfo.gradeToEnroll.label}")),
+                          pw.Center(child: pw.Text(user.studentInfo.section)),
+                        ]
+                    ),
+
+                ]
+            ),
+          ]
+        );
+      }
+    ));
+
+    var savedFile = await pdf.save();
+    List<int> fileInts = List.from(savedFile);
+    html.AnchorElement(
+        href: "data:application/octet-stream;charset=utf-16le;base64,${base64.encode(fileInts)}")
+      ..setAttribute("download", "${DateTime.now().millisecondsSinceEpoch}.pdf")
+      ..click();
+
+}
+
+
+  // Future<void> createPDF({
+  //   required List<ApplicationInfo> studentList,
+  // }) async {
+  //   PdfDocument document = PdfDocument();
+  //   PdfGrid grid = PdfGrid();
+  //
+  //   grid.columns.add(count: 4);
+  //   grid.headers.add(1);
+  //   PdfGridRow header = grid.headers[0];
+  //   header.cells[0].value = "Name";
+  //   header.cells[0].value = "Id";
+  //   header.cells[0].value = "Grade";
+  //   header.cells[0].value = "Section";
+  //
+  //   header.style = PdfGridCellStyle(
+  //     backgroundBrush: PdfBrushes.lightGray,
+  //     textBrush: PdfBrushes.black,
+  //     font: PdfStandardFont(PdfFontFamily.timesRoman, 12),
+  //   );
+  //
+  //   for (final customer in studentList) {
+  //     PdfGridRow row = grid.rows.add();
+  //     row.cells[0].value = customer.userModel;
+  //     row.cells[0].value = customer.userModel.id;
+  //     row.cells[0].value = customer.schoolInfo.gradeToEnroll.label;
+  //     row.cells[0].value = customer.studentInfo.section;
+  //   }
+  //
+  //   grid.style = PdfGridStyle(
+  //     cellPadding: PdfPaddings(left: 10, right: 3, top: 4, bottom: 5),
+  //     backgroundBrush: PdfBrushes.white,
+  //     textBrush: PdfBrushes.black,
+  //     font: PdfStandardFont(PdfFontFamily.timesRoman, 12),
+  //   );
+  //
+  //   grid.draw(
+  //     page: document.pages.add(),
+  //     bounds: const Rect.fromLTWH(0, 0, 0, 0)
+  //   );
+  //   List<int> bytes = await document.save();
+  //
+  //   AnchorElement(
+  //     href: "data:application/octet-stream;charset=utf-16le;base64,${base64.encode(bytes)}"
+  //   )..setAttribute("download", "report.pdf")..click();
+  //
+  //
+  //   document.dispose();
+  //
+  //
+  //
+  //
+  //   notifyListeners();
 }

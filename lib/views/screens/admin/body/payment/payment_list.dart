@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/payment.dart';
+import 'package:web_school/networks/payment.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
 import 'package:web_school/values/strings/colors.dart';
 
@@ -29,6 +31,7 @@ class _SummaryPaymentScreenState extends State<SummaryPaymentScreen> {
     final ThemeData theme = Theme.of(context);
     final paymentList = widget.paymentList;
     final applicationInfo = widget.applicationInfo;
+    final PaymentDB paymentDB = Provider.of<PaymentDB>(context);
 
     return Padding(
       padding: const EdgeInsets.all(24.0),
@@ -51,9 +54,10 @@ class _SummaryPaymentScreenState extends State<SummaryPaymentScreen> {
                     onTap: () {
                       context.pushRoute(PaymentHistoryRoute(
                         applicationInfo: applicationInfo[index],
-                        paymentList: paymentList,
                         summaryIndex: index,
                       ));
+                      paymentDB.updatePaymentId(paymentList[index].id);
+                      print(paymentDB.paymentId);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

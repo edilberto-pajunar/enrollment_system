@@ -41,7 +41,6 @@ class Auth extends ChangeNotifier {
 
   /// [loginAccount] will prompt the user to log in
   Future<void> loginAccount(BuildContext context) async {
-    final InstructorDB instructorDB = Provider.of<InstructorDB>(context, listen: false);
     final ThemeData theme = Theme.of(context);
     final SharedPreferences sp = await SharedPreferences.getInstance();
 
@@ -67,7 +66,7 @@ class Auth extends ChangeNotifier {
       if (authenticated && user != null) {
         if (user!.type == "instructor") {
           sp.setString("instructorId", user!.id);
-          AutoRouter.of(context).replace(InstructorHomeRoute());
+          AutoRouter.of(context).replace(WrapperInstructorRoute());
         } else if (user!.type == "student") {
           sp.setString("studentId", user!.id);
           AutoRouter.of(context).replace(StudentHomeRoute());

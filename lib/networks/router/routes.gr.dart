@@ -16,7 +16,7 @@ import 'package:web_school/models/instructor.dart' as _i43;
 import 'package:web_school/models/payment.dart' as _i46;
 import 'package:web_school/models/user.dart' as _i48;
 import 'package:web_school/views/screens/admin/admin_home.dart' as _i3;
-import 'package:web_school/views/screens/admin/admin_wrapper.dart' as _i41;
+import 'package:web_school/views/screens/admin/admin_wrapper.dart' as _i40;
 import 'package:web_school/views/screens/admin/body/instructor/add_instructor.dart'
     as _i1;
 import 'package:web_school/views/screens/admin/body/instructor/edit_instructor.dart'
@@ -30,57 +30,58 @@ import 'package:web_school/views/screens/admin/body/instructor/general/section.d
 import 'package:web_school/views/screens/admin/body/instructor/general/student/student.dart'
     as _i7;
 import 'package:web_school/views/screens/admin/body/payment/payment_list.dart'
-    as _i39;
+    as _i38;
 import 'package:web_school/views/screens/admin/body/payment/payment_student_list.dart'
-    as _i23;
+    as _i22;
 import 'package:web_school/views/screens/admin/body/student/profile/component/profile.dart'
     as _i9;
 import 'package:web_school/views/screens/admin/body/student/schedule.dart'
     as _i8;
 import 'package:web_school/views/screens/admin/body/student/student_list.dart'
     as _i10;
-import 'package:web_school/views/screens/auth/login.dart' as _i20;
+import 'package:web_school/views/screens/auth/login.dart' as _i19;
 import 'package:web_school/views/screens/forms/form.dart' as _i13;
 import 'package:web_school/views/screens/forms/junior/continue.dart' as _i11;
 import 'package:web_school/views/screens/forms/junior/incoming.dart' as _i14;
-import 'package:web_school/views/screens/forms/junior/transferee.dart' as _i40;
+import 'package:web_school/views/screens/forms/junior/transferee.dart' as _i39;
 import 'package:web_school/views/screens/forms/senior/continue.dart' as _i12;
-import 'package:web_school/views/screens/forms/senior/from_sjaiss.dart' as _i21;
-import 'package:web_school/views/screens/forms/senior/other.dart' as _i22;
+import 'package:web_school/views/screens/forms/senior/from_sjaiss.dart' as _i20;
+import 'package:web_school/views/screens/forms/senior/other.dart' as _i21;
 import 'package:web_school/views/screens/instructor/body/profile/profile.dart'
-    as _i17;
-import 'package:web_school/views/screens/instructor/body/students/grade/junior_grade.dart'
     as _i16;
+import 'package:web_school/views/screens/instructor/body/students/grade/junior_grade.dart'
+    as _i15;
 import 'package:web_school/views/screens/instructor/body/students/grade/senior_grade.dart'
-    as _i19;
-import 'package:web_school/views/screens/instructor/body/students/schedule.dart'
     as _i18;
-import 'package:web_school/views/screens/instructor/home.dart' as _i15;
-import 'package:web_school/views/screens/layout/mobile/home.dart' as _i25;
-import 'package:web_school/views/screens/layout/web/home.dart' as _i26;
-import 'package:web_school/views/screens/responsive/layout.dart' as _i24;
+import 'package:web_school/views/screens/instructor/body/students/schedule.dart'
+    as _i17;
+import 'package:web_school/views/screens/instructor/instructor_wrapper.dart'
+    as _i41;
+import 'package:web_school/views/screens/layout/mobile/home.dart' as _i24;
+import 'package:web_school/views/screens/layout/web/home.dart' as _i25;
+import 'package:web_school/views/screens/responsive/layout.dart' as _i23;
 import 'package:web_school/views/screens/student/body/profile/change_pass.dart'
-    as _i35;
-import 'package:web_school/views/screens/student/body/profile/enrollment.dart'
-    as _i36;
-import 'package:web_school/views/screens/student/body/profile/profile.dart'
-    as _i37;
-import 'package:web_school/views/screens/student/body/profile/schedule.dart'
-    as _i38;
-import 'package:web_school/views/screens/student/home.dart' as _i27;
-import 'package:web_school/views/screens/student/mobile/home.dart' as _i30;
-import 'package:web_school/views/screens/student/mobile/payment/home.dart'
     as _i34;
-import 'package:web_school/views/screens/student/mobile/profile/change_pass.dart'
-    as _i28;
-import 'package:web_school/views/screens/student/mobile/profile/enrollment.dart'
-    as _i29;
-import 'package:web_school/views/screens/student/mobile/profile/info.dart'
-    as _i31;
-import 'package:web_school/views/screens/student/mobile/profile/profile.dart'
-    as _i32;
-import 'package:web_school/views/screens/student/mobile/profile/schedule.dart'
+import 'package:web_school/views/screens/student/body/profile/enrollment.dart'
+    as _i35;
+import 'package:web_school/views/screens/student/body/profile/profile.dart'
+    as _i36;
+import 'package:web_school/views/screens/student/body/profile/schedule.dart'
+    as _i37;
+import 'package:web_school/views/screens/student/home.dart' as _i26;
+import 'package:web_school/views/screens/student/mobile/home.dart' as _i29;
+import 'package:web_school/views/screens/student/mobile/payment/home.dart'
     as _i33;
+import 'package:web_school/views/screens/student/mobile/profile/change_pass.dart'
+    as _i27;
+import 'package:web_school/views/screens/student/mobile/profile/enrollment.dart'
+    as _i28;
+import 'package:web_school/views/screens/student/mobile/profile/info.dart'
+    as _i30;
+import 'package:web_school/views/screens/student/mobile/profile/profile.dart'
+    as _i31;
+import 'package:web_school/views/screens/student/mobile/profile/schedule.dart'
+    as _i32;
 
 abstract class $AppRouter extends _i42.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -189,17 +190,11 @@ abstract class $AppRouter extends _i42.RootStackRouter {
         child: const _i14.IncomingJuniorFormScreen(),
       );
     },
-    InstructorHomeRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i15.InstructorHomeScreen(),
-      );
-    },
     InstructorJuniorGradeRoute.name: (routeData) {
       final args = routeData.argsAs<InstructorJuniorGradeRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i16.InstructorJuniorGradeScreen(
+        child: _i15.InstructorJuniorGradeScreen(
           isJunior: args.isJunior,
           studentData: args.studentData,
           instructor: args.instructor,
@@ -211,7 +206,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<InstructorProfileRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i17.InstructorProfileScreen(
+        child: _i16.InstructorProfileScreen(
           instructor: args.instructor,
           key: args.key,
         ),
@@ -221,7 +216,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<InstructorScheduleRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i18.InstructorScheduleScreen(
+        child: _i17.InstructorScheduleScreen(
           applicationInfo: args.applicationInfo,
           key: args.key,
         ),
@@ -231,7 +226,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<InstructorSeniorGradeRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i19.InstructorSeniorGradeScreen(
+        child: _i18.InstructorSeniorGradeScreen(
           isJunior: args.isJunior,
           studentData: args.studentData,
           key: args.key,
@@ -241,28 +236,27 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     LoginRoute.name: (routeData) {
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i20.LoginScreen(),
+        child: const _i19.LoginScreen(),
       );
     },
     NewSeniorRoute.name: (routeData) {
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i21.NewSeniorScreen(),
+        child: const _i20.NewSeniorScreen(),
       );
     },
     OtherSchoolRoute.name: (routeData) {
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i22.OtherSchoolScreen(),
+        child: const _i21.OtherSchoolScreen(),
       );
     },
     PaymentHistoryRoute.name: (routeData) {
       final args = routeData.argsAs<PaymentHistoryRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i23.PaymentHistoryScreen(
+        child: _i22.PaymentHistoryScreen(
           applicationInfo: args.applicationInfo,
-          paymentList: args.paymentList,
           summaryIndex: args.summaryIndex,
           key: args.key,
         ),
@@ -271,32 +265,32 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     ResponsiveBuilder.name: (routeData) {
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i24.ResponsiveBuilder(),
+        child: const _i23.ResponsiveBuilder(),
       );
     },
     ResponsiveMobileRoute.name: (routeData) {
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i25.ResponsiveMobileScreen(),
+        child: const _i24.ResponsiveMobileScreen(),
       );
     },
     ResponsiveWebRoute.name: (routeData) {
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i26.ResponsiveWebScreen(),
+        child: const _i25.ResponsiveWebScreen(),
       );
     },
     StudentHomeRoute.name: (routeData) {
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i27.StudentHomeScreen(),
+        child: const _i26.StudentHomeScreen(),
       );
     },
     StudentMobileChangePassRoute.name: (routeData) {
       final args = routeData.argsAs<StudentMobileChangePassRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i28.StudentMobileChangePassScreen(
+        child: _i27.StudentMobileChangePassScreen(
           currentPassword: args.currentPassword,
           key: args.key,
         ),
@@ -306,7 +300,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<StudentMobileEnrollmentRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i29.StudentMobileEnrollmentScreen(
+        child: _i28.StudentMobileEnrollmentScreen(
           applicationInfo: args.applicationInfo,
           key: args.key,
         ),
@@ -316,7 +310,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<StudentMobileHomeRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i30.StudentMobileHomeScreen(
+        child: _i29.StudentMobileHomeScreen(
           userModel: args.userModel,
           key: args.key,
         ),
@@ -326,7 +320,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<StudentMobileInfoRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i31.StudentMobileInfoScreen(
+        child: _i30.StudentMobileInfoScreen(
           applicationInfo: args.applicationInfo,
           key: args.key,
         ),
@@ -336,7 +330,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<StudentMobileProfileRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i32.StudentMobileProfileScreen(
+        child: _i31.StudentMobileProfileScreen(
           applicationInfo: args.applicationInfo,
           key: args.key,
         ),
@@ -346,7 +340,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<StudentMobileScheduleRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i33.StudentMobileScheduleScreen(
+        child: _i32.StudentMobileScheduleScreen(
           applicationInfo: args.applicationInfo,
           key: args.key,
         ),
@@ -356,7 +350,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<StudentPaymentHomeRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i34.StudentPaymentHomeScreen(
+        child: _i33.StudentPaymentHomeScreen(
           applicationInfo: args.applicationInfo,
           key: args.key,
         ),
@@ -366,7 +360,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<StudentWebChangePassRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i35.StudentWebChangePassScreen(
+        child: _i34.StudentWebChangePassScreen(
           applicationInfo: args.applicationInfo,
           key: args.key,
         ),
@@ -376,7 +370,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<StudentWebEnrollmentRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i36.StudentWebEnrollmentScreen(
+        child: _i35.StudentWebEnrollmentScreen(
           applicationInfo: args.applicationInfo,
           key: args.key,
         ),
@@ -386,7 +380,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<StudentWebProfileRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i37.StudentWebProfileScreen(
+        child: _i36.StudentWebProfileScreen(
           applicationInfo: args.applicationInfo,
           key: args.key,
         ),
@@ -396,7 +390,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<StudentWebScheduleRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i38.StudentWebScheduleScreen(
+        child: _i37.StudentWebScheduleScreen(
           applicationInfo: args.applicationInfo,
           key: args.key,
         ),
@@ -406,7 +400,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       final args = routeData.argsAs<SummaryPaymentRouteArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i39.SummaryPaymentScreen(
+        child: _i38.SummaryPaymentScreen(
           applicationInfo: args.applicationInfo,
           paymentList: args.paymentList,
           key: args.key,
@@ -416,13 +410,19 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     TransfereeJuniorRoute.name: (routeData) {
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i40.TransfereeJuniorScreen(),
+        child: const _i39.TransfereeJuniorScreen(),
       );
     },
     WrapperAdminRoute.name: (routeData) {
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i41.WrapperAdminScreen(),
+        child: const _i40.WrapperAdminScreen(),
+      );
+    },
+    WrapperInstructorRoute.name: (routeData) {
+      return _i42.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i41.WrapperInstructorScreen(),
       );
     },
   };
@@ -734,21 +734,7 @@ class IncomingJuniorFormRoute extends _i42.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.InstructorHomeScreen]
-class InstructorHomeRoute extends _i42.PageRouteInfo<void> {
-  const InstructorHomeRoute({List<_i42.PageRouteInfo>? children})
-      : super(
-          InstructorHomeRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'InstructorHomeRoute';
-
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i16.InstructorJuniorGradeScreen]
+/// [_i15.InstructorJuniorGradeScreen]
 class InstructorJuniorGradeRoute
     extends _i42.PageRouteInfo<InstructorJuniorGradeRouteArgs> {
   InstructorJuniorGradeRoute({
@@ -797,7 +783,7 @@ class InstructorJuniorGradeRouteArgs {
 }
 
 /// generated route for
-/// [_i17.InstructorProfileScreen]
+/// [_i16.InstructorProfileScreen]
 class InstructorProfileRoute
     extends _i42.PageRouteInfo<InstructorProfileRouteArgs> {
   InstructorProfileRoute({
@@ -836,7 +822,7 @@ class InstructorProfileRouteArgs {
 }
 
 /// generated route for
-/// [_i18.InstructorScheduleScreen]
+/// [_i17.InstructorScheduleScreen]
 class InstructorScheduleRoute
     extends _i42.PageRouteInfo<InstructorScheduleRouteArgs> {
   InstructorScheduleRoute({
@@ -875,7 +861,7 @@ class InstructorScheduleRouteArgs {
 }
 
 /// generated route for
-/// [_i19.InstructorSeniorGradeScreen]
+/// [_i18.InstructorSeniorGradeScreen]
 class InstructorSeniorGradeRoute
     extends _i42.PageRouteInfo<InstructorSeniorGradeRouteArgs> {
   InstructorSeniorGradeRoute({
@@ -919,7 +905,7 @@ class InstructorSeniorGradeRouteArgs {
 }
 
 /// generated route for
-/// [_i20.LoginScreen]
+/// [_i19.LoginScreen]
 class LoginRoute extends _i42.PageRouteInfo<void> {
   const LoginRoute({List<_i42.PageRouteInfo>? children})
       : super(
@@ -933,7 +919,7 @@ class LoginRoute extends _i42.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i21.NewSeniorScreen]
+/// [_i20.NewSeniorScreen]
 class NewSeniorRoute extends _i42.PageRouteInfo<void> {
   const NewSeniorRoute({List<_i42.PageRouteInfo>? children})
       : super(
@@ -947,7 +933,7 @@ class NewSeniorRoute extends _i42.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i22.OtherSchoolScreen]
+/// [_i21.OtherSchoolScreen]
 class OtherSchoolRoute extends _i42.PageRouteInfo<void> {
   const OtherSchoolRoute({List<_i42.PageRouteInfo>? children})
       : super(
@@ -961,11 +947,10 @@ class OtherSchoolRoute extends _i42.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i23.PaymentHistoryScreen]
+/// [_i22.PaymentHistoryScreen]
 class PaymentHistoryRoute extends _i42.PageRouteInfo<PaymentHistoryRouteArgs> {
   PaymentHistoryRoute({
     required _i45.ApplicationInfo applicationInfo,
-    required List<_i46.Payment> paymentList,
     required int summaryIndex,
     _i44.Key? key,
     List<_i42.PageRouteInfo>? children,
@@ -973,7 +958,6 @@ class PaymentHistoryRoute extends _i42.PageRouteInfo<PaymentHistoryRouteArgs> {
           PaymentHistoryRoute.name,
           args: PaymentHistoryRouteArgs(
             applicationInfo: applicationInfo,
-            paymentList: paymentList,
             summaryIndex: summaryIndex,
             key: key,
           ),
@@ -989,14 +973,11 @@ class PaymentHistoryRoute extends _i42.PageRouteInfo<PaymentHistoryRouteArgs> {
 class PaymentHistoryRouteArgs {
   const PaymentHistoryRouteArgs({
     required this.applicationInfo,
-    required this.paymentList,
     required this.summaryIndex,
     this.key,
   });
 
   final _i45.ApplicationInfo applicationInfo;
-
-  final List<_i46.Payment> paymentList;
 
   final int summaryIndex;
 
@@ -1004,12 +985,12 @@ class PaymentHistoryRouteArgs {
 
   @override
   String toString() {
-    return 'PaymentHistoryRouteArgs{applicationInfo: $applicationInfo, paymentList: $paymentList, summaryIndex: $summaryIndex, key: $key}';
+    return 'PaymentHistoryRouteArgs{applicationInfo: $applicationInfo, summaryIndex: $summaryIndex, key: $key}';
   }
 }
 
 /// generated route for
-/// [_i24.ResponsiveBuilder]
+/// [_i23.ResponsiveBuilder]
 class ResponsiveBuilder extends _i42.PageRouteInfo<void> {
   const ResponsiveBuilder({List<_i42.PageRouteInfo>? children})
       : super(
@@ -1023,7 +1004,7 @@ class ResponsiveBuilder extends _i42.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i25.ResponsiveMobileScreen]
+/// [_i24.ResponsiveMobileScreen]
 class ResponsiveMobileRoute extends _i42.PageRouteInfo<void> {
   const ResponsiveMobileRoute({List<_i42.PageRouteInfo>? children})
       : super(
@@ -1037,7 +1018,7 @@ class ResponsiveMobileRoute extends _i42.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i26.ResponsiveWebScreen]
+/// [_i25.ResponsiveWebScreen]
 class ResponsiveWebRoute extends _i42.PageRouteInfo<void> {
   const ResponsiveWebRoute({List<_i42.PageRouteInfo>? children})
       : super(
@@ -1051,7 +1032,7 @@ class ResponsiveWebRoute extends _i42.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i27.StudentHomeScreen]
+/// [_i26.StudentHomeScreen]
 class StudentHomeRoute extends _i42.PageRouteInfo<void> {
   const StudentHomeRoute({List<_i42.PageRouteInfo>? children})
       : super(
@@ -1065,7 +1046,7 @@ class StudentHomeRoute extends _i42.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i28.StudentMobileChangePassScreen]
+/// [_i27.StudentMobileChangePassScreen]
 class StudentMobileChangePassRoute
     extends _i42.PageRouteInfo<StudentMobileChangePassRouteArgs> {
   StudentMobileChangePassRoute({
@@ -1104,7 +1085,7 @@ class StudentMobileChangePassRouteArgs {
 }
 
 /// generated route for
-/// [_i29.StudentMobileEnrollmentScreen]
+/// [_i28.StudentMobileEnrollmentScreen]
 class StudentMobileEnrollmentRoute
     extends _i42.PageRouteInfo<StudentMobileEnrollmentRouteArgs> {
   StudentMobileEnrollmentRoute({
@@ -1143,7 +1124,7 @@ class StudentMobileEnrollmentRouteArgs {
 }
 
 /// generated route for
-/// [_i30.StudentMobileHomeScreen]
+/// [_i29.StudentMobileHomeScreen]
 class StudentMobileHomeRoute
     extends _i42.PageRouteInfo<StudentMobileHomeRouteArgs> {
   StudentMobileHomeRoute({
@@ -1182,7 +1163,7 @@ class StudentMobileHomeRouteArgs {
 }
 
 /// generated route for
-/// [_i31.StudentMobileInfoScreen]
+/// [_i30.StudentMobileInfoScreen]
 class StudentMobileInfoRoute
     extends _i42.PageRouteInfo<StudentMobileInfoRouteArgs> {
   StudentMobileInfoRoute({
@@ -1221,7 +1202,7 @@ class StudentMobileInfoRouteArgs {
 }
 
 /// generated route for
-/// [_i32.StudentMobileProfileScreen]
+/// [_i31.StudentMobileProfileScreen]
 class StudentMobileProfileRoute
     extends _i42.PageRouteInfo<StudentMobileProfileRouteArgs> {
   StudentMobileProfileRoute({
@@ -1260,7 +1241,7 @@ class StudentMobileProfileRouteArgs {
 }
 
 /// generated route for
-/// [_i33.StudentMobileScheduleScreen]
+/// [_i32.StudentMobileScheduleScreen]
 class StudentMobileScheduleRoute
     extends _i42.PageRouteInfo<StudentMobileScheduleRouteArgs> {
   StudentMobileScheduleRoute({
@@ -1299,7 +1280,7 @@ class StudentMobileScheduleRouteArgs {
 }
 
 /// generated route for
-/// [_i34.StudentPaymentHomeScreen]
+/// [_i33.StudentPaymentHomeScreen]
 class StudentPaymentHomeRoute
     extends _i42.PageRouteInfo<StudentPaymentHomeRouteArgs> {
   StudentPaymentHomeRoute({
@@ -1338,7 +1319,7 @@ class StudentPaymentHomeRouteArgs {
 }
 
 /// generated route for
-/// [_i35.StudentWebChangePassScreen]
+/// [_i34.StudentWebChangePassScreen]
 class StudentWebChangePassRoute
     extends _i42.PageRouteInfo<StudentWebChangePassRouteArgs> {
   StudentWebChangePassRoute({
@@ -1377,7 +1358,7 @@ class StudentWebChangePassRouteArgs {
 }
 
 /// generated route for
-/// [_i36.StudentWebEnrollmentScreen]
+/// [_i35.StudentWebEnrollmentScreen]
 class StudentWebEnrollmentRoute
     extends _i42.PageRouteInfo<StudentWebEnrollmentRouteArgs> {
   StudentWebEnrollmentRoute({
@@ -1416,7 +1397,7 @@ class StudentWebEnrollmentRouteArgs {
 }
 
 /// generated route for
-/// [_i37.StudentWebProfileScreen]
+/// [_i36.StudentWebProfileScreen]
 class StudentWebProfileRoute
     extends _i42.PageRouteInfo<StudentWebProfileRouteArgs> {
   StudentWebProfileRoute({
@@ -1455,7 +1436,7 @@ class StudentWebProfileRouteArgs {
 }
 
 /// generated route for
-/// [_i38.StudentWebScheduleScreen]
+/// [_i37.StudentWebScheduleScreen]
 class StudentWebScheduleRoute
     extends _i42.PageRouteInfo<StudentWebScheduleRouteArgs> {
   StudentWebScheduleRoute({
@@ -1494,7 +1475,7 @@ class StudentWebScheduleRouteArgs {
 }
 
 /// generated route for
-/// [_i39.SummaryPaymentScreen]
+/// [_i38.SummaryPaymentScreen]
 class SummaryPaymentRoute extends _i42.PageRouteInfo<SummaryPaymentRouteArgs> {
   SummaryPaymentRoute({
     required List<_i45.ApplicationInfo> applicationInfo,
@@ -1537,7 +1518,7 @@ class SummaryPaymentRouteArgs {
 }
 
 /// generated route for
-/// [_i40.TransfereeJuniorScreen]
+/// [_i39.TransfereeJuniorScreen]
 class TransfereeJuniorRoute extends _i42.PageRouteInfo<void> {
   const TransfereeJuniorRoute({List<_i42.PageRouteInfo>? children})
       : super(
@@ -1551,7 +1532,7 @@ class TransfereeJuniorRoute extends _i42.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i41.WrapperAdminScreen]
+/// [_i40.WrapperAdminScreen]
 class WrapperAdminRoute extends _i42.PageRouteInfo<void> {
   const WrapperAdminRoute({List<_i42.PageRouteInfo>? children})
       : super(
@@ -1560,6 +1541,20 @@ class WrapperAdminRoute extends _i42.PageRouteInfo<void> {
         );
 
   static const String name = 'WrapperAdminRoute';
+
+  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i41.WrapperInstructorScreen]
+class WrapperInstructorRoute extends _i42.PageRouteInfo<void> {
+  const WrapperInstructorRoute({List<_i42.PageRouteInfo>? children})
+      : super(
+          WrapperInstructorRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WrapperInstructorRoute';
 
   static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
 }

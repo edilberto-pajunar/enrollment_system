@@ -98,6 +98,7 @@ class PaymentDB extends ChangeNotifier {
           content: Text("Success!"),
       ));
     });
+
   }
 
   void clearPaymentText() {
@@ -131,6 +132,13 @@ class PaymentDB extends ChangeNotifier {
     required String id,
   }) {
     studentPaymentStream = getStudentPaymentStream(id);
+    notifyListeners();
+  }
+
+  String? paymentId;
+
+  void updatePaymentId(String? value) {
+    paymentId = value;
     notifyListeners();
   }
 }

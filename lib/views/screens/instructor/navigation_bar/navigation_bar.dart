@@ -16,11 +16,15 @@ class InstructorNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScreenTypeLayout.builder(
-        mobile: (context) => InstructorNavigationBarMobile(),
+        mobile: (context) => InstructorNavigationBarMobile(
+          child: child,
+        ),
         tablet: (context) => InstructorNavigationBarTablet(
           child: child,
         ),
-        desktop: (context) => InstructorNavigationBarWeb(),
+        desktop: (context) => InstructorNavigationBarTablet(
+          child: child,
+        ),
       ),
     );
   }
