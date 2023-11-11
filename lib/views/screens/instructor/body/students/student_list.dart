@@ -77,58 +77,10 @@
                               instructor: instructor,
                             );
 
-                            // instructorDB.createPDF(
-                            //   studentList: studentList,
-                            //   instructorlist: instructor,
-                            // );
-                            // if (!kIsWeb) {
-                            //   final pdfFile = await PdfInvoiceApi.generate(
-                            //       studentList, instructor);
-                            //
-                            //   PdfApi.openFile(pdfFile);
-                            // } else {
-                            //   await PdfApi.saveDocumentWeb(
-                            //     studentList: studentList,
-                            //     instructorData: instructor,
-                            //   );
-                            //
-                            //   // final rawData = await pdfFile.readAsBytes();
-                            //   // final content = base64Encode(rawData);
-                            //   // AnchorElement(
-                            //   //     href:
-                            //   //         "data:application/octet-stream;charset=utf-16le;base64,$content")
-                            //   //   ..setAttribute("download", "file.txt")
-                            //   //   ..click();
-                            // }
+
                           },
                           label: "Download all",
                         ),
-                        // InkWell(
-                        //   onTap: () async {
-                        //     if (!kIsWeb) {
-                        //       final pdfFile = await PdfInvoiceApi.generate(
-                        //           studentList, instructor);
-                        //
-                        //       PdfApi.openFile(pdfFile);
-                        //     } else {
-                        //       await PdfApi.saveDocumentWeb(
-                        //         studentList: studentList,
-                        //         instructorData: instructor,
-                        //       );
-                        //
-                        //       // final rawData = await pdfFile.readAsBytes();
-                        //       // final content = base64Encode(rawData);
-                        //       // AnchorElement(
-                        //       //     href:
-                        //       //         "data:application/octet-stream;charset=utf-16le;base64,$content")
-                        //       //   ..setAttribute("download", "file.txt")
-                        //       //   ..click();
-                        //     }
-                        //   },
-                        //   child: const Text(
-                        //     "Download all",
-                        //   ),
-                        // ),
                       ],
                     ),
                     const SizedBox(height: 4.0),

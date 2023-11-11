@@ -43,6 +43,7 @@ class Auth extends ChangeNotifier {
   Future<void> loginAccount(BuildContext context) async {
     final ThemeData theme = Theme.of(context);
     final SharedPreferences sp = await SharedPreferences.getInstance();
+    final InstructorDB instructorDB = Provider.of<InstructorDB>(context, listen: false);
 
     await db.collection("user").get().then((value) {
 
@@ -56,7 +57,6 @@ class Auth extends ChangeNotifier {
         if (element.controlNumber == controlNumber.text && element.password == password.text) {
           user = element;
           notifyListeners();
-
           return true;
         } else {
           return false;
@@ -65,7 +65,7 @@ class Auth extends ChangeNotifier {
 
       if (authenticated && user != null) {
         if (user!.type == "instructor") {
-          sp.setString("instructorId", user!.id);
+          instructorDB.updateInstructorId(user!.id);
           AutoRouter.of(context).replace(WrapperInstructorRoute());
         } else if (user!.type == "student") {
           sp.setString("studentId", user!.id);

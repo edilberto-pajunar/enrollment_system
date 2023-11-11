@@ -56,17 +56,23 @@ class AdminDrawer extends StatelessWidget {
                 ),
               ),
               OnHoverListTileButton(
+
                 backgroundColor: adminDB.indexDashboard == 0
                     ? ColorTheme.primaryRed.withOpacity(0.2)
                     : null,
                 onTap: () {
                   if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
+                    print("Hello");
                     adminDB.updateIndexDashboard(0);
                     isMobile ? context.popRoute() : false;
                   } else {
-                    AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
+                    print("h");
+                    AutoRouter.of(context).popUntil((route) {
+                      print(route.settings.name);
+                      return route.settings.name == "WrapperAdminRoute";
+                    });
                     adminDB.updateIndexDashboard(0);
-                    isMobile ? context.popRoute() : false;
+                    // isMobile ? context.popRoute() : false;
                   }
 
                 },
@@ -87,7 +93,7 @@ class AdminDrawer extends StatelessWidget {
                   } else {
                     AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
                     adminDB.updateIndexDashboard(2);
-                    isMobile ? context.popRoute() : false;
+                    // isMobile ? context.popRoute() : false;
                   }
                 },
                 title: Text("Teachers",
@@ -108,7 +114,7 @@ class AdminDrawer extends StatelessWidget {
                   } else {
                     AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
                     adminDB.updateIndexDashboard(1);
-                    isMobile ? context.popRoute() : false;
+                    // isMobile ? context.popRoute() : false;
                   }
                 },
                 title: Text("Students",
@@ -128,7 +134,7 @@ class AdminDrawer extends StatelessWidget {
                   } else {
                     AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperAdminRoute");
                     adminDB.updateIndexDashboard(3);
-                    isMobile ? context.popRoute() : false;
+                    // isMobile ? context.popRoute() : false;
                   }
                 },
                 title: Text("Payments",

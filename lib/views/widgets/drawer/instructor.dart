@@ -53,7 +53,7 @@ class InstructorDrawer extends StatelessWidget {
                   } else {
                     AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperInstructorRoute");
                     instructorDB.updateDrawerIndex(0);
-                    isMobile ? context.popRoute() : false;
+                    // isMobile ? context.popRoute() : false;
                   }
                 },
                  title: Text("Home",
@@ -72,7 +72,7 @@ class InstructorDrawer extends StatelessWidget {
                   } else {
                     AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperInstructorRoute");
                     instructorDB.updateDrawerIndex(1);
-                    isMobile ? context.popRoute() : false;
+                    // isMobile ? context.popRoute() : false;
                   }
                 },
                 title: Text("Profile",

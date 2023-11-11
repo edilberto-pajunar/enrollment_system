@@ -24,6 +24,15 @@ class InstructorProfileScreen extends StatefulWidget {
 class _InstructorProfileScreenState extends State<InstructorProfileScreen> {
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final InstructorDB instructorDB = Provider.of<InstructorDB>(context, listen: false);
+      instructorDB.updateInstructorProfileStream();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     final ThemeData theme = Theme.of(context);
@@ -42,41 +51,43 @@ class _InstructorProfileScreenState extends State<InstructorProfileScreen> {
                 ),
               ),
               const SizedBox(height: 24.0),
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      child: Icon(Icons.abc),
-                      // child: profilePic == null
-                      //     ? Image.asset(PngImages.peopleCircle,
-                      //   fit: BoxFit.cover,
-                      // )
-                      //     : Image.network(profilePic,
-                      //   fit: BoxFit.cover,
-                      // ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-
-
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: IconButton(
-                        onPressed: () async {
-                          await instructorDB.addFile(true);
-                        },
-                        icon: Icon(Icons.camera_alt,
-                          size: 20,
-                          color: Colors.black87,
+              StreamWrapper<String>(
+                stream: instructorDB.instructorProfileStream,
+                child: (profilePic) {
+                  return Center(
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 100,
+                          child: profilePic == null
+                              ? Image.asset(PngImages.peopleCircle,
+                            fit: BoxFit.cover,
+                          )
+                              : Image.network(profilePic,
+                            fit: BoxFit.cover,
+                          ),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
                         ),
-                      ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: IconButton(
+                            onPressed: () async {
+                              await instructorDB.addFile(context);
+                            },
+                            icon: Icon(Icons.camera_alt,
+                              size: 20,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                }
               ),
               // Center(
               //   child: CircleAvatar(

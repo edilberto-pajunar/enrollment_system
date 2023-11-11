@@ -10,12 +10,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:web_school/networks/admin.dart';
 import 'dart:html' as html;
 import 'package:web_school/views/screens/instructor/body/students/student_list.dart';
 
@@ -67,6 +69,16 @@ class InstructorDB extends ChangeNotifier {
   }
 
   String? instructorId;
+
+  void updateInstructorId(String? value) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+
+    instructorId = value;
+
+    sp.setString("instructorId", instructorId!);
+
+    notifyListeners();
+  }
 
   Future<void> getInstructorIdLocal() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
@@ -266,13 +278,15 @@ class InstructorDB extends ChangeNotifier {
   Uint8List? selectedImageInBytes;
   String? fileName;
 
-  Future<void> addFile(bool imageFrom) async {
+  Future<void> addFile(BuildContext context) async {
+
     FilePickerResult? fileResult = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'jpeg', 'png'],
     );
 
-    print(fileResult);
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+
 
     if (fileResult != null && fileResult.files.isNotEmpty) {
       // selectFile = io.File(fileResult.files.single.path!);
@@ -282,10 +296,20 @@ class InstructorDB extends ChangeNotifier {
       print(fileName);
 
       await firebaseStorage.ref("instructor/$fileName").putData(fileResult.files.single.bytes!);
-      
-      db.collection("instructor").doc(instructorId!).set({
-        "profilePic": fileName,
-      }, SetOptions(merge: true));
+
+      await firebaseStorage.ref("instructor/$fileName").getDownloadURL().then((value) async {
+        print(value);
+
+        instructorId = sp.getString("instructorId");
+
+        print(instructorId);
+
+        db.collection("instructor").doc(instructorId).set({
+          "profilePic": value,
+        }, SetOptions(merge: true));
+
+      });
+
     }
     notifyListeners();
   }
@@ -328,7 +352,10 @@ class InstructorDB extends ChangeNotifier {
 
   Stream<String> getInstructorProfile() {
     return db.collection("instructor").doc(instructorId).snapshots()
-        .map((event) => event["profilePic"]);
+        .map((event) {
+          final data = event.data() as Map<String, dynamic>;
+          return data["profilePic"];
+    });
   }
 
   void updateInstructorProfileStream() {
@@ -396,59 +423,34 @@ class InstructorDB extends ChangeNotifier {
       ..setAttribute("download", "${DateTime.now().millisecondsSinceEpoch}.pdf")
       ..click();
 
-}
+  }
+
+  Future<void> updateSeniorGrade(BuildContext context, {
+    required String id,
+    required String subjectId,
+    required String grade,
+  }) async {
+    try {
+      db.collection("student").doc(id).collection("subjects").doc(subjectId).set({
+        "grades": [
+          {
+            "grade": grade,
+          }
+        ],
+      }, SetOptions(merge: true)).then((value) {
+        context.popRoute();
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Successful!"),
+          ),
+        );
+      });
 
 
-  // Future<void> createPDF({
-  //   required List<ApplicationInfo> studentList,
-  // }) async {
-  //   PdfDocument document = PdfDocument();
-  //   PdfGrid grid = PdfGrid();
-  //
-  //   grid.columns.add(count: 4);
-  //   grid.headers.add(1);
-  //   PdfGridRow header = grid.headers[0];
-  //   header.cells[0].value = "Name";
-  //   header.cells[0].value = "Id";
-  //   header.cells[0].value = "Grade";
-  //   header.cells[0].value = "Section";
-  //
-  //   header.style = PdfGridCellStyle(
-  //     backgroundBrush: PdfBrushes.lightGray,
-  //     textBrush: PdfBrushes.black,
-  //     font: PdfStandardFont(PdfFontFamily.timesRoman, 12),
-  //   );
-  //
-  //   for (final customer in studentList) {
-  //     PdfGridRow row = grid.rows.add();
-  //     row.cells[0].value = customer.userModel;
-  //     row.cells[0].value = customer.userModel.id;
-  //     row.cells[0].value = customer.schoolInfo.gradeToEnroll.label;
-  //     row.cells[0].value = customer.studentInfo.section;
-  //   }
-  //
-  //   grid.style = PdfGridStyle(
-  //     cellPadding: PdfPaddings(left: 10, right: 3, top: 4, bottom: 5),
-  //     backgroundBrush: PdfBrushes.white,
-  //     textBrush: PdfBrushes.black,
-  //     font: PdfStandardFont(PdfFontFamily.timesRoman, 12),
-  //   );
-  //
-  //   grid.draw(
-  //     page: document.pages.add(),
-  //     bounds: const Rect.fromLTWH(0, 0, 0, 0)
-  //   );
-  //   List<int> bytes = await document.save();
-  //
-  //   AnchorElement(
-  //     href: "data:application/octet-stream;charset=utf-16le;base64,${base64.encode(bytes)}"
-  //   )..setAttribute("download", "report.pdf")..click();
-  //
-  //
-  //   document.dispose();
-  //
-  //
-  //
-  //
-  //   notifyListeners();
+
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
 }

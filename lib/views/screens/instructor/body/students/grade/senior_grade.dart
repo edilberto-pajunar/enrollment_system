@@ -52,97 +52,9 @@ class _InstructorSeniorGradeScreenState extends State<InstructorSeniorGradeScree
     final InstructorDB instructorDB = Provider.of<InstructorDB>(context);
     final ThemeData theme = Theme.of(context);
     final StudentDB studentDB = Provider.of<StudentDB>(context);
+    final AdminDB adminDB = Provider.of<AdminDB>(context);
 
     double gwa = 0;
-
-    void editGrade(Subject data) {
-      instructorDB.initGradeText(
-        firstGrade: data.grades[0].grade.toString(),
-        secondGrade: data.grades[1].grade.toString(),
-        thirdGrade: data.grades[2].grade.toString(),
-        fourthGrade: data.grades[3].grade.toString(),
-      );
-      instructorDB.updateSubjectId(data.id.toString());
-      showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return WillPopScope(
-            onWillPop: () async {
-              instructorDB.clearGradeForm();
-              return true;
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    PrimaryTextField(
-                      fieldKey: InstructorDB.firstKey,
-                      controller: InstructorDB.first,
-                      label: "First Grading",
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      validator: Commons.forcedTextValidator,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      );
-    }
-
-    void editSeniorGrade(Subject data) {
-      instructorDB.initSeniorGradeText(
-        grade: data.grades[0].grade.toString(),
-      );
-      instructorDB.updateSubjectId(data.id.toString());
-      showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return WillPopScope(
-            onWillPop: () async {
-              instructorDB.clearGradeForm();
-              return true;
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    PrimaryTextField(
-                      fieldKey: InstructorDB.firstKey,
-                      controller: InstructorDB.first,
-                      label: "Grade",
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      validator: Commons.forcedTextValidator,
-                    ),
-                    const SizedBox(height: 24.0),
-                    PrimaryButton(
-                      onPressed: () {
-                        instructorDB.updateGrade(
-                          context,
-                          isJunior: widget.isJunior,
-                          currentGradeList: data.grades,
-                          applicationInfo: widget.studentData,
-                        );
-                      },
-                      label: "Submit",
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      );
-    }
 
     return Scaffold(
       body: SafeArea(
@@ -157,6 +69,7 @@ class _InstructorSeniorGradeScreenState extends State<InstructorSeniorGradeScree
                   return StreamWrapper<List<Subject>>(
                     stream: studentDB.listSubjectStream,
                     child: (subjectList) {
+
 
                       return Padding(
                         padding: const EdgeInsets.all(24.0),
@@ -182,6 +95,8 @@ class _InstructorSeniorGradeScreenState extends State<InstructorSeniorGradeScree
 
                                 final List<Subject> subjectFiltered = [];
 
+                                final TextEditingController controller = TextEditingController();
+
                                 for (Subject subject in subjectList!) {
                                   if (instructorData.subject!.contains(subject)) {
                                     subjectFiltered.add(subject);
@@ -190,10 +105,9 @@ class _InstructorSeniorGradeScreenState extends State<InstructorSeniorGradeScree
 
                                 for (var subject in subjectFiltered) {
 
-                                double totalGrade = subject.grades.fold(0, (sum, grade) => sum + grade.grade!.toInt());
-                                  gwa = totalGrade / subject.grades.length;
-                                }
-
+                                  double totalGrade = subject.grades.fold(0, (sum, grade) => sum + grade.grade!.toInt());
+                                    gwa = totalGrade / subject.grades.length;
+                                  }
 
                                   return Container(
                                     decoration: BoxDecoration(
@@ -203,10 +117,53 @@ class _InstructorSeniorGradeScreenState extends State<InstructorSeniorGradeScree
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("${subjectFiltered[index].name}"),
+                                            SizedBox(
+                                              width: 150,
+                                              child: FittedBox(child: Text("${subjectFiltered[index].name}")),
+                                            ),
                                             Text("${subjectFiltered[index].grades.first.grade}"),
                                             IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      title: Text("Please enter the grade:"),
+                                                      content: Column(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          PrimaryTextField(
+                                                            controller: controller,
+                                                            label: "Grade",
+                                                            hintText: "Grade",
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            instructorDB.updateSeniorGrade(
+                                                              context,
+                                                              id: adminDB.studentId!,
+                                                              subjectId: subjectList[index].id.toString(),
+                                                              grade: controller.text,
+                                                            );
+                                                          },
+                                                          child: Text("Submit"),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            context.popRoute();
+                                                            controller.clear();
+                                                          },
+                                                          child: Text("Cancel"),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
                                               icon: Icon(Icons.edit,
                                               ),
                                             ),
