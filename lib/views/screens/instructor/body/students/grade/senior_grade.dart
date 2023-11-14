@@ -78,13 +78,14 @@ class _InstructorSeniorGradeScreenState extends State<InstructorSeniorGradeScree
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("${widget.studentData.studentInfo.name}'s grade",
-                                    style: theme.textTheme.titleSmall,
-                                  ),
-                                ],
+                              Text("${widget.studentData.studentInfo.name} 's grade",
+                                style: theme.textTheme.titleSmall!.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const SizedBox(height: 12.0),
+                              Divider(
+                                color: Colors.black,
                               ),
                               const SizedBox(height: 24.0),
                               ListView.builder(

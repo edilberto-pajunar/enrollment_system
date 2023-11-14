@@ -7,6 +7,8 @@ class CustomAdminCard extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.color,
+    this.titleSize,
+    this.subtitleSize,
     super.key,
   });
   
@@ -15,6 +17,8 @@ class CustomAdminCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final Color color;
+  final double? titleSize;
+  final double? subtitleSize;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +62,7 @@ class CustomAdminCard extends StatelessWidget {
                 Text(title,
                   style: theme.textTheme.bodyMedium!.copyWith(
                     color: Colors.white,
-                    fontSize: size.width * 0.014,
+                    fontSize: titleSize ?? size.width * 0.014,
                   ),
                 ),
                 const SizedBox(height: 4.0),
@@ -66,7 +70,7 @@ class CustomAdminCard extends StatelessWidget {
                   style: theme.textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w500,
                     color: Colors.white,
-                    fontSize: size.width * 0.015,
+                    fontSize: subtitleSize ?? size.width * 0.015,
                   ),
                 ),
               ],

@@ -55,9 +55,14 @@ class _StudentPaymentHomeScreenState extends State<StudentPaymentHomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text("Payment",
+                  Text("Payment History",
                     style: theme.textTheme.titleSmall!.copyWith(
+                      fontWeight: FontWeight.w700,
                     ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  Divider(
+                    color: Colors.black,
                   ),
                   // Text("Your current balance is: ${widget.applicationInfo.studentInfo.balance}"),
                   const SizedBox(height: 24.0),

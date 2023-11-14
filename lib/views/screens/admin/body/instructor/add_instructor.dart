@@ -53,6 +53,15 @@ class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      Text("Add Instructor",
+                        style: theme.textTheme.titleSmall!.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                      Divider(
+                        color: Colors.black,
+                      ),
                       SecondaryTextField(
                         fieldKey: AdminDB.usernameKey,
                         controller: AdminDB.username,
@@ -128,28 +137,6 @@ class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
                                 : Colors.white,
                             label: adminDB.sectionList[index].label!,
                           );
-                          // return InkWell(
-                          //   onTap: () {
-                          //     adminDB.updateInstructorSection(
-                          //         adminDB.sectionList[index]);
-                          //   },
-                          //   child: Container(
-                          //     width: size.width * 0.3,
-                          //     padding: const EdgeInsets.symmetric(vertical: 12.0),
-                          //     margin: const EdgeInsets.all(5.0),
-                          //     decoration: BoxDecoration(
-                          //         color: adminDB.instructorSection ==
-                          //                 adminDB.sectionList[index]
-                          //             ? Colors.grey
-                          //             : Colors.white,
-                          //         border: Border.all(
-                          //           color: Colors.black,
-                          //         ),
-                          //         borderRadius: BorderRadius.circular(12.0)),
-                          //     child: Center(
-                          //         child: Text(adminDB.sectionList[index].label!)),
-                          //   ),
-                          // );
                         }).toList(),
                       ),
 
@@ -181,26 +168,6 @@ class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
                                       : Colors.white,
                                   label: adminDB.semesterList[index].label!,
                                 );
-                                // return InkWell(
-                                //   onTap: () {
-                                //     adminDB.updateSemesterInstructorOption(adminDB.semesterList[index]);
-                                //   },
-                                //   child: Container(
-                                //     width: size.width * 0.3,
-                                //     padding: const EdgeInsets.symmetric(vertical: 12.0),
-                                //     margin: const EdgeInsets.all(5.0),
-                                //     decoration: BoxDecoration(
-                                //         color: adminDB.semesterInstructorOption == adminDB.semesterList[index]
-                                //             ? Colors.grey
-                                //             : Colors.white,
-                                //         border: Border.all(
-                                //           color: Colors.black,
-                                //         ),
-                                //         borderRadius: BorderRadius.circular(12.0)),
-                                //     child: Center(
-                                //         child: Text(adminDB.semesterList[index].label!)),
-                                //   ),
-                                // );
                               }).toList(),
                             ),
 
@@ -228,31 +195,6 @@ class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
                                       : Colors.white,
                                   label: adminDB.strandInstructorList[index].label ?? "",
                                 );
-                                // return InkWell(
-                                //   onTap: () {
-                                //     adminDB.updateStrandInstructorOption(
-                                //       adminDB.strandInstructorList[index],
-                                //     );
-                                //   },
-                                //   child: Container(
-                                //     width: size.width * 0.3,
-                                //     padding: const EdgeInsets.symmetric(vertical: 12.0),
-                                //     margin: const EdgeInsets.all(5.0),
-                                //     decoration: BoxDecoration(
-                                //         color: adminDB.strandInstructorOption ==
-                                //             adminDB.strandInstructorList[index]
-                                //             ? Colors.grey
-                                //             : Colors.white,
-                                //         border: Border.all(
-                                //           color: Colors.black,
-                                //         ),
-                                //         borderRadius: BorderRadius.circular(12.0)),
-                                //     child: Center(
-                                //       child: Text(adminDB.strandInstructorList[index].label ?? "",
-                                //       ),
-                                //     ),
-                                //   ),
-                                // );
                               }).toList(),
                             ),
                           ],
@@ -287,32 +229,6 @@ class _AdminAddInstructorScreenState extends State<AdminAddInstructorScreen> {
                                       : Colors.white,
                                   label: adminDB.getSubjectInstructor[index].name,
                                 );
-                                // return InkWell(
-                                //   onTap: () {
-                                //     adminDB.updateSubjectOption(
-                                //       adminDB.getSubjectInstructor[index],
-                                //     );
-                                //   },
-                                //   child: Container(
-                                //     width: size.width * 0.3,
-                                //     padding: const EdgeInsets.symmetric(vertical: 12.0),
-                                //     margin: const EdgeInsets.all(5.0),
-                                //     decoration: BoxDecoration(
-                                //         color: adminDB.subjectOption.contains(adminDB.getSubjectInstructor[index])
-                                //             ? Colors.grey
-                                //             : Colors.white,
-                                //         border: Border.all(
-                                //           color: Colors.black,
-                                //         ),
-                                //         borderRadius: BorderRadius.circular(12.0)),
-                                //     child: Center(
-                                //       child: Text(adminDB.getSubjectInstructor[index].name,
-                                //         style: theme.textTheme.bodySmall,
-                                //         textAlign: TextAlign.center,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // );
                               }).toList(),
                             ),
                           ],

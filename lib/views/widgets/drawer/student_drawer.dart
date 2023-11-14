@@ -5,11 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/student.dart';
+import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/values/strings/images.dart';
 import 'package:web_school/views/widgets/hover/tile_button.dart';
 
 class StudentDrawer extends StatelessWidget {
-  const StudentDrawer({super.key});
+  const StudentDrawer({
+    this.isMobile = false,
+    super.key,
+  });
+
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +42,16 @@ class StudentDrawer extends StatelessWidget {
             ),
             const SizedBox(height: 24.0),
             OnHoverListTileButton(
+              backgroundColor: studentDB.studentIndex == 0
+                  ? Colors.redAccent
+                  : null,
               leading: Icon(CupertinoIcons.profile_circled),
               onTap: () {
-                if (AutoRouter.of(context).root.current.name == "StudentHomeRoute") {
+                if (AutoRouter.of(context).root.current.name == "WrapperStudentRoute") {
                   studentDB.updateStudentIndex(0);
-
+                  isMobile ? context.popRoute() : false;
                 } else {
-                  AutoRouter.of(context).popUntil((route) => route.settings.name == "StudentHomeRoute");
+                  AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperStudentRoute");
                   studentDB.updateStudentIndex(0);
                 }
               },
@@ -54,13 +63,17 @@ class StudentDrawer extends StatelessWidget {
             ),
 
             OnHoverListTileButton(
+              backgroundColor: studentDB.studentIndex == 1
+                  ? Colors.redAccent
+                  : null,
               leading: Icon(CupertinoIcons.graph_circle),
               onTap: () {
-                if (AutoRouter.of(context).root.current.name == "StudentHomeRoute") {
+                if (AutoRouter.of(context).root.current.name == "WrapperStudentRoute") {
                   studentDB.updateStudentIndex(1);
+                  isMobile ? context.popRoute() : false;
 
                 } else {
-                  AutoRouter.of(context).popUntil((route) => route.settings.name == "StudentHomeRoute");
+                  AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperStudentRoute");
                   studentDB.updateStudentIndex(1);
                 }
               },
@@ -72,13 +85,17 @@ class StudentDrawer extends StatelessWidget {
             ),
 
             OnHoverListTileButton(
+              backgroundColor: studentDB.studentIndex == 2
+                  ? Colors.redAccent
+                  : null,
               leading: Icon(CupertinoIcons.square_stack_3d_down_right),
               onTap: () {
-                if (AutoRouter.of(context).root.current.name == "StudentHomeRoute") {
+                if (AutoRouter.of(context).root.current.name == "WrapperStudentRoute") {
                   studentDB.updateStudentIndex(2);
+                  isMobile ? context.popRoute() : false;
 
                 } else {
-                  AutoRouter.of(context).popUntil((route) => route.settings.name == "StudentHomeRoute");
+                  AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperStudentRoute");
                   studentDB.updateStudentIndex(2);
                 }
               },
@@ -90,13 +107,17 @@ class StudentDrawer extends StatelessWidget {
             ),
 
             OnHoverListTileButton(
+              backgroundColor: studentDB.studentIndex == 3
+                  ? Colors.redAccent
+                  : null,
               leading: Icon(Icons.schedule),
               onTap: () {
-                if (AutoRouter.of(context).root.current.name == "StudentHomeRoute") {
+                if (AutoRouter.of(context).root.current.name == "WrapperStudentRoute") {
                   studentDB.updateStudentIndex(3);
+                  isMobile ? context.popRoute() : false;
 
                 } else {
-                  AutoRouter.of(context).popUntil((route) => route.settings.name == "StudentHomeRoute");
+                  AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperStudentRoute");
                   studentDB.updateStudentIndex(3);
                 }
               },
@@ -108,13 +129,17 @@ class StudentDrawer extends StatelessWidget {
             ),
 
             OnHoverListTileButton(
+              backgroundColor: studentDB.studentIndex == 4
+                  ? Colors.redAccent
+                  : null,
               leading: Icon(Icons.payment),
               onTap: () {
-                if (AutoRouter.of(context).root.current.name == "StudentHomeRoute") {
+                if (AutoRouter.of(context).root.current.name == "WrapperStudentRoute") {
                   studentDB.updateStudentIndex(4);
+                  isMobile ? context.popRoute() : false;
 
                 } else {
-                  AutoRouter.of(context).popUntil((route) => route.settings.name == "StudentHomeRoute");
+                  AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperStudentRoute");
                   studentDB.updateStudentIndex(4);
                 }
               },
@@ -126,13 +151,18 @@ class StudentDrawer extends StatelessWidget {
             ),
 
             OnHoverListTileButton(
+              backgroundColor: studentDB.studentIndex == 5
+                  ? Colors.redAccent
+                  : null,
               leading: Icon(Icons.password),
               onTap: () {
-                if (AutoRouter.of(context).root.current.name == "StudentHomeRoute") {
+
+                if (AutoRouter.of(context).root.current.name == "WrapperStudentRoute") {
                   studentDB.updateStudentIndex(5);
+                  isMobile ? context.popRoute() : false;
 
                 } else {
-                  AutoRouter.of(context).popUntil((route) => route.settings.name == "StudentHomeRoute");
+                  AutoRouter.of(context).popUntil((route) => route.settings.name == "WrapperStudentRoute");
                   studentDB.updateStudentIndex(5);
                 }
               },

@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:web_school/models/application/application.dart';
@@ -12,7 +14,11 @@ import 'package:web_school/models/option.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:web_school/models/user.dart';
 import 'package:web_school/networks/commons.dart';
+import 'package:web_school/values/strings/images.dart';
 import 'package:web_school/views/widgets/dialogs/custom.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'dart:html' as html;
 
 class AdminDB extends ChangeNotifier {
   bool isLoading = false;
@@ -224,7 +230,7 @@ class AdminDB extends ChangeNotifier {
 
 
       final UserModel userModel = UserModel(
-        controlNumber: username.text.toLowerCase(),
+        controlNumber: "${username.text}@my.sjaiss.edu.ph",
         type: "instructor",
         id: id,
         password: "123456",
@@ -636,5 +642,123 @@ class AdminDB extends ChangeNotifier {
   void updateIndexDashboard(int value) {
     indexDashboard = value;
     notifyListeners();
+  }
+
+  double gwa = 0.0;
+
+
+  double updateGWA(Subject subject) {
+    double? total = subject.grades.map((e) => e.grade).reduce((value, element) => value! + element!);
+
+    return gwa = (total! / 4);
+  }
+
+  Future<void> generateJuniorPdf({
+    required ApplicationInfo studentData,
+    required List<Subject> subjects,
+  }) async {
+
+    final pdf = pw.Document();
+
+    final Uint8List headerImage = (await rootBundle.load(PngImages.background)).buffer.asUint8List();
+
+    final firstName = studentData.personalInfo.firstName;
+    final lastName = studentData.personalInfo.lastName;
+    final middleInitial = studentData.personalInfo.middleName[0].toUpperCase();
+
+    final schoolName = studentData.schoolInfo.nameOfSchool;
+    final grade = studentData.schoolInfo.gradeToEnroll.label;
+    final section = studentData.studentInfo.section;
+    final schoolYear = studentData.schoolInfo.schoolYear.label;
+
+
+
+
+
+    pdf.addPage(pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          final pw.ThemeData theme = pw.Theme.of(context);
+
+          return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+              mainAxisAlignment: pw.MainAxisAlignment.start,
+              children: [
+                pw.Row(
+                    children: [
+                      pw.Container(
+                        height: 50,
+                        width: 50,
+                        child: pw.Image(pw.MemoryImage(headerImage),
+                          fit: pw.BoxFit.cover,
+                        ),
+                      ),
+                      pw.SizedBox(width: 4.0),
+                      pw.Text("St. Jude Agro Industrial \nSecondary School",
+                          style: pw.TextStyle(
+                            fontWeight: pw.FontWeight.bold,
+                          )
+                      ),
+                    ]
+                ),
+                pw.Divider(),
+                pw.SizedBox(height: 24.0),
+                pw.Text("Generated Report"),
+                pw.Text("$firstName, $lastName $middleInitial",
+                  style: theme.header0,
+                ),
+                pw.Text("School: $schoolName"),
+                pw.Text("Grade: $grade"),
+                pw.Text("School: $schoolName"),
+                pw.Text("Section: $section"),
+                pw.Text("School Year: $schoolYear"),
+                pw.SizedBox(height: 24.0),
+                pw.Table(
+                    border: pw.TableBorder.all(),
+                    children: [
+                      // Header row
+                      pw.TableRow(
+                          children: [
+                            pw.Center(child: pw.Text("Subjects")),
+                            pw.Center(child: pw.Text("1")),
+                            pw.Center(child: pw.Text("2")),
+                            pw.Center(child: pw.Text("3")),
+                            pw.Center(child: pw.Text("4")),
+                            pw.Center(child: pw.Text("Final")),
+                            pw.Center(child: pw.Text("Units")),
+                            pw.Center(child: pw.Text("Passed or Failed")),
+                          ]
+                      ),
+                      // Data rows
+                      for (var subject in subjects)
+
+                        pw.TableRow(
+                            children: [
+                                pw.Center(child: pw.Text(subject.name)),
+                                pw.Center(child: pw.Text(subject.grades[0].grade!.toStringAsFixed(2))),
+                                pw.Center(child: pw.Text(subject.grades[1].grade!.toStringAsFixed(2))),
+                                pw.Center(child: pw.Text(subject.grades[2].grade!.toStringAsFixed(2))),
+                                pw.Center(child: pw.Text(subject.grades[3].grade!.toStringAsFixed(2))),
+                                pw.Center(child: pw.Text("${updateGWA(subject)}")),
+                                pw.Center(child: pw.Text(subject.units.toString())),
+                                pw.Center(child: pw.Text("${gwa != 0 ? gwa >= 75 ? "PASSED" : "FAILED" : "--"}"),
+                              ),
+                            ]
+                        ),
+
+                    ]
+                ),
+              ]
+          );
+        }
+    ));
+
+    var savedFile = await pdf.save();
+    List<int> fileInts = List.from(savedFile);
+    html.AnchorElement(
+        href: "data:application/octet-stream;charset=utf-16le;base64,${base64.encode(fileInts)}")
+      ..setAttribute("download", "${DateTime.now().millisecondsSinceEpoch}.pdf")
+      ..click();
+
   }
 }

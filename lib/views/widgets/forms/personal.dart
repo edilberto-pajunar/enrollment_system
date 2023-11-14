@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:web_school/extensions/formatters/first_letter.dart';
 import 'package:web_school/models/application/personal.dart';
 import 'package:web_school/models/option.dart';
 import 'package:web_school/networks/application.dart';
@@ -127,6 +129,13 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           label: "Last name",
           validator: Commons.forcedTextValidator,
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.lastName.value = Application.lastName.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -135,7 +144,17 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "First name",
           label: "First name",
           validator: Commons.forcedTextValidator,
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.firstName.value = Application.firstName.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -144,15 +163,27 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "Middle name",
           label: "Middle name",
           validator: Commons.forcedTextValidator,
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.middleName.value = Application.middleName.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
           fieldKey: Application.extensionNameKey,
           controller: Application.extensionName,
-          hintText: "Extension name e.g. Jr.(if applicable)",
+          hintText: "Extension name e.g. Jr.(if applicable) Type \"none\" if none",
           label: "Extension name e.g. Jr.(if applicable)",
+          validator: Commons.forcedTextValidator,
           readOnly: widget.viewOnly,
+
         ),
 
         PrimaryTextField(
@@ -161,7 +192,17 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "Place of Birth",
           label: "Place of Birth",
           validator: Commons.forcedTextValidator,
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.placeOfBirth.value = Application.placeOfBirth.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -253,6 +294,13 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           label: "Mother Tounge",
           validator: Commons.forcedTextValidator,
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.motherTounge.value = Application.motherTounge.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -261,6 +309,16 @@ class _BasicPersonalInfoFormState extends State<BasicPersonalInfoForm> {
           hintText: "Enter",
           label: "Other Languages Spoken",
           readOnly: widget.viewOnly,
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.otherLanguages.value = Application.otherLanguages.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
       ],
     );

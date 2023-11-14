@@ -55,6 +55,15 @@ class _StudentWebEnrollmentScreenState extends State<StudentWebEnrollmentScreen>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Text("Admission Status",
+                      style: theme.textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 12.0),
+                    Divider(
+                      color: Colors.black,
+                    ),
                     Container(
                       padding: const EdgeInsets.all(12.0),
                       decoration: BoxDecoration(

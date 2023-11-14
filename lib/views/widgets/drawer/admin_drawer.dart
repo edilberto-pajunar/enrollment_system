@@ -58,15 +58,13 @@ class AdminDrawer extends StatelessWidget {
               OnHoverListTileButton(
 
                 backgroundColor: adminDB.indexDashboard == 0
-                    ? ColorTheme.primaryRed.withOpacity(0.2)
+                    ? Colors.redAccent
                     : null,
                 onTap: () {
                   if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
-                    print("Hello");
                     adminDB.updateIndexDashboard(0);
                     isMobile ? context.popRoute() : false;
                   } else {
-                    print("h");
                     AutoRouter.of(context).popUntil((route) {
                       print(route.settings.name);
                       return route.settings.name == "WrapperAdminRoute";
@@ -84,7 +82,7 @@ class AdminDrawer extends StatelessWidget {
               ),
               OnHoverListTileButton(
                 backgroundColor: adminDB.indexDashboard == 2
-                  ? ColorTheme.primaryRed.withOpacity(0.2)
+                  ? Colors.redAccent
                   : null,
                 onTap: () {
                   if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {
@@ -104,7 +102,7 @@ class AdminDrawer extends StatelessWidget {
               ),
               OnHoverListTileButton(
                 backgroundColor: adminDB.indexDashboard == 1
-                    ? ColorTheme.primaryRed.withOpacity(0.2)
+                    ? Colors.redAccent
                     : null,
                 onTap: () {
 
@@ -125,7 +123,7 @@ class AdminDrawer extends StatelessWidget {
               ),
               OnHoverListTileButton(
                 backgroundColor: adminDB.indexDashboard == 3
-                    ? ColorTheme.primaryRed.withOpacity(0.2)
+                    ? Colors.redAccent
                     : null,
                 onTap: () {
                   if (AutoRouter.of(context).root.current.name == "WrapperAdminRoute") {

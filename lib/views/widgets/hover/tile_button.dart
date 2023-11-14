@@ -44,7 +44,7 @@ class _OnHoverListTileButtonState extends State<OnHoverListTileButton> {
           transform: transform,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
-            color: widget.backgroundColor ?? (isHovered ? ColorTheme.primaryRed.withOpacity(0.2) : Colors.transparent),
+            color: widget.backgroundColor ?? (isHovered ? Colors.redAccent : Colors.transparent),
           ),
           child: Row(
             children: [

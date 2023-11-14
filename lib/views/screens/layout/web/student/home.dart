@@ -3,7 +3,7 @@
 // import 'package:provider/provider.dart';
 // import 'package:web_school/models/application/application.dart';
 // import 'package:web_school/networks/admin.dart';
-// import 'package:web_school/networks/student.dart';
+// import 'package:web_school/networks/student_drawer.dart';
 // import 'package:web_school/views/screens/student/mobile/payment/instructor_wrapper.dart';
 // import 'package:web_school/views/screens/student/web/profile/change_pass.dart';
 // import 'package:web_school/views/screens/student/web/profile/enrollment.dart';
@@ -11,7 +11,7 @@
 // import 'package:web_school/views/screens/student/web/profile/profile.dart';
 // import 'package:web_school/views/screens/student/web/profile/schedule.dart';
 // import 'package:web_school/views/widgets/body/wrapper/stream.dart';
-// import 'package:web_school/views/widgets/drawer/student.dart';
+// import 'package:web_school/views/widgets/drawer/student_drawer.dart';
 //
 // @RoutePage()
 // class WebStudentHomeScreen extends StatefulWidget {

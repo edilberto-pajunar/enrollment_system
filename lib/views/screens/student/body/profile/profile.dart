@@ -25,151 +25,166 @@ class StudentWebProfileScreen extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(24.0),
-      child: Container(
-        padding: const EdgeInsets.all(24.0),
-        decoration: BoxDecoration(
-            border: Border.all(
-          color: Colors.black,
-        )),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () => adminDB.updateSchoolInfoShow(),
-                    child: Icon(
-                      adminDB.schoolInfoShow
-                          ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down,
-                    ),
-                  ),
-                  Text(
-                    "School Info",
-                    style: theme.textTheme.titleSmall,
-                  ),
-                ],
-              ),
-              const Divider(
-                color: Colors.black,
-              ),
-              Visibility(
-                visible: adminDB.schoolInfoShow,
-                child: SchoolInfoForm(
-                  schoolInfo: applicationInfo.schoolInfo,
-                  viewOnly: true,
-                ),
-              ),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () => adminDB.updatePersonalInfoShow(),
-                    child: Icon(
-                      adminDB.personalInfoShow
-                          ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down,
-                    ),
-                  ),
-                  Text(
-                    "Personal Info",
-                    style: theme.textTheme.titleSmall,
-                  ),
-                ],
-              ),
-              const Divider(
-                color: Colors.black,
-              ),
-              Visibility(
-                visible: adminDB.personalInfoShow,
-                child: BasicPersonalInfoForm(
-                  personalInfo: applicationInfo.personalInfo,
-                  viewOnly: true,
-                ),
-              ),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () => adminDB.updateResidenceInfoShow(),
-                    child: Icon(
-                      adminDB.residenceInfoShow
-                          ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down,
-                    ),
-                  ),
-                  Text(
-                    "Residence Info",
-                    style: theme.textTheme.titleSmall,
-                  ),
-                ],
-              ),
-              const Divider(
-                color: Colors.black,
-              ),
-              Visibility(
-                visible: adminDB.residenceInfoShow,
-                child: ResidenceForm(
-                  residenceInfo: applicationInfo.residenceInfo,
-                  viewOnly: true,
-                ),
-              ),
-              const SizedBox(height: 4.0),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () => adminDB.updateEmergencyInfoShow(),
-                    child: Icon(
-                      adminDB.emergencyInfoShow
-                          ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down,
-                    ),
-                  ),
-                  Text(
-                    "Emergency Info",
-                    style: theme.textTheme.titleSmall,
-                  ),
-                ],
-              ),
-              const Divider(
-                color: Colors.black,
-              ),
-              Visibility(
-                visible: adminDB.emergencyInfoShow,
-                child: EmergencyForm(
-                  emergencyInfo: applicationInfo.emergencyInfo,
-                  viewOnly: true,
-                ),
-              ),
-              const SizedBox(height: 4.0),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () => adminDB.updateFamilyInfoShow(),
-                    child: Icon(
-                      adminDB.familyInfoShow
-                          ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down,
-                    ),
-                  ),
-                  Text(
-                    "Family Info",
-                    style: theme.textTheme.titleSmall,
-                  ),
-                ],
-              ),
-              const Divider(
-                color: Colors.black,
-              ),
-              Visibility(
-                visible: adminDB.familyInfoShow,
-                child: FamilyInformationForm(
-                  familyInfo: applicationInfo.familyInfo,
-                  viewOnly: true,
-                ),
-              ),
-            ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Profile",
+            style: theme.textTheme.titleSmall!.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ),
+          const SizedBox(height: 12.0),
+          Divider(
+            color: Colors.black,
+          ),
+          Container(
+            padding: const EdgeInsets.all(24.0),
+            decoration: BoxDecoration(
+                border: Border.all(
+              color: Colors.black,
+            )),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () => adminDB.updateSchoolInfoShow(),
+                        child: Icon(
+                          adminDB.schoolInfoShow
+                              ? Icons.arrow_drop_up
+                              : Icons.arrow_drop_down,
+                        ),
+                      ),
+                      Text(
+                        "School Info",
+                        style: theme.textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                  ),
+                  Visibility(
+                    visible: adminDB.schoolInfoShow,
+                    child: SchoolInfoForm(
+                      schoolInfo: applicationInfo.schoolInfo,
+                      viewOnly: true,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () => adminDB.updatePersonalInfoShow(),
+                        child: Icon(
+                          adminDB.personalInfoShow
+                              ? Icons.arrow_drop_up
+                              : Icons.arrow_drop_down,
+                        ),
+                      ),
+                      Text(
+                        "Personal Info",
+                        style: theme.textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                  ),
+                  Visibility(
+                    visible: adminDB.personalInfoShow,
+                    child: BasicPersonalInfoForm(
+                      personalInfo: applicationInfo.personalInfo,
+                      viewOnly: true,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () => adminDB.updateResidenceInfoShow(),
+                        child: Icon(
+                          adminDB.residenceInfoShow
+                              ? Icons.arrow_drop_up
+                              : Icons.arrow_drop_down,
+                        ),
+                      ),
+                      Text(
+                        "Residence Info",
+                        style: theme.textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                  ),
+                  Visibility(
+                    visible: adminDB.residenceInfoShow,
+                    child: ResidenceForm(
+                      residenceInfo: applicationInfo.residenceInfo,
+                      viewOnly: true,
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () => adminDB.updateEmergencyInfoShow(),
+                        child: Icon(
+                          adminDB.emergencyInfoShow
+                              ? Icons.arrow_drop_up
+                              : Icons.arrow_drop_down,
+                        ),
+                      ),
+                      Text(
+                        "Emergency Info",
+                        style: theme.textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                  ),
+                  Visibility(
+                    visible: adminDB.emergencyInfoShow,
+                    child: EmergencyForm(
+                      emergencyInfo: applicationInfo.emergencyInfo,
+                      viewOnly: true,
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () => adminDB.updateFamilyInfoShow(),
+                        child: Icon(
+                          adminDB.familyInfoShow
+                              ? Icons.arrow_drop_up
+                              : Icons.arrow_drop_down,
+                        ),
+                      ),
+                      Text(
+                        "Family Info",
+                        style: theme.textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                  ),
+                  Visibility(
+                    visible: adminDB.familyInfoShow,
+                    child: FamilyInformationForm(
+                      familyInfo: applicationInfo.familyInfo,
+                      viewOnly: true,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

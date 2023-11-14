@@ -33,7 +33,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(
               page: AdminStudentsListRoute.page,
               path: "/adminStudentsListRoute",
-
         ),
         AutoRoute(
             page: WrapperAdminRoute.page,
@@ -43,7 +42,10 @@ class AppRouter extends $AppRouter {
             page: WrapperInstructorRoute.page,
             path: "/wrapperInstructorRoute",
         ),
-
+        AutoRoute(
+              page: WrapperStudentRoute.page,
+              path: "/wrapperStudentRoute",
+        ),
         AutoRoute(page: AdminInstructorListRoute.page, path: "/adminInstructorHome"),
         AutoRoute(page: AdminAddInstructorRoute.page, path: "/adminAddInstructor"),
         AutoRoute(page: AdminInstructorSectionRoute.page, path: "/adminInstructorSection"),

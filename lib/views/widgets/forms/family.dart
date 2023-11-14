@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:web_school/extensions/formatters/first_letter.dart';
 import 'package:web_school/models/application/family.dart';
 import 'package:web_school/models/option.dart';
 import 'package:web_school/networks/application.dart';
@@ -207,8 +208,18 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           controller: Application.firstNamePrinted,
           hintText: "First name",
           label: "First name",
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           validator: Commons.forcedTextValidator,
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.firstNamePrinted.value = Application.firstNamePrinted.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
         PrimaryTextField(
           fieldKey: Application.lastNamePrintedKey,
@@ -216,7 +227,17 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           hintText: "Last name",
           label: "Last name",
           validator: Commons.forcedTextValidator,
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.lastNamePrinted.value = Application.lastNamePrinted.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
         PrimaryTextField(
           fieldKey: Application.middleNamePrintedKey,
@@ -224,7 +245,17 @@ class _FamilyInformationFormState extends State<FamilyInformationForm> {
           hintText: "Middle name",
           label: "Middle name",
           validator: Commons.forcedTextValidator,
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.middleNamePrinted.value = Application.middleNamePrinted.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
         PrimaryTextField(
           fieldKey: Application.learnerRelationKey,

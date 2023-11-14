@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:web_school/extensions/formatters/first_letter.dart';
 import 'package:web_school/models/application/emergency.dart';
 import 'package:web_school/models/option.dart';
 import 'package:web_school/networks/application.dart';
@@ -126,21 +127,51 @@ class _EmergencyFormState extends State<EmergencyForm> {
           controller: Application.emergencyFirstName,
           hintText: "Enter",
           label: "First Name",
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.emergencyFirstName.value = Application.emergencyFirstName.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
         PrimaryTextField(
           fieldKey: Application.emergencyMiddleNameKey,
           controller: Application.emergencyMiddleName,
           hintText: "Enter",
           label: "Middle Name",
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.emergencyMiddleName.value = Application.emergencyMiddleName.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
         PrimaryTextField(
           fieldKey: Application.emergencyLastNameKey,
           controller: Application.emergencyLastName,
           hintText: "Enter",
           label: "Last Name",
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.emergencyLastName.value = Application.emergencyLastName.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
         const SizedBox(height: 12.0),
         widget.viewOnly
@@ -173,7 +204,17 @@ class _EmergencyFormState extends State<EmergencyForm> {
           controller: Application.emergencyAddress,
           hintText: "Enter",
           label: "Address",
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.emergencyAddress.value = Application.emergencyAddress.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
         PrimaryTextField(
           fieldKey: Application.emergencyPhoneKey,

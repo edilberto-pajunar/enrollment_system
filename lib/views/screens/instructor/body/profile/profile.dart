@@ -45,10 +45,14 @@ class _InstructorProfileScreenState extends State<InstructorProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Text("Profile",
-                  style: theme.textTheme.titleSmall,
+              Text("Profile",
+                style: theme.textTheme.titleSmall!.copyWith(
+                  fontWeight: FontWeight.w700,
                 ),
+              ),
+              const SizedBox(height: 12.0),
+              Divider(
+                color: Colors.black,
               ),
               const SizedBox(height: 24.0),
               StreamWrapper<String>(
@@ -64,9 +68,12 @@ class _InstructorProfileScreenState extends State<InstructorProfileScreen> {
                               ? Image.asset(PngImages.peopleCircle,
                             fit: BoxFit.cover,
                           )
-                              : Image.network(profilePic,
+                              : ClipRRect(
+                            borderRadius: BorderRadius.circular(48.0),
+                                child: Image.network(profilePic,
                             fit: BoxFit.cover,
                           ),
+                              ),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                           ),

@@ -64,6 +64,15 @@
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Text("Student List",
+                      style: theme.textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 12.0),
+                    Divider(
+                      color: Colors.black,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -73,11 +82,9 @@
                         PrimaryButton(
                           onPressed: () async {
                             instructorDB.createPdf(
-                              studentList: studentList,
+                              studentList: getStudentGradeList,
                               instructor: instructor,
                             );
-
-
                           },
                           label: "Download all",
                         ),

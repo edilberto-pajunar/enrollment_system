@@ -40,10 +40,15 @@ class _SummaryPaymentScreenState extends State<SummaryPaymentScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("List of Payments",
-              style: theme.textTheme.titleSmall,
+            Text("Payment List",
+              style: theme.textTheme.titleSmall!.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
             ),
-            const SizedBox(height: 24.0),
+            const SizedBox(height: 12.0),
+            Divider(
+              color: Colors.black,
+            ),
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,

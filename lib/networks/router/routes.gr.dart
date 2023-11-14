@@ -8,13 +8,13 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i42;
-import 'package:flutter/cupertino.dart' as _i47;
-import 'package:flutter/material.dart' as _i44;
-import 'package:web_school/models/application/application.dart' as _i45;
-import 'package:web_school/models/instructor.dart' as _i43;
-import 'package:web_school/models/payment.dart' as _i46;
-import 'package:web_school/models/user.dart' as _i48;
+import 'package:auto_route/auto_route.dart' as _i43;
+import 'package:flutter/cupertino.dart' as _i48;
+import 'package:flutter/material.dart' as _i45;
+import 'package:web_school/models/application/application.dart' as _i46;
+import 'package:web_school/models/instructor.dart' as _i44;
+import 'package:web_school/models/payment.dart' as _i47;
+import 'package:web_school/models/user.dart' as _i49;
 import 'package:web_school/views/screens/admin/admin_home.dart' as _i3;
 import 'package:web_school/views/screens/admin/admin_wrapper.dart' as _i40;
 import 'package:web_school/views/screens/admin/body/instructor/add_instructor.dart'
@@ -68,9 +68,8 @@ import 'package:web_school/views/screens/student/body/profile/profile.dart'
     as _i36;
 import 'package:web_school/views/screens/student/body/profile/schedule.dart'
     as _i37;
-import 'package:web_school/views/screens/student/home.dart' as _i26;
 import 'package:web_school/views/screens/student/mobile/home.dart' as _i29;
-import 'package:web_school/views/screens/student/mobile/payment/home.dart'
+import 'package:web_school/views/screens/student/body/profile/payment.dart'
     as _i33;
 import 'package:web_school/views/screens/student/mobile/profile/change_pass.dart'
     as _i27;
@@ -82,21 +81,23 @@ import 'package:web_school/views/screens/student/mobile/profile/profile.dart'
     as _i31;
 import 'package:web_school/views/screens/student/mobile/profile/schedule.dart'
     as _i32;
+import 'package:web_school/views/screens/student/student_home.dart' as _i26;
+import 'package:web_school/views/screens/student/student_wrapper.dart' as _i42;
 
-abstract class $AppRouter extends _i42.RootStackRouter {
+abstract class $AppRouter extends _i43.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i42.PageFactory> pagesMap = {
+  final Map<String, _i43.PageFactory> pagesMap = {
     AdminAddInstructorRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i1.AdminAddInstructorScreen(),
       );
     },
     AdminEditInstructorRoute.name: (routeData) {
       final args = routeData.argsAs<AdminEditInstructorRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.AdminEditInstructorScreen(
           instructorData: args.instructorData,
@@ -106,7 +107,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     AdminHomeRoute.name: (routeData) {
       final args = routeData.argsAs<AdminHomeRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i3.AdminHomeScreen(
           studentList: args.studentList,
@@ -117,14 +118,14 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       );
     },
     AdminInstructorGradeRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i4.AdminInstructorGradeScreen(),
       );
     },
     AdminInstructorListRoute.name: (routeData) {
       final args = routeData.argsAs<AdminInstructorListRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i5.AdminInstructorListScreen(
           instructorList: args.instructorList,
@@ -133,32 +134,32 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       );
     },
     AdminInstructorSectionRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i6.AdminInstructorSectionScreen(),
       );
     },
     AdminInstructorStudentListRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i7.AdminInstructorStudentListScreen(),
       );
     },
     AdminScheduleStudentRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i8.AdminScheduleStudentScreen(),
       );
     },
     AdminStudentProfileRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i9.AdminStudentProfileScreen(),
       );
     },
     AdminStudentsListRoute.name: (routeData) {
       final args = routeData.argsAs<AdminStudentsListRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i10.AdminStudentsListScreen(
           studentList: args.studentList,
@@ -167,32 +168,32 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       );
     },
     ContinueJuniorRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i11.ContinueJuniorScreen(),
       );
     },
     ContinuingSeniorRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i12.ContinuingSeniorScreen(),
       );
     },
     FormsRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i13.FormsScreen(),
       );
     },
     IncomingJuniorFormRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i14.IncomingJuniorFormScreen(),
       );
     },
     InstructorJuniorGradeRoute.name: (routeData) {
       final args = routeData.argsAs<InstructorJuniorGradeRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i15.InstructorJuniorGradeScreen(
           isJunior: args.isJunior,
@@ -204,7 +205,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     InstructorProfileRoute.name: (routeData) {
       final args = routeData.argsAs<InstructorProfileRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i16.InstructorProfileScreen(
           instructor: args.instructor,
@@ -214,7 +215,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     InstructorScheduleRoute.name: (routeData) {
       final args = routeData.argsAs<InstructorScheduleRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i17.InstructorScheduleScreen(
           applicationInfo: args.applicationInfo,
@@ -224,7 +225,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     InstructorSeniorGradeRoute.name: (routeData) {
       final args = routeData.argsAs<InstructorSeniorGradeRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i18.InstructorSeniorGradeScreen(
           isJunior: args.isJunior,
@@ -234,26 +235,26 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i19.LoginScreen(),
       );
     },
     NewSeniorRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i20.NewSeniorScreen(),
       );
     },
     OtherSchoolRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i21.OtherSchoolScreen(),
       );
     },
     PaymentHistoryRoute.name: (routeData) {
       final args = routeData.argsAs<PaymentHistoryRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i22.PaymentHistoryScreen(
           applicationInfo: args.applicationInfo,
@@ -263,32 +264,36 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       );
     },
     ResponsiveBuilder.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i23.ResponsiveBuilder(),
       );
     },
     ResponsiveMobileRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i24.ResponsiveMobileScreen(),
       );
     },
     ResponsiveWebRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i25.ResponsiveWebScreen(),
       );
     },
     StudentHomeRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      final args = routeData.argsAs<StudentHomeRouteArgs>();
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i26.StudentHomeScreen(),
+        child: _i26.StudentHomeScreen(
+          applicationInfo: args.applicationInfo,
+          key: args.key,
+        ),
       );
     },
     StudentMobileChangePassRoute.name: (routeData) {
       final args = routeData.argsAs<StudentMobileChangePassRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i27.StudentMobileChangePassScreen(
           currentPassword: args.currentPassword,
@@ -298,7 +303,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     StudentMobileEnrollmentRoute.name: (routeData) {
       final args = routeData.argsAs<StudentMobileEnrollmentRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i28.StudentMobileEnrollmentScreen(
           applicationInfo: args.applicationInfo,
@@ -308,7 +313,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     StudentMobileHomeRoute.name: (routeData) {
       final args = routeData.argsAs<StudentMobileHomeRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i29.StudentMobileHomeScreen(
           userModel: args.userModel,
@@ -318,7 +323,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     StudentMobileInfoRoute.name: (routeData) {
       final args = routeData.argsAs<StudentMobileInfoRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i30.StudentMobileInfoScreen(
           applicationInfo: args.applicationInfo,
@@ -328,7 +333,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     StudentMobileProfileRoute.name: (routeData) {
       final args = routeData.argsAs<StudentMobileProfileRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i31.StudentMobileProfileScreen(
           applicationInfo: args.applicationInfo,
@@ -338,7 +343,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     StudentMobileScheduleRoute.name: (routeData) {
       final args = routeData.argsAs<StudentMobileScheduleRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i32.StudentMobileScheduleScreen(
           applicationInfo: args.applicationInfo,
@@ -348,7 +353,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     StudentPaymentHomeRoute.name: (routeData) {
       final args = routeData.argsAs<StudentPaymentHomeRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i33.StudentPaymentHomeScreen(
           applicationInfo: args.applicationInfo,
@@ -358,7 +363,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     StudentWebChangePassRoute.name: (routeData) {
       final args = routeData.argsAs<StudentWebChangePassRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i34.StudentWebChangePassScreen(
           applicationInfo: args.applicationInfo,
@@ -368,7 +373,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     StudentWebEnrollmentRoute.name: (routeData) {
       final args = routeData.argsAs<StudentWebEnrollmentRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i35.StudentWebEnrollmentScreen(
           applicationInfo: args.applicationInfo,
@@ -378,7 +383,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     StudentWebProfileRoute.name: (routeData) {
       final args = routeData.argsAs<StudentWebProfileRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i36.StudentWebProfileScreen(
           applicationInfo: args.applicationInfo,
@@ -388,7 +393,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     StudentWebScheduleRoute.name: (routeData) {
       final args = routeData.argsAs<StudentWebScheduleRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i37.StudentWebScheduleScreen(
           applicationInfo: args.applicationInfo,
@@ -398,7 +403,7 @@ abstract class $AppRouter extends _i42.RootStackRouter {
     },
     SummaryPaymentRoute.name: (routeData) {
       final args = routeData.argsAs<SummaryPaymentRouteArgs>();
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i38.SummaryPaymentScreen(
           applicationInfo: args.applicationInfo,
@@ -408,21 +413,27 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       );
     },
     TransfereeJuniorRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i39.TransfereeJuniorScreen(),
       );
     },
     WrapperAdminRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i40.WrapperAdminScreen(),
       );
     },
     WrapperInstructorRoute.name: (routeData) {
-      return _i42.AutoRoutePage<dynamic>(
+      return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i41.WrapperInstructorScreen(),
+      );
+    },
+    WrapperStudentRoute.name: (routeData) {
+      return _i43.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i42.WrapperStudentScreen(),
       );
     },
   };
@@ -430,8 +441,8 @@ abstract class $AppRouter extends _i42.RootStackRouter {
 
 /// generated route for
 /// [_i1.AdminAddInstructorScreen]
-class AdminAddInstructorRoute extends _i42.PageRouteInfo<void> {
-  const AdminAddInstructorRoute({List<_i42.PageRouteInfo>? children})
+class AdminAddInstructorRoute extends _i43.PageRouteInfo<void> {
+  const AdminAddInstructorRoute({List<_i43.PageRouteInfo>? children})
       : super(
           AdminAddInstructorRoute.name,
           initialChildren: children,
@@ -439,17 +450,17 @@ class AdminAddInstructorRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'AdminAddInstructorRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.AdminEditInstructorScreen]
 class AdminEditInstructorRoute
-    extends _i42.PageRouteInfo<AdminEditInstructorRouteArgs> {
+    extends _i43.PageRouteInfo<AdminEditInstructorRouteArgs> {
   AdminEditInstructorRoute({
-    required _i43.Instructor instructorData,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i44.Instructor instructorData,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           AdminEditInstructorRoute.name,
           args: AdminEditInstructorRouteArgs(
@@ -461,8 +472,8 @@ class AdminEditInstructorRoute
 
   static const String name = 'AdminEditInstructorRoute';
 
-  static const _i42.PageInfo<AdminEditInstructorRouteArgs> page =
-      _i42.PageInfo<AdminEditInstructorRouteArgs>(name);
+  static const _i43.PageInfo<AdminEditInstructorRouteArgs> page =
+      _i43.PageInfo<AdminEditInstructorRouteArgs>(name);
 }
 
 class AdminEditInstructorRouteArgs {
@@ -471,9 +482,9 @@ class AdminEditInstructorRouteArgs {
     this.key,
   });
 
-  final _i43.Instructor instructorData;
+  final _i44.Instructor instructorData;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -483,13 +494,13 @@ class AdminEditInstructorRouteArgs {
 
 /// generated route for
 /// [_i3.AdminHomeScreen]
-class AdminHomeRoute extends _i42.PageRouteInfo<AdminHomeRouteArgs> {
+class AdminHomeRoute extends _i43.PageRouteInfo<AdminHomeRouteArgs> {
   AdminHomeRoute({
-    required List<_i45.ApplicationInfo> studentList,
-    required List<_i46.Payment> paymentList,
-    required List<_i43.Instructor> instructorList,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required List<_i46.ApplicationInfo> studentList,
+    required List<_i47.Payment> paymentList,
+    required List<_i44.Instructor> instructorList,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           AdminHomeRoute.name,
           args: AdminHomeRouteArgs(
@@ -503,8 +514,8 @@ class AdminHomeRoute extends _i42.PageRouteInfo<AdminHomeRouteArgs> {
 
   static const String name = 'AdminHomeRoute';
 
-  static const _i42.PageInfo<AdminHomeRouteArgs> page =
-      _i42.PageInfo<AdminHomeRouteArgs>(name);
+  static const _i43.PageInfo<AdminHomeRouteArgs> page =
+      _i43.PageInfo<AdminHomeRouteArgs>(name);
 }
 
 class AdminHomeRouteArgs {
@@ -515,13 +526,13 @@ class AdminHomeRouteArgs {
     this.key,
   });
 
-  final List<_i45.ApplicationInfo> studentList;
+  final List<_i46.ApplicationInfo> studentList;
 
-  final List<_i46.Payment> paymentList;
+  final List<_i47.Payment> paymentList;
 
-  final List<_i43.Instructor> instructorList;
+  final List<_i44.Instructor> instructorList;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -531,8 +542,8 @@ class AdminHomeRouteArgs {
 
 /// generated route for
 /// [_i4.AdminInstructorGradeScreen]
-class AdminInstructorGradeRoute extends _i42.PageRouteInfo<void> {
-  const AdminInstructorGradeRoute({List<_i42.PageRouteInfo>? children})
+class AdminInstructorGradeRoute extends _i43.PageRouteInfo<void> {
+  const AdminInstructorGradeRoute({List<_i43.PageRouteInfo>? children})
       : super(
           AdminInstructorGradeRoute.name,
           initialChildren: children,
@@ -540,17 +551,17 @@ class AdminInstructorGradeRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'AdminInstructorGradeRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i5.AdminInstructorListScreen]
 class AdminInstructorListRoute
-    extends _i42.PageRouteInfo<AdminInstructorListRouteArgs> {
+    extends _i43.PageRouteInfo<AdminInstructorListRouteArgs> {
   AdminInstructorListRoute({
-    required List<_i43.Instructor> instructorList,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required List<_i44.Instructor> instructorList,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           AdminInstructorListRoute.name,
           args: AdminInstructorListRouteArgs(
@@ -562,8 +573,8 @@ class AdminInstructorListRoute
 
   static const String name = 'AdminInstructorListRoute';
 
-  static const _i42.PageInfo<AdminInstructorListRouteArgs> page =
-      _i42.PageInfo<AdminInstructorListRouteArgs>(name);
+  static const _i43.PageInfo<AdminInstructorListRouteArgs> page =
+      _i43.PageInfo<AdminInstructorListRouteArgs>(name);
 }
 
 class AdminInstructorListRouteArgs {
@@ -572,9 +583,9 @@ class AdminInstructorListRouteArgs {
     this.key,
   });
 
-  final List<_i43.Instructor> instructorList;
+  final List<_i44.Instructor> instructorList;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -584,8 +595,8 @@ class AdminInstructorListRouteArgs {
 
 /// generated route for
 /// [_i6.AdminInstructorSectionScreen]
-class AdminInstructorSectionRoute extends _i42.PageRouteInfo<void> {
-  const AdminInstructorSectionRoute({List<_i42.PageRouteInfo>? children})
+class AdminInstructorSectionRoute extends _i43.PageRouteInfo<void> {
+  const AdminInstructorSectionRoute({List<_i43.PageRouteInfo>? children})
       : super(
           AdminInstructorSectionRoute.name,
           initialChildren: children,
@@ -593,13 +604,13 @@ class AdminInstructorSectionRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'AdminInstructorSectionRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i7.AdminInstructorStudentListScreen]
-class AdminInstructorStudentListRoute extends _i42.PageRouteInfo<void> {
-  const AdminInstructorStudentListRoute({List<_i42.PageRouteInfo>? children})
+class AdminInstructorStudentListRoute extends _i43.PageRouteInfo<void> {
+  const AdminInstructorStudentListRoute({List<_i43.PageRouteInfo>? children})
       : super(
           AdminInstructorStudentListRoute.name,
           initialChildren: children,
@@ -607,13 +618,13 @@ class AdminInstructorStudentListRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'AdminInstructorStudentListRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i8.AdminScheduleStudentScreen]
-class AdminScheduleStudentRoute extends _i42.PageRouteInfo<void> {
-  const AdminScheduleStudentRoute({List<_i42.PageRouteInfo>? children})
+class AdminScheduleStudentRoute extends _i43.PageRouteInfo<void> {
+  const AdminScheduleStudentRoute({List<_i43.PageRouteInfo>? children})
       : super(
           AdminScheduleStudentRoute.name,
           initialChildren: children,
@@ -621,13 +632,13 @@ class AdminScheduleStudentRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'AdminScheduleStudentRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i9.AdminStudentProfileScreen]
-class AdminStudentProfileRoute extends _i42.PageRouteInfo<void> {
-  const AdminStudentProfileRoute({List<_i42.PageRouteInfo>? children})
+class AdminStudentProfileRoute extends _i43.PageRouteInfo<void> {
+  const AdminStudentProfileRoute({List<_i43.PageRouteInfo>? children})
       : super(
           AdminStudentProfileRoute.name,
           initialChildren: children,
@@ -635,17 +646,17 @@ class AdminStudentProfileRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'AdminStudentProfileRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i10.AdminStudentsListScreen]
 class AdminStudentsListRoute
-    extends _i42.PageRouteInfo<AdminStudentsListRouteArgs> {
+    extends _i43.PageRouteInfo<AdminStudentsListRouteArgs> {
   AdminStudentsListRoute({
-    required List<_i45.ApplicationInfo> studentList,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required List<_i46.ApplicationInfo> studentList,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           AdminStudentsListRoute.name,
           args: AdminStudentsListRouteArgs(
@@ -657,8 +668,8 @@ class AdminStudentsListRoute
 
   static const String name = 'AdminStudentsListRoute';
 
-  static const _i42.PageInfo<AdminStudentsListRouteArgs> page =
-      _i42.PageInfo<AdminStudentsListRouteArgs>(name);
+  static const _i43.PageInfo<AdminStudentsListRouteArgs> page =
+      _i43.PageInfo<AdminStudentsListRouteArgs>(name);
 }
 
 class AdminStudentsListRouteArgs {
@@ -667,9 +678,9 @@ class AdminStudentsListRouteArgs {
     this.key,
   });
 
-  final List<_i45.ApplicationInfo> studentList;
+  final List<_i46.ApplicationInfo> studentList;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -679,8 +690,8 @@ class AdminStudentsListRouteArgs {
 
 /// generated route for
 /// [_i11.ContinueJuniorScreen]
-class ContinueJuniorRoute extends _i42.PageRouteInfo<void> {
-  const ContinueJuniorRoute({List<_i42.PageRouteInfo>? children})
+class ContinueJuniorRoute extends _i43.PageRouteInfo<void> {
+  const ContinueJuniorRoute({List<_i43.PageRouteInfo>? children})
       : super(
           ContinueJuniorRoute.name,
           initialChildren: children,
@@ -688,13 +699,13 @@ class ContinueJuniorRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'ContinueJuniorRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i12.ContinuingSeniorScreen]
-class ContinuingSeniorRoute extends _i42.PageRouteInfo<void> {
-  const ContinuingSeniorRoute({List<_i42.PageRouteInfo>? children})
+class ContinuingSeniorRoute extends _i43.PageRouteInfo<void> {
+  const ContinuingSeniorRoute({List<_i43.PageRouteInfo>? children})
       : super(
           ContinuingSeniorRoute.name,
           initialChildren: children,
@@ -702,13 +713,13 @@ class ContinuingSeniorRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'ContinuingSeniorRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i13.FormsScreen]
-class FormsRoute extends _i42.PageRouteInfo<void> {
-  const FormsRoute({List<_i42.PageRouteInfo>? children})
+class FormsRoute extends _i43.PageRouteInfo<void> {
+  const FormsRoute({List<_i43.PageRouteInfo>? children})
       : super(
           FormsRoute.name,
           initialChildren: children,
@@ -716,13 +727,13 @@ class FormsRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'FormsRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i14.IncomingJuniorFormScreen]
-class IncomingJuniorFormRoute extends _i42.PageRouteInfo<void> {
-  const IncomingJuniorFormRoute({List<_i42.PageRouteInfo>? children})
+class IncomingJuniorFormRoute extends _i43.PageRouteInfo<void> {
+  const IncomingJuniorFormRoute({List<_i43.PageRouteInfo>? children})
       : super(
           IncomingJuniorFormRoute.name,
           initialChildren: children,
@@ -730,19 +741,19 @@ class IncomingJuniorFormRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'IncomingJuniorFormRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i15.InstructorJuniorGradeScreen]
 class InstructorJuniorGradeRoute
-    extends _i42.PageRouteInfo<InstructorJuniorGradeRouteArgs> {
+    extends _i43.PageRouteInfo<InstructorJuniorGradeRouteArgs> {
   InstructorJuniorGradeRoute({
     required bool isJunior,
-    required _i45.ApplicationInfo studentData,
-    required _i43.Instructor instructor,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo studentData,
+    required _i44.Instructor instructor,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           InstructorJuniorGradeRoute.name,
           args: InstructorJuniorGradeRouteArgs(
@@ -756,8 +767,8 @@ class InstructorJuniorGradeRoute
 
   static const String name = 'InstructorJuniorGradeRoute';
 
-  static const _i42.PageInfo<InstructorJuniorGradeRouteArgs> page =
-      _i42.PageInfo<InstructorJuniorGradeRouteArgs>(name);
+  static const _i43.PageInfo<InstructorJuniorGradeRouteArgs> page =
+      _i43.PageInfo<InstructorJuniorGradeRouteArgs>(name);
 }
 
 class InstructorJuniorGradeRouteArgs {
@@ -770,11 +781,11 @@ class InstructorJuniorGradeRouteArgs {
 
   final bool isJunior;
 
-  final _i45.ApplicationInfo studentData;
+  final _i46.ApplicationInfo studentData;
 
-  final _i43.Instructor instructor;
+  final _i44.Instructor instructor;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -785,11 +796,11 @@ class InstructorJuniorGradeRouteArgs {
 /// generated route for
 /// [_i16.InstructorProfileScreen]
 class InstructorProfileRoute
-    extends _i42.PageRouteInfo<InstructorProfileRouteArgs> {
+    extends _i43.PageRouteInfo<InstructorProfileRouteArgs> {
   InstructorProfileRoute({
-    required _i43.Instructor instructor,
-    _i47.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i44.Instructor instructor,
+    _i48.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           InstructorProfileRoute.name,
           args: InstructorProfileRouteArgs(
@@ -801,8 +812,8 @@ class InstructorProfileRoute
 
   static const String name = 'InstructorProfileRoute';
 
-  static const _i42.PageInfo<InstructorProfileRouteArgs> page =
-      _i42.PageInfo<InstructorProfileRouteArgs>(name);
+  static const _i43.PageInfo<InstructorProfileRouteArgs> page =
+      _i43.PageInfo<InstructorProfileRouteArgs>(name);
 }
 
 class InstructorProfileRouteArgs {
@@ -811,9 +822,9 @@ class InstructorProfileRouteArgs {
     this.key,
   });
 
-  final _i43.Instructor instructor;
+  final _i44.Instructor instructor;
 
-  final _i47.Key? key;
+  final _i48.Key? key;
 
   @override
   String toString() {
@@ -824,11 +835,11 @@ class InstructorProfileRouteArgs {
 /// generated route for
 /// [_i17.InstructorScheduleScreen]
 class InstructorScheduleRoute
-    extends _i42.PageRouteInfo<InstructorScheduleRouteArgs> {
+    extends _i43.PageRouteInfo<InstructorScheduleRouteArgs> {
   InstructorScheduleRoute({
-    required _i45.ApplicationInfo applicationInfo,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           InstructorScheduleRoute.name,
           args: InstructorScheduleRouteArgs(
@@ -840,8 +851,8 @@ class InstructorScheduleRoute
 
   static const String name = 'InstructorScheduleRoute';
 
-  static const _i42.PageInfo<InstructorScheduleRouteArgs> page =
-      _i42.PageInfo<InstructorScheduleRouteArgs>(name);
+  static const _i43.PageInfo<InstructorScheduleRouteArgs> page =
+      _i43.PageInfo<InstructorScheduleRouteArgs>(name);
 }
 
 class InstructorScheduleRouteArgs {
@@ -850,9 +861,9 @@ class InstructorScheduleRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -863,12 +874,12 @@ class InstructorScheduleRouteArgs {
 /// generated route for
 /// [_i18.InstructorSeniorGradeScreen]
 class InstructorSeniorGradeRoute
-    extends _i42.PageRouteInfo<InstructorSeniorGradeRouteArgs> {
+    extends _i43.PageRouteInfo<InstructorSeniorGradeRouteArgs> {
   InstructorSeniorGradeRoute({
     required bool isJunior,
-    required _i45.ApplicationInfo studentData,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo studentData,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           InstructorSeniorGradeRoute.name,
           args: InstructorSeniorGradeRouteArgs(
@@ -881,8 +892,8 @@ class InstructorSeniorGradeRoute
 
   static const String name = 'InstructorSeniorGradeRoute';
 
-  static const _i42.PageInfo<InstructorSeniorGradeRouteArgs> page =
-      _i42.PageInfo<InstructorSeniorGradeRouteArgs>(name);
+  static const _i43.PageInfo<InstructorSeniorGradeRouteArgs> page =
+      _i43.PageInfo<InstructorSeniorGradeRouteArgs>(name);
 }
 
 class InstructorSeniorGradeRouteArgs {
@@ -894,9 +905,9 @@ class InstructorSeniorGradeRouteArgs {
 
   final bool isJunior;
 
-  final _i45.ApplicationInfo studentData;
+  final _i46.ApplicationInfo studentData;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -906,8 +917,8 @@ class InstructorSeniorGradeRouteArgs {
 
 /// generated route for
 /// [_i19.LoginScreen]
-class LoginRoute extends _i42.PageRouteInfo<void> {
-  const LoginRoute({List<_i42.PageRouteInfo>? children})
+class LoginRoute extends _i43.PageRouteInfo<void> {
+  const LoginRoute({List<_i43.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           initialChildren: children,
@@ -915,13 +926,13 @@ class LoginRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'LoginRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i20.NewSeniorScreen]
-class NewSeniorRoute extends _i42.PageRouteInfo<void> {
-  const NewSeniorRoute({List<_i42.PageRouteInfo>? children})
+class NewSeniorRoute extends _i43.PageRouteInfo<void> {
+  const NewSeniorRoute({List<_i43.PageRouteInfo>? children})
       : super(
           NewSeniorRoute.name,
           initialChildren: children,
@@ -929,13 +940,13 @@ class NewSeniorRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'NewSeniorRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i21.OtherSchoolScreen]
-class OtherSchoolRoute extends _i42.PageRouteInfo<void> {
-  const OtherSchoolRoute({List<_i42.PageRouteInfo>? children})
+class OtherSchoolRoute extends _i43.PageRouteInfo<void> {
+  const OtherSchoolRoute({List<_i43.PageRouteInfo>? children})
       : super(
           OtherSchoolRoute.name,
           initialChildren: children,
@@ -943,17 +954,17 @@ class OtherSchoolRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'OtherSchoolRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i22.PaymentHistoryScreen]
-class PaymentHistoryRoute extends _i42.PageRouteInfo<PaymentHistoryRouteArgs> {
+class PaymentHistoryRoute extends _i43.PageRouteInfo<PaymentHistoryRouteArgs> {
   PaymentHistoryRoute({
-    required _i45.ApplicationInfo applicationInfo,
+    required _i46.ApplicationInfo applicationInfo,
     required int summaryIndex,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           PaymentHistoryRoute.name,
           args: PaymentHistoryRouteArgs(
@@ -966,8 +977,8 @@ class PaymentHistoryRoute extends _i42.PageRouteInfo<PaymentHistoryRouteArgs> {
 
   static const String name = 'PaymentHistoryRoute';
 
-  static const _i42.PageInfo<PaymentHistoryRouteArgs> page =
-      _i42.PageInfo<PaymentHistoryRouteArgs>(name);
+  static const _i43.PageInfo<PaymentHistoryRouteArgs> page =
+      _i43.PageInfo<PaymentHistoryRouteArgs>(name);
 }
 
 class PaymentHistoryRouteArgs {
@@ -977,11 +988,11 @@ class PaymentHistoryRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
   final int summaryIndex;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -991,8 +1002,8 @@ class PaymentHistoryRouteArgs {
 
 /// generated route for
 /// [_i23.ResponsiveBuilder]
-class ResponsiveBuilder extends _i42.PageRouteInfo<void> {
-  const ResponsiveBuilder({List<_i42.PageRouteInfo>? children})
+class ResponsiveBuilder extends _i43.PageRouteInfo<void> {
+  const ResponsiveBuilder({List<_i43.PageRouteInfo>? children})
       : super(
           ResponsiveBuilder.name,
           initialChildren: children,
@@ -1000,13 +1011,13 @@ class ResponsiveBuilder extends _i42.PageRouteInfo<void> {
 
   static const String name = 'ResponsiveBuilder';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i24.ResponsiveMobileScreen]
-class ResponsiveMobileRoute extends _i42.PageRouteInfo<void> {
-  const ResponsiveMobileRoute({List<_i42.PageRouteInfo>? children})
+class ResponsiveMobileRoute extends _i43.PageRouteInfo<void> {
+  const ResponsiveMobileRoute({List<_i43.PageRouteInfo>? children})
       : super(
           ResponsiveMobileRoute.name,
           initialChildren: children,
@@ -1014,13 +1025,13 @@ class ResponsiveMobileRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'ResponsiveMobileRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i25.ResponsiveWebScreen]
-class ResponsiveWebRoute extends _i42.PageRouteInfo<void> {
-  const ResponsiveWebRoute({List<_i42.PageRouteInfo>? children})
+class ResponsiveWebRoute extends _i43.PageRouteInfo<void> {
+  const ResponsiveWebRoute({List<_i43.PageRouteInfo>? children})
       : super(
           ResponsiveWebRoute.name,
           initialChildren: children,
@@ -1028,31 +1039,55 @@ class ResponsiveWebRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'ResponsiveWebRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i26.StudentHomeScreen]
-class StudentHomeRoute extends _i42.PageRouteInfo<void> {
-  const StudentHomeRoute({List<_i42.PageRouteInfo>? children})
-      : super(
+class StudentHomeRoute extends _i43.PageRouteInfo<StudentHomeRouteArgs> {
+  StudentHomeRoute({
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
+  }) : super(
           StudentHomeRoute.name,
+          args: StudentHomeRouteArgs(
+            applicationInfo: applicationInfo,
+            key: key,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'StudentHomeRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<StudentHomeRouteArgs> page =
+      _i43.PageInfo<StudentHomeRouteArgs>(name);
+}
+
+class StudentHomeRouteArgs {
+  const StudentHomeRouteArgs({
+    required this.applicationInfo,
+    this.key,
+  });
+
+  final _i46.ApplicationInfo applicationInfo;
+
+  final _i45.Key? key;
+
+  @override
+  String toString() {
+    return 'StudentHomeRouteArgs{applicationInfo: $applicationInfo, key: $key}';
+  }
 }
 
 /// generated route for
 /// [_i27.StudentMobileChangePassScreen]
 class StudentMobileChangePassRoute
-    extends _i42.PageRouteInfo<StudentMobileChangePassRouteArgs> {
+    extends _i43.PageRouteInfo<StudentMobileChangePassRouteArgs> {
   StudentMobileChangePassRoute({
     required String currentPassword,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentMobileChangePassRoute.name,
           args: StudentMobileChangePassRouteArgs(
@@ -1064,8 +1099,8 @@ class StudentMobileChangePassRoute
 
   static const String name = 'StudentMobileChangePassRoute';
 
-  static const _i42.PageInfo<StudentMobileChangePassRouteArgs> page =
-      _i42.PageInfo<StudentMobileChangePassRouteArgs>(name);
+  static const _i43.PageInfo<StudentMobileChangePassRouteArgs> page =
+      _i43.PageInfo<StudentMobileChangePassRouteArgs>(name);
 }
 
 class StudentMobileChangePassRouteArgs {
@@ -1076,7 +1111,7 @@ class StudentMobileChangePassRouteArgs {
 
   final String currentPassword;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1087,11 +1122,11 @@ class StudentMobileChangePassRouteArgs {
 /// generated route for
 /// [_i28.StudentMobileEnrollmentScreen]
 class StudentMobileEnrollmentRoute
-    extends _i42.PageRouteInfo<StudentMobileEnrollmentRouteArgs> {
+    extends _i43.PageRouteInfo<StudentMobileEnrollmentRouteArgs> {
   StudentMobileEnrollmentRoute({
-    required _i45.ApplicationInfo applicationInfo,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentMobileEnrollmentRoute.name,
           args: StudentMobileEnrollmentRouteArgs(
@@ -1103,8 +1138,8 @@ class StudentMobileEnrollmentRoute
 
   static const String name = 'StudentMobileEnrollmentRoute';
 
-  static const _i42.PageInfo<StudentMobileEnrollmentRouteArgs> page =
-      _i42.PageInfo<StudentMobileEnrollmentRouteArgs>(name);
+  static const _i43.PageInfo<StudentMobileEnrollmentRouteArgs> page =
+      _i43.PageInfo<StudentMobileEnrollmentRouteArgs>(name);
 }
 
 class StudentMobileEnrollmentRouteArgs {
@@ -1113,9 +1148,9 @@ class StudentMobileEnrollmentRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1126,11 +1161,11 @@ class StudentMobileEnrollmentRouteArgs {
 /// generated route for
 /// [_i29.StudentMobileHomeScreen]
 class StudentMobileHomeRoute
-    extends _i42.PageRouteInfo<StudentMobileHomeRouteArgs> {
+    extends _i43.PageRouteInfo<StudentMobileHomeRouteArgs> {
   StudentMobileHomeRoute({
-    required _i48.UserModel userModel,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i49.UserModel userModel,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentMobileHomeRoute.name,
           args: StudentMobileHomeRouteArgs(
@@ -1142,8 +1177,8 @@ class StudentMobileHomeRoute
 
   static const String name = 'StudentMobileHomeRoute';
 
-  static const _i42.PageInfo<StudentMobileHomeRouteArgs> page =
-      _i42.PageInfo<StudentMobileHomeRouteArgs>(name);
+  static const _i43.PageInfo<StudentMobileHomeRouteArgs> page =
+      _i43.PageInfo<StudentMobileHomeRouteArgs>(name);
 }
 
 class StudentMobileHomeRouteArgs {
@@ -1152,9 +1187,9 @@ class StudentMobileHomeRouteArgs {
     this.key,
   });
 
-  final _i48.UserModel userModel;
+  final _i49.UserModel userModel;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1165,11 +1200,11 @@ class StudentMobileHomeRouteArgs {
 /// generated route for
 /// [_i30.StudentMobileInfoScreen]
 class StudentMobileInfoRoute
-    extends _i42.PageRouteInfo<StudentMobileInfoRouteArgs> {
+    extends _i43.PageRouteInfo<StudentMobileInfoRouteArgs> {
   StudentMobileInfoRoute({
-    required _i45.ApplicationInfo applicationInfo,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentMobileInfoRoute.name,
           args: StudentMobileInfoRouteArgs(
@@ -1181,8 +1216,8 @@ class StudentMobileInfoRoute
 
   static const String name = 'StudentMobileInfoRoute';
 
-  static const _i42.PageInfo<StudentMobileInfoRouteArgs> page =
-      _i42.PageInfo<StudentMobileInfoRouteArgs>(name);
+  static const _i43.PageInfo<StudentMobileInfoRouteArgs> page =
+      _i43.PageInfo<StudentMobileInfoRouteArgs>(name);
 }
 
 class StudentMobileInfoRouteArgs {
@@ -1191,9 +1226,9 @@ class StudentMobileInfoRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1204,11 +1239,11 @@ class StudentMobileInfoRouteArgs {
 /// generated route for
 /// [_i31.StudentMobileProfileScreen]
 class StudentMobileProfileRoute
-    extends _i42.PageRouteInfo<StudentMobileProfileRouteArgs> {
+    extends _i43.PageRouteInfo<StudentMobileProfileRouteArgs> {
   StudentMobileProfileRoute({
-    required _i45.ApplicationInfo applicationInfo,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentMobileProfileRoute.name,
           args: StudentMobileProfileRouteArgs(
@@ -1220,8 +1255,8 @@ class StudentMobileProfileRoute
 
   static const String name = 'StudentMobileProfileRoute';
 
-  static const _i42.PageInfo<StudentMobileProfileRouteArgs> page =
-      _i42.PageInfo<StudentMobileProfileRouteArgs>(name);
+  static const _i43.PageInfo<StudentMobileProfileRouteArgs> page =
+      _i43.PageInfo<StudentMobileProfileRouteArgs>(name);
 }
 
 class StudentMobileProfileRouteArgs {
@@ -1230,9 +1265,9 @@ class StudentMobileProfileRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1243,11 +1278,11 @@ class StudentMobileProfileRouteArgs {
 /// generated route for
 /// [_i32.StudentMobileScheduleScreen]
 class StudentMobileScheduleRoute
-    extends _i42.PageRouteInfo<StudentMobileScheduleRouteArgs> {
+    extends _i43.PageRouteInfo<StudentMobileScheduleRouteArgs> {
   StudentMobileScheduleRoute({
-    required _i45.ApplicationInfo applicationInfo,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentMobileScheduleRoute.name,
           args: StudentMobileScheduleRouteArgs(
@@ -1259,8 +1294,8 @@ class StudentMobileScheduleRoute
 
   static const String name = 'StudentMobileScheduleRoute';
 
-  static const _i42.PageInfo<StudentMobileScheduleRouteArgs> page =
-      _i42.PageInfo<StudentMobileScheduleRouteArgs>(name);
+  static const _i43.PageInfo<StudentMobileScheduleRouteArgs> page =
+      _i43.PageInfo<StudentMobileScheduleRouteArgs>(name);
 }
 
 class StudentMobileScheduleRouteArgs {
@@ -1269,9 +1304,9 @@ class StudentMobileScheduleRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1282,11 +1317,11 @@ class StudentMobileScheduleRouteArgs {
 /// generated route for
 /// [_i33.StudentPaymentHomeScreen]
 class StudentPaymentHomeRoute
-    extends _i42.PageRouteInfo<StudentPaymentHomeRouteArgs> {
+    extends _i43.PageRouteInfo<StudentPaymentHomeRouteArgs> {
   StudentPaymentHomeRoute({
-    required _i45.ApplicationInfo applicationInfo,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentPaymentHomeRoute.name,
           args: StudentPaymentHomeRouteArgs(
@@ -1298,8 +1333,8 @@ class StudentPaymentHomeRoute
 
   static const String name = 'StudentPaymentHomeRoute';
 
-  static const _i42.PageInfo<StudentPaymentHomeRouteArgs> page =
-      _i42.PageInfo<StudentPaymentHomeRouteArgs>(name);
+  static const _i43.PageInfo<StudentPaymentHomeRouteArgs> page =
+      _i43.PageInfo<StudentPaymentHomeRouteArgs>(name);
 }
 
 class StudentPaymentHomeRouteArgs {
@@ -1308,9 +1343,9 @@ class StudentPaymentHomeRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1321,11 +1356,11 @@ class StudentPaymentHomeRouteArgs {
 /// generated route for
 /// [_i34.StudentWebChangePassScreen]
 class StudentWebChangePassRoute
-    extends _i42.PageRouteInfo<StudentWebChangePassRouteArgs> {
+    extends _i43.PageRouteInfo<StudentWebChangePassRouteArgs> {
   StudentWebChangePassRoute({
-    required _i45.ApplicationInfo applicationInfo,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentWebChangePassRoute.name,
           args: StudentWebChangePassRouteArgs(
@@ -1337,8 +1372,8 @@ class StudentWebChangePassRoute
 
   static const String name = 'StudentWebChangePassRoute';
 
-  static const _i42.PageInfo<StudentWebChangePassRouteArgs> page =
-      _i42.PageInfo<StudentWebChangePassRouteArgs>(name);
+  static const _i43.PageInfo<StudentWebChangePassRouteArgs> page =
+      _i43.PageInfo<StudentWebChangePassRouteArgs>(name);
 }
 
 class StudentWebChangePassRouteArgs {
@@ -1347,9 +1382,9 @@ class StudentWebChangePassRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1360,11 +1395,11 @@ class StudentWebChangePassRouteArgs {
 /// generated route for
 /// [_i35.StudentWebEnrollmentScreen]
 class StudentWebEnrollmentRoute
-    extends _i42.PageRouteInfo<StudentWebEnrollmentRouteArgs> {
+    extends _i43.PageRouteInfo<StudentWebEnrollmentRouteArgs> {
   StudentWebEnrollmentRoute({
-    required _i45.ApplicationInfo applicationInfo,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentWebEnrollmentRoute.name,
           args: StudentWebEnrollmentRouteArgs(
@@ -1376,8 +1411,8 @@ class StudentWebEnrollmentRoute
 
   static const String name = 'StudentWebEnrollmentRoute';
 
-  static const _i42.PageInfo<StudentWebEnrollmentRouteArgs> page =
-      _i42.PageInfo<StudentWebEnrollmentRouteArgs>(name);
+  static const _i43.PageInfo<StudentWebEnrollmentRouteArgs> page =
+      _i43.PageInfo<StudentWebEnrollmentRouteArgs>(name);
 }
 
 class StudentWebEnrollmentRouteArgs {
@@ -1386,9 +1421,9 @@ class StudentWebEnrollmentRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1399,11 +1434,11 @@ class StudentWebEnrollmentRouteArgs {
 /// generated route for
 /// [_i36.StudentWebProfileScreen]
 class StudentWebProfileRoute
-    extends _i42.PageRouteInfo<StudentWebProfileRouteArgs> {
+    extends _i43.PageRouteInfo<StudentWebProfileRouteArgs> {
   StudentWebProfileRoute({
-    required _i45.ApplicationInfo applicationInfo,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentWebProfileRoute.name,
           args: StudentWebProfileRouteArgs(
@@ -1415,8 +1450,8 @@ class StudentWebProfileRoute
 
   static const String name = 'StudentWebProfileRoute';
 
-  static const _i42.PageInfo<StudentWebProfileRouteArgs> page =
-      _i42.PageInfo<StudentWebProfileRouteArgs>(name);
+  static const _i43.PageInfo<StudentWebProfileRouteArgs> page =
+      _i43.PageInfo<StudentWebProfileRouteArgs>(name);
 }
 
 class StudentWebProfileRouteArgs {
@@ -1425,9 +1460,9 @@ class StudentWebProfileRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1438,11 +1473,11 @@ class StudentWebProfileRouteArgs {
 /// generated route for
 /// [_i37.StudentWebScheduleScreen]
 class StudentWebScheduleRoute
-    extends _i42.PageRouteInfo<StudentWebScheduleRouteArgs> {
+    extends _i43.PageRouteInfo<StudentWebScheduleRouteArgs> {
   StudentWebScheduleRoute({
-    required _i45.ApplicationInfo applicationInfo,
-    _i44.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required _i46.ApplicationInfo applicationInfo,
+    _i45.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           StudentWebScheduleRoute.name,
           args: StudentWebScheduleRouteArgs(
@@ -1454,8 +1489,8 @@ class StudentWebScheduleRoute
 
   static const String name = 'StudentWebScheduleRoute';
 
-  static const _i42.PageInfo<StudentWebScheduleRouteArgs> page =
-      _i42.PageInfo<StudentWebScheduleRouteArgs>(name);
+  static const _i43.PageInfo<StudentWebScheduleRouteArgs> page =
+      _i43.PageInfo<StudentWebScheduleRouteArgs>(name);
 }
 
 class StudentWebScheduleRouteArgs {
@@ -1464,9 +1499,9 @@ class StudentWebScheduleRouteArgs {
     this.key,
   });
 
-  final _i45.ApplicationInfo applicationInfo;
+  final _i46.ApplicationInfo applicationInfo;
 
-  final _i44.Key? key;
+  final _i45.Key? key;
 
   @override
   String toString() {
@@ -1476,12 +1511,12 @@ class StudentWebScheduleRouteArgs {
 
 /// generated route for
 /// [_i38.SummaryPaymentScreen]
-class SummaryPaymentRoute extends _i42.PageRouteInfo<SummaryPaymentRouteArgs> {
+class SummaryPaymentRoute extends _i43.PageRouteInfo<SummaryPaymentRouteArgs> {
   SummaryPaymentRoute({
-    required List<_i45.ApplicationInfo> applicationInfo,
-    required List<_i46.Payment> paymentList,
-    _i47.Key? key,
-    List<_i42.PageRouteInfo>? children,
+    required List<_i46.ApplicationInfo> applicationInfo,
+    required List<_i47.Payment> paymentList,
+    _i48.Key? key,
+    List<_i43.PageRouteInfo>? children,
   }) : super(
           SummaryPaymentRoute.name,
           args: SummaryPaymentRouteArgs(
@@ -1494,8 +1529,8 @@ class SummaryPaymentRoute extends _i42.PageRouteInfo<SummaryPaymentRouteArgs> {
 
   static const String name = 'SummaryPaymentRoute';
 
-  static const _i42.PageInfo<SummaryPaymentRouteArgs> page =
-      _i42.PageInfo<SummaryPaymentRouteArgs>(name);
+  static const _i43.PageInfo<SummaryPaymentRouteArgs> page =
+      _i43.PageInfo<SummaryPaymentRouteArgs>(name);
 }
 
 class SummaryPaymentRouteArgs {
@@ -1505,11 +1540,11 @@ class SummaryPaymentRouteArgs {
     this.key,
   });
 
-  final List<_i45.ApplicationInfo> applicationInfo;
+  final List<_i46.ApplicationInfo> applicationInfo;
 
-  final List<_i46.Payment> paymentList;
+  final List<_i47.Payment> paymentList;
 
-  final _i47.Key? key;
+  final _i48.Key? key;
 
   @override
   String toString() {
@@ -1519,8 +1554,8 @@ class SummaryPaymentRouteArgs {
 
 /// generated route for
 /// [_i39.TransfereeJuniorScreen]
-class TransfereeJuniorRoute extends _i42.PageRouteInfo<void> {
-  const TransfereeJuniorRoute({List<_i42.PageRouteInfo>? children})
+class TransfereeJuniorRoute extends _i43.PageRouteInfo<void> {
+  const TransfereeJuniorRoute({List<_i43.PageRouteInfo>? children})
       : super(
           TransfereeJuniorRoute.name,
           initialChildren: children,
@@ -1528,13 +1563,13 @@ class TransfereeJuniorRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'TransfereeJuniorRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i40.WrapperAdminScreen]
-class WrapperAdminRoute extends _i42.PageRouteInfo<void> {
-  const WrapperAdminRoute({List<_i42.PageRouteInfo>? children})
+class WrapperAdminRoute extends _i43.PageRouteInfo<void> {
+  const WrapperAdminRoute({List<_i43.PageRouteInfo>? children})
       : super(
           WrapperAdminRoute.name,
           initialChildren: children,
@@ -1542,13 +1577,13 @@ class WrapperAdminRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'WrapperAdminRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i41.WrapperInstructorScreen]
-class WrapperInstructorRoute extends _i42.PageRouteInfo<void> {
-  const WrapperInstructorRoute({List<_i42.PageRouteInfo>? children})
+class WrapperInstructorRoute extends _i43.PageRouteInfo<void> {
+  const WrapperInstructorRoute({List<_i43.PageRouteInfo>? children})
       : super(
           WrapperInstructorRoute.name,
           initialChildren: children,
@@ -1556,5 +1591,19 @@ class WrapperInstructorRoute extends _i42.PageRouteInfo<void> {
 
   static const String name = 'WrapperInstructorRoute';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i42.WrapperStudentScreen]
+class WrapperStudentRoute extends _i43.PageRouteInfo<void> {
+  const WrapperStudentRoute({List<_i43.PageRouteInfo>? children})
+      : super(
+          WrapperStudentRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WrapperStudentRoute';
+
+  static const _i43.PageInfo<void> page = _i43.PageInfo<void>(name);
 }

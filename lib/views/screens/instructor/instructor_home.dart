@@ -32,8 +32,6 @@ class InstructorHomeScreen extends StatelessWidget {
       ),
     ];
 
-    print(instructorDB.drawerIndex);
-
     return Scaffold(
       body: SafeArea(
         child: InstructorNavigationBar(

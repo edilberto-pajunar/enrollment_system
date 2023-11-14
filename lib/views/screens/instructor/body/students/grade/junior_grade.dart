@@ -61,7 +61,9 @@ class _InstructorJuniorGradeScreenState extends State<InstructorJuniorGradeScree
         thirdGrade: data.grades[2].grade.toString(),
         fourthGrade: data.grades[3].grade.toString(),
       );
+
       instructorDB.updateSubjectId(data.id.toString());
+
       showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -118,56 +120,6 @@ class _InstructorJuniorGradeScreenState extends State<InstructorJuniorGradeScree
                       onPressed: () {
                         instructorDB.updateGrade(
                           context,
-                          isJunior: widget.isJunior,
-                          currentGradeList: data.grades,
-                          applicationInfo: widget.studentData,
-                        );
-                      },
-                      label: "Submit",
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      );
-    }
-
-    void editSeniorGrade(Subject data) {
-      instructorDB.initSeniorGradeText(
-        grade: data.grades[0].grade.toString(),
-      );
-      instructorDB.updateSubjectId(data.id.toString());
-      showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return WillPopScope(
-            onWillPop: () async {
-              instructorDB.clearGradeForm();
-              return true;
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    PrimaryTextField(
-                      fieldKey: InstructorDB.firstKey,
-                      controller: InstructorDB.first,
-                      label: "Grade",
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      validator: Commons.forcedTextValidator,
-                    ),
-                    const SizedBox(height: 24.0),
-                    PrimaryButton(
-                      onPressed: () {
-                        instructorDB.updateGrade(
-                          context,
-                          isJunior: widget.isJunior,
                           currentGradeList: data.grades,
                           applicationInfo: widget.studentData,
                         );
@@ -186,10 +138,10 @@ class _InstructorJuniorGradeScreenState extends State<InstructorJuniorGradeScree
     return Scaffold(
       body: SafeArea(
         child: InstructorNavigationBar(
-          child: Form(
-            key: InstructorDB.formKey,
-            child: ModalProgressHUD(
-              inAsyncCall: instructorDB.isLoading,
+          child: ModalProgressHUD(
+            inAsyncCall: instructorDB.isLoading,
+            child: Form(
+              key: InstructorDB.formKey,
               child: StreamWrapper<List<Subject>>(
                 stream: studentDB.listSubjectStream,
                 child: (subjectList) {
@@ -227,9 +179,16 @@ class _InstructorJuniorGradeScreenState extends State<InstructorJuniorGradeScree
 
                               for (var subject in subjectFiltered) {
 
-                                double totalGrade = subject.grades.fold(0, (sum, grade) => sum + grade.grade!.toInt());
-                                gwa = totalGrade / subject.grades.length;
+                                double totalGrade = subject.grades.fold(0, (sum, grade) => sum + grade.grade!);
+                                gwa = totalGrade / 4;
                               }
+
+                              subjectFiltered[index].grades.reduce((value, element) {
+                                final total = value.grade! + element.grade!;
+                                gwa = total / subjectFiltered[index].grades.length;
+
+                                throw "$gwa";
+                              });
 
                               return Column(
                                 children: [
@@ -278,8 +237,6 @@ class _InstructorJuniorGradeScreenState extends State<InstructorJuniorGradeScree
                                         child: Column(
                                           children: List.generate(subjectFiltered[index].grades.length, (indexes) {
 
-                                            print(subjectFiltered[index].grades.first.grade);
-
                                             final List<Grade> subjects = subjectFiltered[index].grades;
 
                                             gwa = subjects.fold(0, (previousValue, element) => previousValue + element.grade!.toInt());
@@ -303,31 +260,6 @@ class _InstructorJuniorGradeScreenState extends State<InstructorJuniorGradeScree
                                           }),
                                         ),
                                       ),
-                                      // child: Column(
-                                      //   children: List.generate(subjectFiltered[index].grades.length, (index) {
-                                      //
-                                      //     final subjects = subjectFiltered[index].grades;
-                                      //
-                                      //     return Text("H");
-                                      //
-                                      //     // return Padding(
-                                      //     //   padding: const EdgeInsets.symmetric(vertical: 4.0),
-                                      //     //   child: Row(
-                                      //     //     children: [
-                                      //     //       Expanded(
-                                      //     //         child: Text(subjects[index].title!,
-                                      //     //           style: theme.textTheme.bodyLarge!.copyWith(
-                                      //     //             fontWeight: FontWeight.w700,
-                                      //     //           ),
-                                      //     //         ),
-                                      //     //       ),
-                                      //     //       Text("${subjects[index].grade!}"),
-                                      //     //
-                                      //     //     ],
-                                      //     //   ),
-                                      //     // );
-                                      //   }),
-                                      // ),
                                     ),
                                   ),
                                   const SizedBox(height: 10),
@@ -339,159 +271,6 @@ class _InstructorJuniorGradeScreenState extends State<InstructorJuniorGradeScree
                       ),
                     ),
                   );
-
-                  // return Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Column(
-                  //     children: [
-                  //       Row(
-                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //         children: [
-                  //           Text("Name"),
-                  //           Text("First"),
-                  //           Text("Second"),
-                  //           Text("Third"),
-                  //           Text("Fourth"),
-                  //         ],
-                  //       ),
-                  //       ListView.builder(
-                  //         physics: const NeverScrollableScrollPhysics(),
-                  //         shrinkWrap: true,
-                  //         itemCount: widget.instructor.subject?.length,
-                  //         itemBuilder: (context, index) {
-                  //           return Row(
-                  //             children: [
-                  //
-                  //             ],
-                  //           );
-                  //
-                  //
-                  //       }),
-                  //     ],
-                  //   ),
-                  // );
-
-                  // return Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         const SizedBox(height: 24.0),
-                  //         // TextButton(
-                  //         //   onPressed: () {
-                  //         //     // context.pushRoute(InstructorScheduleRoute(
-                  //         //     //     subjectList: subjectList!,
-                  //         //     //     applicationInfo: studentData,
-                  //         //     //   ),
-                  //         //     // );
-                  //         //   },
-                  //         //   child: Text("See ${widget.studentData.studentInfo.name} schedule",
-                  //         //     style: theme.textTheme.bodySmall!.copyWith(
-                  //         //       color: ColorTheme.primaryRed,
-                  //         //     ),
-                  //         //   ),
-                  //         // ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  //           child: Container(
-                  //             width: size.width,
-                  //             padding: const EdgeInsets.all(12.0),
-                  //             decoration: BoxDecoration(
-                  //               border: Border.all(
-                  //                 color: Colors.black,
-                  //               ),
-                  //             ),
-                  //             child: SingleChildScrollView(
-                  //               scrollDirection: Axis.horizontal,
-                  //               child: widget.isJunior
-                  //                   ? DataTable(
-                  //                       columnSpacing: 20,
-                  //                       columns: const [
-                  //                         DataColumn(
-                  //                           label: SizedBox(
-                  //                             width: 80,
-                  //                             child: Text("Name"),
-                  //                           ),
-                  //                         ),
-                  //                         DataColumn(
-                  //                           label: Text("First"),
-                  //                         ),
-                  //                         DataColumn(
-                  //                           label: Text("Second"),
-                  //                         ),
-                  //                         DataColumn(
-                  //                           label: Text("Third"),
-                  //                         ),
-                  //                         DataColumn(
-                  //                           label: Text("Fourth"),
-                  //                         ),
-                  //                       ],
-                  //                       rows: subjectList!.map((Subject data) {
-                  //
-                  //
-                  //                         return DataRow(
-                  //                           cells: [
-                  //                             DataCell(
-                  //                               Padding(
-                  //                                 padding: const EdgeInsets.all(8.0),
-                  //                                 child: SizedBox(
-                  //                                     width: 100, child: Text(data.name)),
-                  //                               ),
-                  //                             ),
-                  //                             ...data.grades.map((e) {
-                  //                               return DataCell(
-                  //                                 Center(
-                  //                                   child: InkWell(
-                  //                                     onTap: () {
-                  //                                       editGrade(data);
-                  //                                     },
-                  //                                     child: Text("${e.grade}"),
-                  //                                   ),
-                  //                                 ),
-                  //                               );
-                  //                             }).toList(),
-                  //                           ],
-                  //                         );
-                  //                       }).toList(),
-                  //                     )
-                  //                   : DataTable(
-                  //                       columnSpacing: 20,
-                  //                       columns: const [
-                  //                         DataColumn(
-                  //                           label: SizedBox(
-                  //                             width: 80,
-                  //                             child: Text("Name"),
-                  //                           ),
-                  //                         ),
-                  //                         DataColumn(
-                  //                           label: Text("Grade"),
-                  //                         ),
-                  //                       ],
-                  //                       rows: subjectList!.map((e) {
-                  //                         return DataRow(
-                  //                           cells: [
-                  //                             DataCell(
-                  //                               SizedBox(
-                  //                                   width: MediaQuery.of(context)
-                  //                                           .size
-                  //                                           .width *
-                  //                                       0.6,
-                  //                                   child: Text(e.name)),
-                  //                             ),
-                  //                             DataCell(
-                  //                               InkWell(
-                  //                                   onTap: () {
-                  //                                     editSeniorGrade(e);
-                  //                                   },
-                  //                                   child: Text("${e.grades[0].grade}")),
-                  //                             ),
-                  //                           ],
-                  //                         );
-                  //                       }).toList(),
-                  //                     ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     );
                 }
               ),
             ),

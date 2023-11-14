@@ -64,17 +64,20 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text("${applicationInfo.studentInfo.name} Payment/s",
-                        style: theme.textTheme.bodyMedium!.copyWith(
+                        style: theme.textTheme.titleSmall!.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
+                      ),
+                      const SizedBox(height: 12.0),
+                      Divider(
+                        color: Colors.black,
                       ),
 
                        PaginatedDataTable(
                          columns: [
-                           DataColumn(label: Text("Payment")),
+                           DataColumn(label: Text("#")),
                            DataColumn(label: Text("Amount")),
-                           DataColumn(label: Text("Status")),
-                           DataColumn(label: Text("Action")),
+                           DataColumn(label: Text("Date Created")),
                         ],
                           columnSpacing: 0,
                           horizontalMargin: 10,

@@ -27,6 +27,7 @@ class InstructorDataList extends DataTableSource {
     final username = dataList[index].username;
 
     final grade = dataList[index].grade;
+    final section = dataList[index].section;
     final id = dataList[index].userModel.id;
 
     return DataRow(
@@ -44,12 +45,23 @@ class InstructorDataList extends DataTableSource {
             ),
           ),
 
-          DataCell(Text("${grade?.label}")),
+          DataCell(Text("${grade?.label}",
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+
+          DataCell(Text("${section?.label}",
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
 
           DataCell(IconButton(
             onPressed: () {
               adminDB.deleteInstructor(context, id);
-              print("delete");
             },
             icon: Icon(CupertinoIcons.trash,
               color: Colors.red,

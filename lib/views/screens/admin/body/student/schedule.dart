@@ -59,11 +59,14 @@ class _AdminScheduleStudentScreenState extends State<AdminScheduleStudentScreen>
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              "${studentInfo!.personalInfo.firstName}, Schedule",
-                              style: theme.textTheme.titleLarge!.copyWith(
-                                fontWeight: FontWeight.bold,
+                            Text("Student Profile",
+                              style: theme.textTheme.titleSmall!.copyWith(
+                                fontWeight: FontWeight.w700,
                               ),
+                            ),
+                            const SizedBox(height: 12.0),
+                            Divider(
+                              color: Colors.black,
                             ),
                             const SizedBox(height: 12.0),
                             ListView.builder(

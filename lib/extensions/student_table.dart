@@ -37,8 +37,12 @@ class StudentDataList extends DataTableSource {
     return DataRow(
       cells: [
         DataCell(Text("$lastName, $firstName $middleInitial.",
-          softWrap: true,
-        )),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+            ),
+            softWrap: true,
+          ),
+        ),
         DataCell(
           OnHoverTextButton(
             onTap: () {
@@ -48,7 +52,12 @@ class StudentDataList extends DataTableSource {
             label: controlNumber,
           ),
         ),
-        DataCell(Text("${grade.label}")),
+        DataCell(Text("${grade.label}",
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
 
         DataCell(IconButton(
           onPressed: () {

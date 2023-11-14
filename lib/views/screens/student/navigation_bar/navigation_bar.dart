@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:web_school/views/screens/instructor/navigation_bar/navigation_bar_mobile.dart';
-import 'package:web_school/views/screens/instructor/navigation_bar/navigation_bar_tablet.dart';
-import 'package:web_school/views/screens/instructor/navigation_bar/navigation_bar_web.dart';
 import 'package:web_school/views/screens/student/navigation_bar/navigation_bar_mobile.dart';
 import 'package:web_school/views/screens/student/navigation_bar/navigation_bar_tablet.dart';
-import 'package:web_school/views/screens/student/navigation_bar/navigation_bar_web.dart';
 
 class StudentNavigationBar extends StatelessWidget {
   const StudentNavigationBar({
@@ -19,11 +15,15 @@ class StudentNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScreenTypeLayout.builder(
-        mobile: (context) => StudentNavigationBarMobile(),
+        mobile: (context) => StudentNavigationBarMobile(
+          child: child,
+        ),
         tablet: (context) => StudentNavigationBarTablet(
           child: child,
         ),
-        desktop: (context) => StudentNavigationBarWeb(),
+        desktop: (context) => StudentNavigationBarTablet(
+          child: child,
+        ),
       ),
     );
   }

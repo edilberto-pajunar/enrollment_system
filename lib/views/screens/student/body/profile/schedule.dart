@@ -55,11 +55,14 @@ class _StudentWebScheduleScreenState extends State<StudentWebScheduleScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      "${widget.applicationInfo.personalInfo.firstName}, Schedule",
-                      style: theme.textTheme.titleLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
+                    Text("${widget.applicationInfo.personalInfo.firstName}, Schedule",
+                      style: theme.textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.w700,
                       ),
+                    ),
+                    const SizedBox(height: 12.0),
+                    Divider(
+                      color: Colors.black,
                     ),
                     const SizedBox(height: 12.0),
                     ListView.builder(

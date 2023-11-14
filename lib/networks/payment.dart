@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:web_school/models/application/application.dart';
+import 'package:web_school/models/option.dart';
 import 'package:web_school/models/payment.dart';
 
 
@@ -76,6 +77,19 @@ class PaymentDB extends ChangeNotifier {
   static TextEditingController amountText = TextEditingController();
   static GlobalKey<FormFieldState> amountKey = GlobalKey();
 
+  PaymentCategory? paymentCategory;
+
+  final List<PaymentCategory> paymentCategoryList = [
+    PaymentCategory(id: 0, category: "Entrance Fee", amount: "1300"),
+    PaymentCategory(id: 1, category: "Monthly Fee", amount: "150"),
+    PaymentCategory(id: 2, category: "Tuition Fee", amount: "9000"),
+  ];
+
+  void updatePaymentCategory(PaymentCategory value) {
+    paymentCategory = value;
+    notifyListeners();
+  }
+
   Future<void> updateStudentPayment(BuildContext context, String id) async {
 
     final PaymentDescription paymentInfo = PaymentDescription(
@@ -83,6 +97,7 @@ class PaymentDB extends ChangeNotifier {
       status: "pending",
       amount: amountText.text,
       dateTime: Timestamp.fromDate(DateTime.now()),
+      category: paymentCategory!,
     );
 
     final Payment payment = Payment(

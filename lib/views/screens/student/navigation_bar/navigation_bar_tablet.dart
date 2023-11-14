@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_school/views/widgets/app_bar/custom.dart';
-import 'package:web_school/views/widgets/drawer/instructor.dart';
-import 'package:web_school/views/widgets/drawer/student.dart';
+import 'package:web_school/views/widgets/drawer/instructor_drawer.dart';
+import 'package:web_school/views/widgets/drawer/student_drawer.dart';
 
 class StudentNavigationBarTablet extends StatelessWidget {
   const StudentNavigationBarTablet({

@@ -5,6 +5,7 @@ import 'package:web_school/extensions/instructor_table.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
+import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/views/widgets/buttons/primary.dart';
 import 'package:web_school/views/widgets/hover/button.dart';
 import 'package:web_school/views/widgets/hover/text.dart';
@@ -43,46 +44,31 @@ class _AdminInstructorListScreenState extends State<AdminInstructorListScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // ListView.builder(
-            //   shrinkWrap: true,
-            //   physics: const NeverScrollableScrollPhysics(),
-            //   itemCount: adminDB.generalYearList.length,
-            //   itemBuilder: (context, index) {
-            //     return OnHoverButton(
-            //       onTap: () {
-            //         adminDB.updateGeneralYear(adminDB.generalYearList[index]);
-            //         context.pushRoute(const AdminInstructorGradeRoute());
-            //       },
-            //       builder: (isHovered) => Container(
-            //         child: Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //           children: [
-            //             Text(adminDB.generalYearList[index].label!,
-            //               style: theme.textTheme.bodyMedium!.copyWith(
-            //                 color: isHovered ? Colors.white : Colors.black87,
-            //               ),
-            //             ),
-            //             Icon(Icons.arrow_right,
-            //               color: isHovered ? Colors.white : Colors.black87,
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
+            Text("Instructor List",
+              style: theme.textTheme.titleSmall!.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 12.0),
+            Divider(
+              color: Colors.black,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Expanded(
+                  child: Text("Note: Default password is \"123456\"",
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                      color: ColorTheme.primaryRed,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
                 PrimaryButton(
                   onPressed: () => context.pushRoute(const AdminAddInstructorRoute()),
                   label: "Add Instructor",
                 ),
-                // OnHoverTextButton(
-                //   label: "Add Instructor",
-                //   onTap: () => context.pushRoute(const AdminAddInstructorRoute()),
-                // ),
+
               ],
             ),
 
@@ -91,6 +77,7 @@ class _AdminInstructorListScreenState extends State<AdminInstructorListScreen> {
                 DataColumn(label: Text("Name")),
                 DataColumn(label: Text("Grade")),
                 DataColumn(label: Text("Section")),
+                DataColumn(label: Text("Delete")),
               ],
               columnSpacing: 0,
               horizontalMargin: 10,

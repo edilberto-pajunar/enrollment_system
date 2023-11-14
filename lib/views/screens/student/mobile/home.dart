@@ -6,13 +6,13 @@ import 'package:web_school/models/user.dart';
 import 'package:web_school/networks/admin.dart';
 import 'package:web_school/networks/student.dart';
 import 'package:web_school/views/screens/student/mobile/grades/grades.dart';
-import 'package:web_school/views/screens/student/mobile/payment/home.dart';
+import 'package:web_school/views/screens/student/body/profile/payment.dart';
 import 'package:web_school/views/screens/student/mobile/profile/change_pass.dart';
 import 'package:web_school/views/screens/student/mobile/profile/enrollment.dart';
 import 'package:web_school/views/screens/student/mobile/profile/profile.dart';
 import 'package:web_school/views/screens/student/mobile/profile/schedule.dart';
 import 'package:web_school/views/widgets/body/wrapper/stream.dart';
-import 'package:web_school/views/widgets/drawer/student.dart';
+import 'package:web_school/views/widgets/drawer/student_drawer.dart';
 
 @RoutePage()
 class StudentMobileHomeScreen extends StatefulWidget {

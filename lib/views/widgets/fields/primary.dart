@@ -24,7 +24,7 @@ class PrimaryTextField extends StatelessWidget {
   final String? hintText;
   final String label;
   final String? Function(String?)? validator;
-  final Function(String)? onChanged;
+  final void Function(String)? onChanged;
   final TextInputType textInput;
   final String? prefixText;
   final bool readOnly;
@@ -80,6 +80,11 @@ class PrimaryTextField extends StatelessWidget {
           ),
           validator: validator,
           onChanged: (value) {
+
+            if (onChanged != null) {
+              onChanged!(value);
+            }
+
             if (fieldKey?.currentState != null) {
               fieldKey!.currentState!.validate();
             }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/networks/auth.dart';
-import 'package:web_school/views/widgets/drawer/instructor.dart';
+import 'package:web_school/views/widgets/drawer/instructor_drawer.dart';
 
 class InstructorNavigationBarMobile extends StatelessWidget {
   const InstructorNavigationBarMobile({

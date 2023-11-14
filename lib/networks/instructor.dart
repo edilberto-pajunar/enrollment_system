@@ -1,6 +1,5 @@
 
 import 'dart:convert';
-import 'dart:html';
 import 'dart:io' as io;
 
 import 'package:auto_route/auto_route.dart';
@@ -10,16 +9,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_school/models/application/application.dart';
 import 'package:web_school/models/instructor.dart';
 import 'package:web_school/models/student/subject.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:web_school/networks/admin.dart';
 import 'dart:html' as html;
-import 'package:web_school/views/screens/instructor/body/students/student_list.dart';
+
+import 'package:web_school/values/strings/images.dart';
 
 class InstructorDB extends ChangeNotifier {
   final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -84,7 +83,6 @@ class InstructorDB extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     instructorId = sp.getString("instructorId");
 
-    print(instructorId);
     notifyListeners();
   }
 
@@ -172,35 +170,27 @@ class InstructorDB extends ChangeNotifier {
 
   Future<void> updateGrade(
     BuildContext context, {
-    required bool isJunior,
     required List<Grade> currentGradeList,
     required ApplicationInfo applicationInfo,
   }) async {
-    final List<Grade> object = isJunior
-        ? [
-            Grade(
-              title: currentGradeList[0].title,
-              grade: double.parse(first.text),
-            ),
-            Grade(
-              title: currentGradeList[1].title,
-              grade: double.parse(second.text),
-            ),
-            Grade(
-              title: currentGradeList[2].title,
-              grade: double.parse(third.text),
-            ),
-            Grade(
-              title: currentGradeList[3].title,
-              grade: double.parse(fourth.text),
-            ),
-          ]
-        : [
-            Grade(
-              title: currentGradeList[0].title,
-              grade: double.parse(first.text),
-            ),
-          ];
+    final List<Grade> object = [
+      Grade(
+        title: currentGradeList[0].title,
+        grade: double.parse(first.text),
+      ),
+      Grade(
+        title: currentGradeList[1].title,
+        grade: double.parse(second.text),
+      ),
+      Grade(
+        title: currentGradeList[2].title,
+        grade: double.parse(third.text),
+      ),
+      Grade(
+        title: currentGradeList[3].title,
+        grade: double.parse(fourth.text),
+      ),
+    ];
 
     showHUD(true);
     try {
@@ -233,7 +223,6 @@ class InstructorDB extends ChangeNotifier {
       showHUD(false);
       context.popRoute();
     }
-
   }
 
   void clearGradeForm() {
@@ -265,15 +254,6 @@ class InstructorDB extends ChangeNotifier {
     notifyListeners();
   }
   
-  // Stream<List<Subject>>? subjectStudentList;
-  //
-  // Stream<List<ApplicationInfo>> getListSubjectStudent(uid) {
-  //   db.collection("student")
-  //       .doc(uid)
-  //       .collection("subjects")
-  //       .snapshots()
-  //       .map(_snapshotsFromSubjectStudent);
-  // }
   io.File? selectFile;
   Uint8List? selectedImageInBytes;
   String? fileName;
@@ -293,16 +273,12 @@ class InstructorDB extends ChangeNotifier {
       fileName = fileResult.files.first.name;
       selectedImageInBytes = fileResult.files.first.bytes;
 
-      print(fileName);
-
       await firebaseStorage.ref("instructor/$fileName").putData(fileResult.files.single.bytes!);
 
       await firebaseStorage.ref("instructor/$fileName").getDownloadURL().then((value) async {
         print(value);
 
         instructorId = sp.getString("instructorId");
-
-        print(instructorId);
 
         db.collection("instructor").doc(instructorId).set({
           "profilePic": value,
@@ -314,39 +290,6 @@ class InstructorDB extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
-  pickPhotoFromGallery() async {}
-
-  // uploadFileToFireStore() async {
-  //   try {
-  //     UploadTask uploadTask;
-  //
-  //     final Reference ref = firebaseStorage.ref().child("instructor").child("/" + selectFile!.path);
-  //
-  //     // final metadata = SettableMetadata(
-  //     //   contentType: 'image/jpeg',
-  //     //   customMetadata: {'picked-file-path': selectFile!.path},
-  //     // );
-  //
-  //     if (kIsWeb) {
-  //       print(selectedImageInBytes);
-  //       uploadTask = ref.putData(selectedImageInBytes!);
-  //     } else {
-  //       uploadTask = ref.putFile(io.File(selectFile!.path));
-  //     }
-  //
-  //     return Future.value(uploadTask);
-  //
-  //   } catch (e) {
-  //     throw e;
-  //
-  //   }
-  // }
-
-  Future<String> uploadImageandSaveItemInfo() async {
-    return "";
-  }
 
   Stream<String>? instructorProfileStream;
 
@@ -368,7 +311,13 @@ class InstructorDB extends ChangeNotifier {
     required Instructor instructor,
   }) async {
 
+    final Uint8List headerImage = (await rootBundle.load(PngImages.background)).buffer.asUint8List();
+
     final pdf = pw.Document();
+
+    // sort first by last name
+
+    studentList.sort((a, b) => a.personalInfo.lastName.compareTo(b.personalInfo.lastName));
 
     pdf.addPage(pw.Page(
       pageFormat: PdfPageFormat.a4,
@@ -377,6 +326,25 @@ class InstructorDB extends ChangeNotifier {
 
         return pw.Column(
           children: [
+            pw.Row(
+              children: [
+                pw.Container(
+                    height: 50,
+                    width: 50,
+                    child: pw.Image(pw.MemoryImage(headerImage,),
+                      fit: pw.BoxFit.cover,
+                  ),
+                ),
+                pw.SizedBox(width: 4.0),
+                pw.Text("St. Jude Agro Industrial Secondary School",
+                  style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold,
+                  )
+                ),
+              ]
+            ),
+            pw.Divider(),
+            pw.SizedBox(height: 24.0),
             pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
@@ -393,7 +361,7 @@ class InstructorDB extends ChangeNotifier {
                   pw.TableRow(
                       children: [
                         pw.Center(child: pw.Text("Name")),
-                        pw.Center(child: pw.Text("Id")),
+                        pw.Center(child: pw.Text("LRN")),
                         pw.Center(child: pw.Text("Grade")),
                         pw.Center(child: pw.Text("Section")),
                       ]
@@ -402,8 +370,8 @@ class InstructorDB extends ChangeNotifier {
                   for (var user in studentList)
                     pw.TableRow(
                         children: [
-                          pw.Center(child: pw.Text(user.personalInfo.firstName)),
-                          pw.Center(child: pw.Text(user.userModel.id)),
+                          pw.Center(child: pw.Text("${user.personalInfo.lastName}, ${user.personalInfo.firstName}, ${user.personalInfo.middleName[0].toUpperCase()}.")),
+                          pw.Center(child: pw.Text(user.personalInfo.lrn)),
                           pw.Center(child: pw.Text("${user.schoolInfo.gradeToEnroll.label}")),
                           pw.Center(child: pw.Text(user.studentInfo.section)),
                         ]
@@ -446,9 +414,6 @@ class InstructorDB extends ChangeNotifier {
           ),
         );
       });
-
-
-
     } catch (e) {
       print("Error: $e");
     }

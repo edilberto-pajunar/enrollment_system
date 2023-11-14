@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:web_school/extensions/formatters/first_letter.dart';
 import 'package:web_school/models/application/school.dart';
 import 'package:web_school/models/option.dart';
 import 'package:web_school/networks/application.dart';
@@ -46,8 +47,7 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
       if (widget.continueJunior) {
         setState(() {
           application.updateResidence(application.otherResidenceList[1]);
-          Application.schoolName.text =
-              "St.Jude Agro Industrial Secondary School";
+          Application.schoolName.text = "St.Jude Agro Industrial Secondary School";
           Application.schoolID.text = "500844";
           Application.schoolAddress.text = "Topas Proper Nabua, Camarines Sur";
           application.updateSchoolType(application.schoolTypeList[1]);
@@ -292,7 +292,19 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
           readOnly: widget.viewOnly,
           hintText: "Name of School",
           label: "Name of school",
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           validator: Commons.forcedTextValidator,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.schoolName.value = Application.schoolName.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+
+
+          },
         ),
         PrimaryTextField(
           fieldKey: Application.schoolIDKey,
@@ -300,7 +312,15 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
           readOnly: widget.viewOnly,
           hintText: "School ID",
           label: "School ID",
-          validator: Commons.forcedTextValidator,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return "This field is required";
+            } else if (value.length != 6) {
+              return "Must have 6 digits";
+            } else {
+              return null;
+            }
+          },
         ),
         PrimaryTextField(
           fieldKey: Application.schoolAddressKey,
@@ -309,6 +329,13 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
           hintText: "School Address",
           label: "School Address",
           validator: Commons.forcedTextValidator,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.schoolAddress.value = Application.schoolAddress.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
         const SizedBox(height: 12.0),
         widget.viewOnly
@@ -365,8 +392,16 @@ class _SchoolInfoFormState extends State<SchoolInfoForm> {
           controller: Application.birthCertNumber,
           hintText: "PSA Birth Certificate No.",
           label: "PSA Birth Certificate No.",
-          validator: Commons.forcedTextValidator,
           readOnly: widget.viewOnly,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return "This field is required";
+            } else if (value.length != 15) {
+              return "Must have exactly 15 characters";
+            } else {
+              return null;
+            }
+          },
         ),
         const SizedBox(height: 12.0),
         widget.viewOnly

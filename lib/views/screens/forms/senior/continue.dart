@@ -19,6 +19,7 @@ class ContinuingSeniorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final Application application = Provider.of<Application>(context);
+    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +41,7 @@ class ContinuingSeniorScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
@@ -57,30 +58,35 @@ class ContinuingSeniorScreen extends StatelessWidget {
                     const ResidenceForm(),
                     const FamilyInformationForm(),
                     const SizedBox(height: 24.0),
-                    PrimaryButton(
-                      onPressed: () async {
-                        if (Application.formKey.currentState!.validate()) {
-                          await application
-                              .submitApplicationForm(
-                            context,
-                            isSenior: true,
-                          )
-                              .then((value) {
-                            context.popRoute();
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    content: Text(
-                                      "Submitted Successfully",
-                                      style: theme.textTheme.bodyMedium,
-                                    ),
-                                  );
-                                });
-                          });
-                        }
-                      },
-                      label: "Submit",
+                    Center(
+                      child: SizedBox(
+                        width: size.width * 0.3,
+                        child: PrimaryButton(
+                          onPressed: () async {
+                            if (Application.formKey.currentState!.validate()) {
+                              await application
+                                  .submitApplicationForm(
+                                context,
+                                isSenior: true,
+                              )
+                                  .then((value) {
+                                context.popRoute();
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: Text(
+                                          "Submitted Successfully",
+                                          style: theme.textTheme.bodyMedium,
+                                        ),
+                                      );
+                                    });
+                              });
+                            }
+                          },
+                          label: "Submit",
+                        ),
+                      ),
                     ),
                   ],
                 ),

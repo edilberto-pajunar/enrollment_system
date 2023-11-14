@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_school/models/user.dart';
 import 'package:web_school/networks/instructor.dart';
 import 'package:web_school/networks/router/routes.gr.dart';
+import 'package:web_school/networks/student.dart';
 
 class Auth extends ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -44,6 +45,7 @@ class Auth extends ChangeNotifier {
     final ThemeData theme = Theme.of(context);
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final InstructorDB instructorDB = Provider.of<InstructorDB>(context, listen: false);
+    final StudentDB studentDB = Provider.of<StudentDB>(context, listen: false);
 
     await db.collection("user").get().then((value) {
 
@@ -69,8 +71,7 @@ class Auth extends ChangeNotifier {
           AutoRouter.of(context).replace(WrapperInstructorRoute());
         } else if (user!.type == "student") {
           sp.setString("studentId", user!.id);
-          AutoRouter.of(context).replace(StudentHomeRoute());
-
+          AutoRouter.of(context).replace(WrapperStudentRoute());
         } else if (user!.type == "admin") {
           AutoRouter.of(context).replace(const WrapperAdminRoute());
         }

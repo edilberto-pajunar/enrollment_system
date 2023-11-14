@@ -66,6 +66,15 @@ class _AdminEditInstructorScreenState extends State<AdminEditInstructorScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      Text("Edit Instructor",
+                        style: theme.textTheme.titleSmall!.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                      Divider(
+                        color: Colors.black,
+                      ),
                       SecondaryTextField(
                         fieldKey: AdminDB.usernameKey,
                         controller: AdminDB.username,

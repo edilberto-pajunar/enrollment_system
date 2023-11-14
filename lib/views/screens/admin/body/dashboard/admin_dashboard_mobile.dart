@@ -61,6 +61,8 @@ class AdminDashboardMobile extends StatelessWidget {
                       adminDB.updateIndexDashboard(1);
                     },
                     color: Colors.deepPurple.shade200,
+                    titleSize: 14.0,
+                    subtitleSize: 16.0,
                   ),
                 ),
 
@@ -74,6 +76,8 @@ class AdminDashboardMobile extends StatelessWidget {
                       adminDB.updateIndexDashboard(2);
                     },
                     color: Colors.lightBlue,
+                    titleSize: 14.0,
+                    subtitleSize: 16.0,
                   ),
                 ),
 
@@ -87,7 +91,10 @@ class AdminDashboardMobile extends StatelessWidget {
                       adminDB.updateIndexDashboard(3);
                     },
                     color: Colors.lightGreen,
+                    titleSize: 14.0,
+                    subtitleSize: 16.0,
                   ),
+
                 ),
               ],
             ),

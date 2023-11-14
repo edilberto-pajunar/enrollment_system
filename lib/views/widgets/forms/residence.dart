@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:web_school/extensions/formatters/first_letter.dart';
+import 'package:web_school/extensions/formatters/start_number_letter.dart';
 import 'package:web_school/models/application/residence.dart';
 import 'package:web_school/models/option.dart';
 import 'package:web_school/networks/application.dart';
@@ -106,6 +108,16 @@ class _ResidenceFormState extends State<ResidenceForm> {
           hintText: "Address",
           label: "House Number & Street of Barangay Zone/Purok",
           validator: Commons.forcedTextValidator,
+          inputFormatters: [
+            StartWithLetterOrNumberFormatter(),
+          ],
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.address.value = Application.address.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
           readOnly: widget.viewOnly,
         ),
 
@@ -116,6 +128,13 @@ class _ResidenceFormState extends State<ResidenceForm> {
           label: "Barangay",
           validator: Commons.forcedTextValidator,
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.barangay.value = Application.barangay.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -125,6 +144,13 @@ class _ResidenceFormState extends State<ResidenceForm> {
           label: "City/Municipality",
           validator: Commons.forcedTextValidator,
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.city.value = Application.city.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -134,6 +160,13 @@ class _ResidenceFormState extends State<ResidenceForm> {
           label: "Province",
           validator: Commons.forcedTextValidator,
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.province.value = Application.province.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -160,6 +193,13 @@ class _ResidenceFormState extends State<ResidenceForm> {
           hintText: "Address",
           label: "House Number & Street of Barangay Zone/Purok",
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.familyAddress.value = Application.familyAddress.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -167,7 +207,17 @@ class _ResidenceFormState extends State<ResidenceForm> {
           controller: Application.familyBarangay,
           hintText: "Barangay",
           label: "Barangay",
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.familyBarangay.value = Application.familyBarangay.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -175,7 +225,17 @@ class _ResidenceFormState extends State<ResidenceForm> {
           controller: Application.familyCity,
           hintText: "City",
           label: "City/Municipality",
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.familyCity.value = Application.familyCity.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -183,7 +243,17 @@ class _ResidenceFormState extends State<ResidenceForm> {
           controller: Application.familyProvince,
           hintText: "Province",
           label: "Province",
+          inputFormatters: [
+            FirstLetterUppercaseTextFormatter(),
+          ],
           readOnly: widget.viewOnly,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              Application.familyProvince.value = Application.familyProvince.value.copyWith(
+                text: value[0].toUpperCase() + value.substring(1),
+              );
+            }
+          },
         ),
 
         PrimaryTextField(
@@ -192,6 +262,7 @@ class _ResidenceFormState extends State<ResidenceForm> {
           hintText: "Region",
           label: "Region",
           readOnly: widget.viewOnly,
+
         ),
       ],
     );

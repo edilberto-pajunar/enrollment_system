@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_school/networks/auth.dart';
 import 'package:web_school/networks/instructor.dart';
+import 'package:web_school/values/strings/colors.dart';
 import 'package:web_school/values/strings/images.dart';
 import 'package:web_school/views/widgets/hover/tile_button.dart';
 
@@ -44,6 +45,9 @@ class InstructorDrawer extends StatelessWidget {
               ),
               const SizedBox(height: 24.0),
               OnHoverListTileButton(
+                backgroundColor: instructorDB.drawerIndex == 0
+                    ? Colors.redAccent
+                    : null,
                 leading: Icon(CupertinoIcons.home),
                 onTap: () {
                   print(AutoRouter.of(context).root.current.name);
@@ -63,6 +67,9 @@ class InstructorDrawer extends StatelessWidget {
                  ),
               ),
               OnHoverListTileButton(
+                backgroundColor: instructorDB.drawerIndex == 1
+                    ? Colors.redAccent
+                    : null,
                 leading: Icon(CupertinoIcons.profile_circled),
                 onTap: () {
                   if (AutoRouter.of(context).root.current.name == "WrapperInstructorRoute") {

@@ -57,6 +57,15 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            Text("${applicationInfo!.studentInfo.name} Profile",
+                              style: theme.textTheme.titleSmall!.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 12.0),
+                            Divider(
+                              color: Colors.black,
+                            ),
                             Card(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -103,6 +112,10 @@ class _AdminStudentProfileScreenState extends State<AdminStudentProfileScreen> {
                                           child: IconButton(
                                             icon: Icon(CupertinoIcons.cloud_download_fill),
                                             onPressed: () {
+                                              adminDB.generateJuniorPdf(
+                                                subjects: subjectList!,
+                                                studentData: applicationInfo,
+                                              );
                                               print("generate report");
                                             },
                                           ),
